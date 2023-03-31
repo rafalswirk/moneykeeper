@@ -16,7 +16,11 @@ namespace MoneyKeeper.Controllers
         public ImagesController()
         {
             // Set the directory where images will be saved
-            _imageDirectoryPath = @"C:\Images";
+            _imageDirectoryPath = @"Images";
+            if (!Directory.Exists(_imageDirectoryPath))
+            {
+                Directory.CreateDirectory(_imageDirectoryPath);
+            }
         }
 
         [HttpPost]

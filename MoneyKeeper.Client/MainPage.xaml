@@ -30,9 +30,9 @@
 
             <Button
                 x:Name="CounterBtn"
-                Text="Click me"
+                Text="Upload button"
                 SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
+                Clicked="UploadButton_Clicked"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>
