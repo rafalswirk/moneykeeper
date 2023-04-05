@@ -4,7 +4,7 @@ namespace MoneyKeeper.Client
 {
     public partial class MainPage : ContentPage
     {
-        private const string ApiUrl = "http://192.168.0.160:5126/api/images/";
+        private const string ApiUrl = "http://localhost:5126/api/images/";
         private readonly HttpClient _httpClient = new HttpClient();
 
         public ObservableCollection<string> ImageUrls { get; } = new ObservableCollection<string>();
@@ -20,20 +20,21 @@ namespace MoneyKeeper.Client
             base.OnAppearing();
 
             // Fetch the list of image URLs from the API
-            //var response = await _httpClient.GetAsync(ApiUrl);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var imageUrls = await response.Content.ReadAsAsync<List<string>>();
-            //    foreach (var imageUrl in imageUrls)
-            //    {
-            //        ImageUrls.Add(imageUrl);
-            //    }
+            var response = await _httpClient.GetAsync(ApiUrl + "all");
+            if (response.IsSuccessStatusCode)
+            {
+                var imageUrls = await response.Content.ReadAsAsync<List<string>>();
+                ImageUrls.Clear();
+                foreach (var imageUrl in imageUrls)
+                {
+                    ImageUrls.Add(imageUrl);
+                }
 
-            //}
-            //else
-            //{
-            //    // Handle API error
-            //}
+            }
+            else
+            {
+                // Handle API error
+            }
         }
 
         private async void UploadButton_Clicked(object sender, EventArgs e)

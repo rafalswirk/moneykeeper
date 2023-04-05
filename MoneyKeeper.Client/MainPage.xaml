@@ -41,6 +41,7 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="btnIsAlive_Clicked"
                 HorizontalOptions="Center" />
+            <ListView x:Name="listView" ItemsSource="{Binding ImageUrls}" />
 
         </VerticalStackLayout>
     </ScrollView>

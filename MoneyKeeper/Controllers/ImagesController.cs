@@ -16,7 +16,7 @@ namespace MoneyKeeper.Controllers
         public ImagesController()
         {
             // Set the directory where images will be saved
-            _imageDirectoryPath = @"Images";
+            _imageDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
             if (!Directory.Exists(_imageDirectoryPath))
             {
                 Directory.CreateDirectory(_imageDirectoryPath);
@@ -70,6 +70,22 @@ namespace MoneyKeeper.Controllers
             // Return the image file
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             return new FileStreamResult(fileStream, "image/jpeg");
+        }
+
+        [HttpGet("all")]
+        public IActionResult GetImageUrls()
+        {
+            // Get the list of image files
+            var imageFiles = Directory.GetFiles(_imageDirectoryPath);
+            // Create a list of image URLs
+            var imageUrls = new List<string>();
+            foreach (var imageFile in imageFiles)
+            {
+                var fileName = Path.GetFileName(imageFile);
+                var imageUrl = $"{Request.Scheme}://{Request.Host}/api/images/{fileName}";
+                imageUrls.Add(imageUrl);
+            }
+            return Ok(imageUrls);
         }
 
         [HttpGet("isalive")]
