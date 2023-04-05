@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using MoneyKeeper.Client.View;
+using System.Collections.ObjectModel;
 
 namespace MoneyKeeper.Client
 {
@@ -20,20 +21,27 @@ namespace MoneyKeeper.Client
             base.OnAppearing();
 
             // Fetch the list of image URLs from the API
-            var response = await _httpClient.GetAsync(ApiUrl + "all");
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var imageUrls = await response.Content.ReadAsAsync<List<string>>();
-                ImageUrls.Clear();
-                foreach (var imageUrl in imageUrls)
+                var response = await _httpClient.GetAsync(ApiUrl + "all");
+                if (response.IsSuccessStatusCode)
                 {
-                    ImageUrls.Add(imageUrl);
-                }
+                    var imageUrls = await response.Content.ReadAsAsync<List<string>>();
+                    ImageUrls.Clear();
+                    foreach (var imageUrl in imageUrls)
+                    {
+                        ImageUrls.Add(imageUrl);
+                    }
 
+                }
+                else
+                {
+                    // Handle API error
+                }
             }
-            else
+            catch (Exception)
             {
-                // Handle API error
+
             }
         }
 
@@ -90,6 +98,16 @@ namespace MoneyKeeper.Client
             {
                 await DisplayAlert("Alert", ex.Message, "Ok");
             }
+        }
+
+        private void btnCapturePhoto_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void btnTakePhoto_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TakePhotoView());
         }
     }
 }

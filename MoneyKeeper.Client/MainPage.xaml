@@ -41,6 +41,12 @@
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="btnIsAlive_Clicked"
                 HorizontalOptions="Center" />
+            <Button
+                x:Name="btnTakePhoto"
+                Text="Take photo"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="btnTakePhoto_Clicked"
+                HorizontalOptions="Center" />
             <ListView x:Name="listView" ItemsSource="{Binding ImageUrls}" />
 
         </VerticalStackLayout>
