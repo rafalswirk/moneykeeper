@@ -35,6 +35,13 @@
                 Clicked="UploadButton_Clicked"
                 HorizontalOptions="Center" />
 
+            <Button
+                x:Name="btnIsAlive"
+                Text="Is alive"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="btnIsAlive_Clicked"
+                HorizontalOptions="Center" />
+
         </VerticalStackLayout>
     </ScrollView>
 

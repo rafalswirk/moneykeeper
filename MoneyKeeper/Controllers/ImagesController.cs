@@ -24,7 +24,7 @@ namespace MoneyKeeper.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(IFormFile file)
+        public async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -70,6 +70,12 @@ namespace MoneyKeeper.Controllers
             // Return the image file
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             return new FileStreamResult(fileStream, "image/jpeg");
+        }
+
+        [HttpGet("isalive")]
+        public IActionResult IsAlive()
+        {
+            return Ok();
         }
     }
 

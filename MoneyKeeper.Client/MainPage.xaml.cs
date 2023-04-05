@@ -4,7 +4,7 @@ namespace MoneyKeeper.Client
 {
     public partial class MainPage : ContentPage
     {
-        private const string ApiUrl = "http://192.168.0.172:5126/api/images";
+        private const string ApiUrl = "http://192.168.0.160:5126/api/images/";
         private readonly HttpClient _httpClient = new HttpClient();
 
         public ObservableCollection<string> ImageUrls { get; } = new ObservableCollection<string>();
@@ -71,8 +71,23 @@ namespace MoneyKeeper.Client
                 }
                 catch (Exception ex)
                 {
-                    // Handle upload error
+                    await DisplayAlert("Alert", ex.Message, "OK");    
                 }
+            }
+        }
+
+        private async void btnIsAlive_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync(ApiUrl + "isalive");
+                if(!response.IsSuccessStatusCode)
+                    throw new Exception("Server is not alive");
+                await DisplayAlert("Alert", "Server is alive", "Ok");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Alert", ex.Message, "Ok");
             }
         }
     }
