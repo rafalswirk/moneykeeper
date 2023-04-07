@@ -100,11 +100,6 @@ namespace MoneyKeeper.Client
             }
         }
 
-        private void btnCapturePhoto_Clicked(object sender, EventArgs e)
-        {
-
-        }
-
         private async void btnTakePhoto_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TakePhotoView());

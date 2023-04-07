@@ -9,7 +9,6 @@ public partial class TakePhotoView : ContentPage
     public TakePhotoView()
 	{
 		InitializeComponent();
-		BindingContext = this;
 	}
 
     private async void btnCapturePhoto_Clicked(object sender, EventArgs e)
@@ -19,17 +18,23 @@ public partial class TakePhotoView : ContentPage
             await DisplayAlert("No Camera", ":( No camera available.", "OK");
             return;
         }
-        FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-        if(photo != null) 
+        if (MediaPicker.Default.IsCaptureSupported)
         {
-            // Display the photo
-            using (var stream = await photo.OpenReadAsync())
+            FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
+
+            if (photo != null)
             {
-                image.Source = ImageSource.FromStream(()=>stream);
+                // save the file into local storage
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+
+                using Stream sourceStream = await photo.OpenReadAsync();
+                using FileStream localFileStream = File.OpenWrite(localFilePath);
+
+                await sourceStream.CopyToAsync(localFileStream);
+                image.Source = ImageSource.FromFile(localFilePath);
+
 
             }
-            return;
         }
-        await DisplayAlert("No Photo", ":( No photo available.", "OK");
     }
 }
