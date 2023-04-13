@@ -1,0 +1,1104 @@
+{
+  "responses": [
+    {
+      "textAnnotations": [
+        {
+          "locale": "en",
+          "description": "First line\nSecond line\nThird line",
+          "boundingPoly": {
+            "vertices": [
+              {
+                "x": 13,
+                "y": 33
+              },
+              {
+                "x": 87,
+                "y": 33
+              },
+              {
+                "x": 87,
+                "y": 82
+              },
+              {
+                "x": 13,
+                "y": 82
+              }
+            ]
+          }
+        },
+        {
+          "description": "First",
+          "boundingPoly": {
+            "vertices": [
+              {
+                "x": 14,
+                "y": 33
+              },
+              {
+                "x": 41,
+                "y": 33
+              },
+              {
+                "x": 41,
+                "y": 46
+              },
+              {
+                "x": 14,
+                "y": 46
+              }
+            ]
+          }
+        },
+        {
+          "description": "line",
+          "boundingPoly": {
+            "vertices": [
+              {
+                "x": 44,
+                "y": 33
+              },
+              {
+                "x": 69,
+                "y": 33
+              },
+              {
+                "x": 69,
+                "y": 46
+              },
+              {
+                "x": 44,
+                "y": 46
+              }
+            ]
+          }
+        },
+        {
+          "description": "Second",
+          "boundingPoly": {
+            "vertices": [
+              {
+                "x": 13,
+                "y": 52
+              },
+              {
+                "x": 58,
+                "y": 52
+              },
+              {
+                "x": 58,
+                "y": 64
+              },
+              {
+                "x": 13,
+                "y": 64
+              }
+            ]
+          }
+        },
+        {
+          "description": "line",
+          "boundingPoly": {
+            "vertices": [
+              {
+                "x": 63,
+                "y": 52
+              },
+              {
+                "x": 87,
+                "y": 52
+              },
+              {
+                "x": 87,
+                "y": 63
+              },
+              {
+                "x": 63,
+                "y": 63
+              }
+            ]
+          }
+        },
+        {
+          "description": "Third",
+          "boundingPoly": {
+            "vertices": [
+              {
+                "x": 13,
+                "y": 71
+              },
+              {
+                "x": 45,
+                "y": 71
+              },
+              {
+                "x": 45,
+                "y": 82
+              },
+              {
+                "x": 13,
+                "y": 82
+              }
+            ]
+          }
+        },
+        {
+          "description": "line",
+          "boundingPoly": {
+            "vertices": [
+              {
+                "x": 50,
+                "y": 71
+              },
+              {
+                "x": 75,
+                "y": 71
+              },
+              {
+                "x": 75,
+                "y": 82
+              },
+              {
+                "x": 50,
+                "y": 82
+              }
+            ]
+          }
+        }
+      ],
+      "fullTextAnnotation": {
+        "pages": [
+          {
+            "property": {
+              "detectedLanguages": [
+                {
+                  "languageCode": "en",
+                  "confidence": 1
+                }
+              ]
+            },
+            "width": 250,
+            "height": 500,
+            "blocks": [
+              {
+                "boundingBox": {
+                  "vertices": [
+                    {
+                      "x": 13,
+                      "y": 33
+                    },
+                    {
+                      "x": 87,
+                      "y": 33
+                    },
+                    {
+                      "x": 87,
+                      "y": 82
+                    },
+                    {
+                      "x": 13,
+                      "y": 82
+                    }
+                  ]
+                },
+                "paragraphs": [
+                  {
+                    "boundingBox": {
+                      "vertices": [
+                        {
+                          "x": 13,
+                          "y": 33
+                        },
+                        {
+                          "x": 87,
+                          "y": 33
+                        },
+                        {
+                          "x": 87,
+                          "y": 82
+                        },
+                        {
+                          "x": 13,
+                          "y": 82
+                        }
+                      ]
+                    },
+                    "words": [
+                      {
+                        "property": {
+                          "detectedLanguages": [
+                            {
+                              "languageCode": "en",
+                              "confidence": 1
+                            }
+                          ]
+                        },
+                        "boundingBox": {
+                          "vertices": [
+                            {
+                              "x": 14,
+                              "y": 33
+                            },
+                            {
+                              "x": 41,
+                              "y": 33
+                            },
+                            {
+                              "x": 41,
+                              "y": 46
+                            },
+                            {
+                              "x": 14,
+                              "y": 46
+                            }
+                          ]
+                        },
+                        "symbols": [
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 14,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 14,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "F"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 20,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 23,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 23,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "i"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 25,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 30,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 30,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 25,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "r"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 30,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 36,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 36,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 30,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "s"
+                          },
+                          {
+                            "property": {
+                              "detectedBreak": {
+                                "type": "SPACE"
+                              }
+                            },
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 34,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 41,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 41,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 34,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "t"
+                          }
+                        ]
+                      },
+                      {
+                        "property": {
+                          "detectedLanguages": [
+                            {
+                              "languageCode": "en",
+                              "confidence": 1
+                            }
+                          ]
+                        },
+                        "boundingBox": {
+                          "vertices": [
+                            {
+                              "x": 44,
+                              "y": 33
+                            },
+                            {
+                              "x": 69,
+                              "y": 33
+                            },
+                            {
+                              "x": 69,
+                              "y": 46
+                            },
+                            {
+                              "x": 44,
+                              "y": 46
+                            }
+                          ]
+                        },
+                        "symbols": [
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 44,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 47,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 47,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 44,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "l"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 49,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 53,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 53,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 49,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "i"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 53,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 60,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 60,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 53,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "n"
+                          },
+                          {
+                            "property": {
+                              "detectedBreak": {
+                                "type": "EOL_SURE_SPACE"
+                              }
+                            },
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 61,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 69,
+                                  "y": 33
+                                },
+                                {
+                                  "x": 69,
+                                  "y": 46
+                                },
+                                {
+                                  "x": 61,
+                                  "y": 46
+                                }
+                              ]
+                            },
+                            "text": "e"
+                          }
+                        ]
+                      },
+                      {
+                        "property": {
+                          "detectedLanguages": [
+                            {
+                              "languageCode": "en",
+                              "confidence": 1
+                            }
+                          ]
+                        },
+                        "boundingBox": {
+                          "vertices": [
+                            {
+                              "x": 13,
+                              "y": 52
+                            },
+                            {
+                              "x": 58,
+                              "y": 52
+                            },
+                            {
+                              "x": 58,
+                              "y": 64
+                            },
+                            {
+                              "x": 13,
+                              "y": 64
+                            }
+                          ]
+                        },
+                        "symbols": [
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 13,
+                                  "y": 53
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 53
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 64
+                                },
+                                {
+                                  "x": 13,
+                                  "y": 64
+                                }
+                              ]
+                            },
+                            "text": "S"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 20,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 28,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 28,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "e"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 28,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 35,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 35,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 28,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "c"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 34,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 42,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 42,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 34,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "o"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 43,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 50,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 50,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 43,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "n"
+                          },
+                          {
+                            "property": {
+                              "detectedBreak": {
+                                "type": "SPACE"
+                              }
+                            },
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 51,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 58,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 58,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 51,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "d"
+                          }
+                        ]
+                      },
+                      {
+                        "property": {
+                          "detectedLanguages": [
+                            {
+                              "languageCode": "en",
+                              "confidence": 1
+                            }
+                          ]
+                        },
+                        "boundingBox": {
+                          "vertices": [
+                            {
+                              "x": 63,
+                              "y": 52
+                            },
+                            {
+                              "x": 87,
+                              "y": 52
+                            },
+                            {
+                              "x": 87,
+                              "y": 63
+                            },
+                            {
+                              "x": 63,
+                              "y": 63
+                            }
+                          ]
+                        },
+                        "symbols": [
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 63,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 65,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 65,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 63,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "l"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 67,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 70,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 70,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 67,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "i"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 71,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 78,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 78,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 71,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "n"
+                          },
+                          {
+                            "property": {
+                              "detectedBreak": {
+                                "type": "EOL_SURE_SPACE"
+                              }
+                            },
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 80,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 87,
+                                  "y": 52
+                                },
+                                {
+                                  "x": 87,
+                                  "y": 63
+                                },
+                                {
+                                  "x": 80,
+                                  "y": 63
+                                }
+                              ]
+                            },
+                            "text": "e"
+                          }
+                        ]
+                      },
+                      {
+                        "property": {
+                          "detectedLanguages": [
+                            {
+                              "languageCode": "en",
+                              "confidence": 1
+                            }
+                          ]
+                        },
+                        "boundingBox": {
+                          "vertices": [
+                            {
+                              "x": 13,
+                              "y": 71
+                            },
+                            {
+                              "x": 45,
+                              "y": 71
+                            },
+                            {
+                              "x": 45,
+                              "y": 82
+                            },
+                            {
+                              "x": 13,
+                              "y": 82
+                            }
+                          ]
+                        },
+                        "symbols": [
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 13,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 20,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 13,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "T"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 22,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 29,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 29,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 22,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "h"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 30,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 33,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 33,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 30,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "i"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 34,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 39,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 39,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 34,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "r"
+                          },
+                          {
+                            "property": {
+                              "detectedBreak": {
+                                "type": "SPACE"
+                              }
+                            },
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 38,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 45,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 45,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 38,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "d"
+                          }
+                        ]
+                      },
+                      {
+                        "property": {
+                          "detectedLanguages": [
+                            {
+                              "languageCode": "en",
+                              "confidence": 1
+                            }
+                          ]
+                        },
+                        "boundingBox": {
+                          "vertices": [
+                            {
+                              "x": 50,
+                              "y": 71
+                            },
+                            {
+                              "x": 75,
+                              "y": 71
+                            },
+                            {
+                              "x": 75,
+                              "y": 82
+                            },
+                            {
+                              "x": 50,
+                              "y": 82
+                            }
+                          ]
+                        },
+                        "symbols": [
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 50,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 52,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 52,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 50,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "l"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 55,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 58,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 58,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 55,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "i"
+                          },
+                          {
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 59,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 66,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 66,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 59,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "n"
+                          },
+                          {
+                            "property": {
+                              "detectedBreak": {
+                                "type": "LINE_BREAK"
+                              }
+                            },
+                            "boundingBox": {
+                              "vertices": [
+                                {
+                                  "x": 67,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 75,
+                                  "y": 71
+                                },
+                                {
+                                  "x": 75,
+                                  "y": 82
+                                },
+                                {
+                                  "x": 67,
+                                  "y": 82
+                                }
+                              ]
+                            },
+                            "text": "e"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "blockType": "TEXT"
+              }
+            ]
+          }
+        ],
+        "text": "First line\nSecond line\nThird line"
+      }
+    }
+  ]
+}
