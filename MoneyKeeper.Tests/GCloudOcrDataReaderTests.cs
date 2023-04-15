@@ -39,12 +39,20 @@ namespace MoneyKeeper.Tests
             Assert.Equal(2, foundElements);
         }
 
-        [Fact]
-        public void ParseGCloudData()
+        [Theory]
+        [InlineData(@"TestData/BillsOfSale/GCloud/SimpleData/Large_spacing.json", "second", "Second line")]
+        [InlineData(@"TestData/BillsOfSale/GCloud/SimpleData/Small_spacing.json", "second", "Second line")]
+        [InlineData(@"TestData/BillsOfSale/GCloud/SimpleData/Small_spacing_rotated.json", "second", "Second line")]
+        [InlineData(@"TestData/BillsOfSale/GCloud/SimpleData/Simple_receipt.json", "pln", "SUMA PLN 3,14")]
+        public void Parse_GCloudData_ExtractLineOfText(string jsonPath, string pattern, string expectedResult)
         {
-            var parser = new TextAnnotationParser();
-            var annotations = parser.Parse(_jsonDocument);
+            var jsonDocument = JsonDocument.Parse(File.OpenRead(jsonPath));
 
+            var parser = new TextAnnotationParser();
+            var annotations = parser.Parse(jsonDocument, pattern);
+
+            Assert.Equal(1, annotations.Count);
+            Assert.True(annotations.First().Description.Equals(expectedResult));
         }
     }
 }

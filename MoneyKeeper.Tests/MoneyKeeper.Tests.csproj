@@ -30,6 +30,18 @@
     <None Update="TestData\BillsOfSale\GCloud\1_gcloud.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\BillsOfSale\GCloud\SimpleData\Large_spacing.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BillsOfSale\GCloud\SimpleData\Simple_receipt.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BillsOfSale\GCloud\SimpleData\Small_spacing.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\BillsOfSale\GCloud\SimpleData\Small_spacing_rotated.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
