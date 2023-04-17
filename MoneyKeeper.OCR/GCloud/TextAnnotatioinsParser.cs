@@ -33,7 +33,7 @@ namespace MoneyKeeper.OCR.GCloud
             {
                 var lineText = GetLineText(annotations,
                     tex.BoundingPoly.Vertices[0].Y,
-                    tex.BoundingPoly.Vertices[3].Y, 10);
+                    tex.BoundingPoly.Vertices[3].Y, 15);
                 results.Add(new TextAnnotation(lineText));
             }
 

@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.OCR.GCloud.Models
 {
-    public record Receipt(string TaxNumber, DateOnly Date, float Total);
+    public record Receipt(string TaxNumber, DateOnly Date, double Total);
 }
