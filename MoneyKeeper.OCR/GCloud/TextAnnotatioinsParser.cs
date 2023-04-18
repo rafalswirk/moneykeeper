@@ -31,24 +31,27 @@ namespace MoneyKeeper.OCR.GCloud
             var results = new List<TextAnnotation>();
             foreach (var tex in searchResults)
             {
-                var lineText = GetLineText(annotations,
+                var lineText = GetLineText(annotations.Skip(1),
                     tex.BoundingPoly.Vertices[0].Y,
-                    tex.BoundingPoly.Vertices[3].Y, 15);
+                    tex.BoundingPoly.Vertices[3].Y, 40);
                 results.Add(new TextAnnotation(lineText));
             }
 
             return results;
         }
 
-        private string GetLineText(IReadOnlyCollection<Annotation> annotations, int y1, int y2, int margin)
+        private string GetLineText(IEnumerable<Annotation> annotations, int y1, int y2, int margin)
         {
             var resultText = new StringBuilder();
+            var mainAnnotationMiddlePoint = y1 + (y2 - y1) / 2;
             foreach (var annotation in annotations)
             {
-                if (annotation.BoundingPoly.Vertices[0].Y + margin >= y1
-                    && annotation.BoundingPoly.Vertices[1].Y + margin >= y1
-                    && annotation.BoundingPoly.Vertices[2].Y - margin <= y2
-                    && annotation.BoundingPoly.Vertices[3].Y - margin <= y2)
+                var annotationHeight = annotation.BoundingPoly.Vertices[2].Y - annotation.BoundingPoly.Vertices[0].Y;
+                var annotationMiddle = annotation.BoundingPoly.Vertices[0].Y + annotationHeight / 2;
+                var heightMargin = (int)(annotationHeight * margin / 100);
+
+                if (annotationMiddle >= mainAnnotationMiddlePoint - heightMargin
+                                       && annotationMiddle <= mainAnnotationMiddlePoint + heightMargin)
                 {
                     resultText.Append(annotation.Description + " ");
                 }
