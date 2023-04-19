@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "MoneyKeeper.Console": {
+      "commandName": "Project"
+    }
+  }
+}
