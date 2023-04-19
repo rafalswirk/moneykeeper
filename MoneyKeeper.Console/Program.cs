@@ -17,10 +17,19 @@ namespace MoneyKeeper.Console
             var projectId = configuration.GetSection("GCloud:ProjectId");
 
             var imageProvider = new GCloud.ImageProvider();
-            var filePath = @"d:\Paragony\IMG_20230418_102305232~2.jpg";
+            var filePath = "";
+            if(args.Length == 0)
+            {
+                System.Console.WriteLine("No image path provided using hardcoded value!");
+                filePath = @"d:\Paragony\IMG_20230418_102305232~2.jpg";
+            }
+            else
+            {
+                filePath = args[0];
+            }
             var jsonFileName = $"gcloud-{Path.GetFileNameWithoutExtension(filePath)}.json";
             var gloudJson = await imageProvider.SendImage(filePath, $"Bearer {token.Value}", projectId.Value);
-            File.WriteAllText("gcloud-IMG_20230418_102305232~2.json", gloudJson); //paragon2
+            File.WriteAllText(jsonFileName, gloudJson); //paragon2
             
             var parser = new BillOfSaleParser();
             var result = parser.Parse(File.ReadAllText(jsonFileName));
