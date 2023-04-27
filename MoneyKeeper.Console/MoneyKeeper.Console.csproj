@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MoneyKeeper.Budget\MoneyKeeper.Budget.csproj" />
     <ProjectReference Include="..\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj" />
   </ItemGroup>
 

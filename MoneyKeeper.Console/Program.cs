@@ -1,5 +1,8 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MoneyKeeper.Budget.DAL.Repositories;
+using MoneyKeeper.Budget.Entities;
 using MoneyKeeper.Console.GCloud;
 using MoneyKeeper.OCR.GCloud;
 
@@ -30,7 +33,7 @@ namespace MoneyKeeper.Console
             //var jsonFileName = $"gcloud-{Path.GetFileNameWithoutExtension(filePath)}.json";
             //var gloudJson = await imageProvider.SendImage(filePath, $"Bearer {token.Value}", projectId.Value);
             //File.WriteAllText(jsonFileName, gloudJson); //paragon2
-            
+
             //var parser = new BillOfSaleParser();
             //var result = parser.Parse(File.ReadAllText(jsonFileName));
 
@@ -39,8 +42,15 @@ namespace MoneyKeeper.Console
 
             //next - add value to google spreadsheet
 
-            var editor = new GoogleDocsEditor();
-            await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
+            //var editor = new GoogleDocsEditor();
+            //await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
+            
+            var budgetCategories = new BudgetCategoryRepository(new Budget.DAL.BudgetCategoryDbContext(new DbContextOptions<Budget.DAL.BudgetCategoryDbContext>(), configuration.GetSection("Database:ConnectionString").Value));
+            await budgetCategories.AddAsync(new BudgetCategory 
+            {
+                Category = "Food",
+                Group = "Groceries",
+            });
         }
     }
 }
