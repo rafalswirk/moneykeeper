@@ -1,4 +1,6 @@
-﻿using MoneyKeeper.Budget.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using MoneyKeeper.Budget.DTO;
+using MoneyKeeper.Budget.Entities;
 using MoneyKeeper.Budget.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,38 +10,40 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.DAL.Repositories
 {
-    internal class BudgetCategoryRepository : IBudgetCategoryRepository
+    public class BudgetCategoryRepository : IBudgetCategoryRepository
     {
-        private readonly BudgetCategoryRepository _budgetCategory;
+        private readonly DbSet<BudgetCategory> _budgetCategory;
+        private readonly BudgetCategoryDbContext _context;
 
-        public BudgetCategoryRepository(BudgetCategoryRepository budgetCategory)
+        public BudgetCategoryRepository(BudgetCategoryDbContext context)
         {
-            _budgetCategory = budgetCategory;
+            _budgetCategory = context.BudgetCategories;
+            _context = context;
         }
 
-        public async Task AddCategoryAsync(string group, string category, string comment)
+        public async Task AddAsync(BudgetCategory category)
         {
-           await _budgetCategory.AddCategoryAsync(group, category, comment);
+            await _budgetCategory.AddAsync(category);
+            _context.SaveChanges();
         }
 
-        public async Task DeleteCategoryAsync(int id)
+        public async Task DeleteAsync(BudgetCategory category)
         {
-            await _budgetCategory.DeleteCategoryAsync(id);
+            _budgetCategory.Remove(category);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<IReadOnlyCollection<BudgetCategoryDto>> GetCategoriesAsync()
-        {
-            return await _budgetCategory.GetCategoriesAsync();
-        }
+        public async Task<IReadOnlyCollection<BudgetCategory>> BrowseAsync()
+            => await _budgetCategory.ToListAsync();
 
-        public async Task<BudgetCategoryDto> GetCategoryAsync(int id)
-        {
-            return await _budgetCategory.GetCategoryAsync(id);
-        }
+        public async Task<BudgetCategory> GetAsync(int id)
+            => await _budgetCategory.SingleOrDefaultAsync(x => x.Id == id);
+        
 
-        public async Task UpdateCategoryAsync(int id, string group, string category, string comment)
+        public async Task UpdateCategoryAsync(BudgetCategory category)
         {
-            await _budgetCategory.UpdateCategoryAsync(id, group, category, comment);
+            _budgetCategory.Update(category);
+            await _context.SaveChangesAsync();
         }
     }
 }
