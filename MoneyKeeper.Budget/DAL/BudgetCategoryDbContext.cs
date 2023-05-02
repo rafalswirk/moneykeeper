@@ -11,7 +11,7 @@ namespace MoneyKeeper.Budget.DAL
     public class BudgetCategoryDbContext : DbContext
     {
         public DbSet<BudgetCategory> BudgetCategories { get; set; }
-
+        public DbSet<CategorySpreadsheetMap> CategoryMap { get; set; }
         public BudgetCategoryDbContext(DbContextOptions<BudgetCategoryDbContext> options) : base(options)
         {
         }
