@@ -10,18 +10,9 @@ namespace MoneyKeeper.Budget.DAL
 {
     public class BudgetCategoryDbContext : DbContext
     {
-        private readonly string _connectionString;
-
         public DbSet<BudgetCategory> BudgetCategories { get; set; }
-        public BudgetCategoryDbContext(DbContextOptions<BudgetCategoryDbContext> options, string connectionString) : base(options)
-        {
-            _connectionString = connectionString;
-        }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql(_connectionString);
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public BudgetCategoryDbContext(DbContextOptions<BudgetCategoryDbContext> options) : base(options)
         {
         }
     }
