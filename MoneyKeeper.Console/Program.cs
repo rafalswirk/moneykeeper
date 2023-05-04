@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Entities;
+using MoneyKeeper.Budget.Repositories;
 using MoneyKeeper.Console.GCloud;
 using MoneyKeeper.OCR.GCloud;
 
@@ -22,7 +23,7 @@ namespace MoneyKeeper.Console
                 try
                 {
                     var dbContext = services.GetRequiredService<Budget.DAL.BudgetCategoryDbContext>();
-                    dbContext.Database.Migrate();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -46,6 +47,7 @@ namespace MoneyKeeper.Console
                         options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
                     });
                     services.AddHostedService<GCloudDemo>();
+                    services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
                 })
                 .ConfigureAppConfiguration(x =>
                 {
