@@ -12,24 +12,43 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Console.GCloud
 {
-    internal class GoogleDocsEditor
+    internal class GoogleDocsEditor : IGoogleDocsEditor
     {
-        public async Task AddValueToGoogleDocs(string token, string projectId)
+        SheetsService _sheetsService;
+        Spreadsheet _spreadsheet;
+
+        public async Task Init()
         {
             var loader = new ServiceLoader();
 
             var sheetsService = await loader.LoadService();
 
-            var (service, spreadsheet) = await GetSpreadSheet();
-            GetValueFromCell(service, spreadsheet);
-            WriteValueToCell(service, spreadsheet);
+            (_sheetsService, _spreadsheet) = await GetSpreadSheet();
+        }
+
+        public async Task AddValueToGoogleDocs(string token, string projectId)
+        {
+            GetValueFromCell(_sheetsService, _spreadsheet);
+            WriteValueToCell(_sheetsService, _spreadsheet);
+        }
+
+        public IEnumerable<string> GetValuesRange(string range)
+        {
+            var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == "Wzorzec kategorii");
+            string sheetRange = $"{sheet.Properties.Title}!B35:B177";
+
+            var request = _sheetsService.Spreadsheets.Values.Get(_spreadsheet.SpreadsheetId, sheetRange);
+            request.ValueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA;
+            var valueRange = request.Execute();
+            var returnValue = valueRange.Values.Select(v => v.FirstOrDefault() ?? string.Empty).Cast<string>().ToList();
+            return returnValue;
         }
 
         private string GetValueFromCell(SheetsService service, Spreadsheet spreadsheet)
         {
             var january = spreadsheet.Sheets.Single(s => s.Properties.Title == "Styczeń");
             string range = $"{january.Properties.Title}!I58";
-            
+
             var request = service.Spreadsheets.Values.Get(spreadsheet.SpreadsheetId, range);
             request.ValueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA;
             var valueRange = request.Execute();

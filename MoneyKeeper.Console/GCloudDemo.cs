@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Entities;
+using MoneyKeeper.Budget.Repositories;
+using MoneyKeeper.Console.GCloud;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,15 @@ namespace MoneyKeeper.Console
 {
     public class GCloudDemo : BackgroundService
     {
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        private readonly IBudgetCategoryRepository _budgetCategory;
+        private readonly IConfiguration _configuration;
+
+        public GCloudDemo(IBudgetCategoryRepository budgetCategory, IConfiguration configuration)
+        {
+            _budgetCategory = budgetCategory;
+            _configuration = configuration;
+        }
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             System.Console.WriteLine("Hello from GCloudDemo!");
 
@@ -21,8 +31,8 @@ namespace MoneyKeeper.Console
             //.AddUserSecrets<Program>()
             //.Build();
 
-            //var token = configuration.GetSection("GCloud:AccessToken");
-            //var projectId = configuration.GetSection("GCloud:ProjectId");
+            var token = _configuration.GetSection("GCloud:AccessToken");
+            var projectId = _configuration.GetSection("GCloud:ProjectId");
 
             //var imageProvider = new GCloud.ImageProvider();
             //var filePath = "";
@@ -47,16 +57,20 @@ namespace MoneyKeeper.Console
 
             //next - add value to google spreadsheet
 
-            //var editor = new GoogleDocsEditor();
-            //await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
+            var editor = new GoogleDocsEditor();
+            await editor.Init();
+
+            var categoriesGenerator = new BudgetCategoriesGenerator(editor);
+            var categories = categoriesGenerator.Generate("fooo");
+
+            await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
 
             //var budgetCategories = new BudgetCategoryRepository(new Budget.DAL.BudgetCategoryDbContext(new DbContextOptions<Budget.DAL.BudgetCategoryDbContext>(), configuration.GetSection("Database:ConnectionString").Value));
-            //await budgetCategories.AddAsync(new BudgetCategory
-            //{
-            //    Category = "Food",
-            //    Group = "Groceries",
-            //});
-            return Task.CompletedTask;
+            foreach (var category in categories)
+            {
+                await _budgetCategory.AddAsync(category);
+            }
+            
         }
     }
 }
