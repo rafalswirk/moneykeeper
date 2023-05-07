@@ -19,6 +19,7 @@ namespace MoneyKeeper.Tests.Budget.Tests
                 "Telekomunikacja",
                 "Telefon 1",
                 "TV",
+                "Inne",
                 ".",
                 " ",
                 "Opieka zdrowotna",
@@ -30,6 +31,7 @@ namespace MoneyKeeper.Tests.Budget.Tests
             {
                 new BudgetCategory { Category = "Telefon 1", Group = "Telekomunikacja"},
                 new BudgetCategory { Category = "TV", Group = "Telekomunikacja"},
+                new BudgetCategory { Category = "Inne", Group = "Telekomunikacja"},
                 new BudgetCategory { Category = "Lekarz", Group = "Opieka zdrowotna"},
                 new BudgetCategory { Category = "Inne", Group = "Opieka zdrowotna"}
             };
@@ -37,8 +39,8 @@ namespace MoneyKeeper.Tests.Budget.Tests
             var mappings = generator.Generate(categories, input, firstRowNumber);
 
             Assert.NotNull(mappings);
-            Assert.Equal(4, mappings.Count);
-            Assert.True(mappings.Single(m => m.Category.Category == "Inne" && m.Category.Group == "Opieka zdrowotna").Row == "17");    
+            Assert.Equal(5, mappings.Count);
+            Assert.True(mappings.Single(m => m.Category.Category == "Inne" && m.Category.Group == "Opieka zdrowotna").Row == "18");    
             Assert.True(mappings.Single(m => m.Category.Category == "TV").Row == "12");    
         }
     }
