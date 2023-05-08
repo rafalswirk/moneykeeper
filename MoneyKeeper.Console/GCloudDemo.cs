@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Google.Apis.Drive.v3.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using MoneyKeeper.Budget.DAL.Repositories;
@@ -16,11 +17,13 @@ namespace MoneyKeeper.Console
     public class GCloudDemo : BackgroundService
     {
         private readonly IBudgetCategoryRepository _budgetCategory;
+        private readonly ICategorySpreadsheetMapRepository _spreadsheetMapRepository;
         private readonly IConfiguration _configuration;
 
-        public GCloudDemo(IBudgetCategoryRepository budgetCategory, IConfiguration configuration)
+        public GCloudDemo(IBudgetCategoryRepository budgetCategory, ICategorySpreadsheetMapRepository spreadsheetMapRepository, IConfiguration configuration)
         {
             _budgetCategory = budgetCategory;
+            _spreadsheetMapRepository = spreadsheetMapRepository;
             _configuration = configuration;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -63,14 +66,23 @@ namespace MoneyKeeper.Console
             var categoriesGenerator = new BudgetCategoriesGenerator(editor);
             var categories = categoriesGenerator.Generate("fooo");
 
-            await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
+            //await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
 
             //var budgetCategories = new BudgetCategoryRepository(new Budget.DAL.BudgetCategoryDbContext(new DbContextOptions<Budget.DAL.BudgetCategoryDbContext>(), configuration.GetSection("Database:ConnectionString").Value));
             foreach (var category in categories)
             {
                 await _budgetCategory.AddAsync(category);
             }
-            
+            var rawData = editor.GetValuesRange("");
+
+
+            var positionGenerator = new BudgetCategoryPositionGenerator();
+            var positions = positionGenerator.Generate(categories, rawData.ToList(), 79);
+
+            foreach (var position in positions)
+            {
+                await _spreadsheetMapRepository.AddAsync(position);
+            }
         }
     }
 }

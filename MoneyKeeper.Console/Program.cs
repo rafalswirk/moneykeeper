@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MoneyKeeper.Budget.DAL;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Entities;
 using MoneyKeeper.Budget.Repositories;
@@ -46,8 +47,10 @@ namespace MoneyKeeper.Console
                         var configuration = serviceProvider.GetRequiredService<IConfiguration>();
                         options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
                     });
+
                     services.AddHostedService<GCloudDemo>();
                     services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
+                    services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
                 })
                 .ConfigureAppConfiguration(x =>
                 {

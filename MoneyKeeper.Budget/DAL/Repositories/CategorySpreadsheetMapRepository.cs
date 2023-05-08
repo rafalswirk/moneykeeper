@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoneyKeeper.Budget.Entities;
+using MoneyKeeper.Budget.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.DAL.Repositories
 {
-    internal class CategorySpreadsheetMapRepository
+    public class CategorySpreadsheetMapRepository : ICategorySpreadsheetMapRepository
     {
         private readonly BudgetCategoryDbContext _context;
 

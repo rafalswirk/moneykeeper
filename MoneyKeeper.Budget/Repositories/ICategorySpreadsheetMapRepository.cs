@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Repositories
 {
-    internal interface ICategorySpreadsheetMapRepository
+    public interface ICategorySpreadsheetMapRepository
     {
         Task AddAsync(CategorySpreadsheetMap category);
         Task DeleteAsync(CategorySpreadsheetMap category);
