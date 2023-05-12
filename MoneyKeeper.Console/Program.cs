@@ -30,6 +30,8 @@ namespace MoneyKeeper.Console
                 {
                     System.Console.WriteLine($"An error occurred while applying migrations: {ex.Message}");
                 }
+                var gloud = services.GetService<GCloudDemo>();
+                await gloud.Run();
             }
 
             await host.RunAsync();
@@ -49,7 +51,7 @@ namespace MoneyKeeper.Console
 
                     services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
                     services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
-                    //services.AddHostedService<GCloudDemo>();
+                    services.AddScoped<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>
                 {

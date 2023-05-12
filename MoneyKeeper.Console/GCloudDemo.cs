@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Console
 {
-    public class GCloudDemo : BackgroundService
+    public class GCloudDemo
     {
         private readonly IBudgetCategoryRepository _budgetCategory;
         private readonly ICategorySpreadsheetMapRepository _spreadsheetMapRepository;
@@ -26,7 +26,7 @@ namespace MoneyKeeper.Console
             _spreadsheetMapRepository = spreadsheetMapRepository;
             _configuration = configuration;
         }
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public async Task Run()
         {
             System.Console.WriteLine("Hello from GCloudDemo!");
 
