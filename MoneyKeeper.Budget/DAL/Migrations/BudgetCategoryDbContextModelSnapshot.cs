@@ -43,44 +43,7 @@ namespace MoneyKeeper.Budget.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BudgetCategories");
-                });
-
-            modelBuilder.Entity("MoneyKeeper.Budget.Entities.CategorySpreadsheetMap", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Column")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Row")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CategoryMap");
-                });
-
-            modelBuilder.Entity("MoneyKeeper.Budget.Entities.CategorySpreadsheetMap", b =>
-                {
-                    b.HasOne("MoneyKeeper.Budget.Entities.BudgetCategory", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
+                    b.ToTable("BudgetCategories", (string)null);
                 });
 #pragma warning restore 612, 618
         }

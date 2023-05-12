@@ -40,7 +40,6 @@ namespace MoneyKeeper.Console
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<GCloudDemo>();
                     services.AddDbContext<Budget.DAL.BudgetCategoryDbContext>(options =>
                     {
                         using var serviceProvider = services.BuildServiceProvider();
@@ -48,9 +47,9 @@ namespace MoneyKeeper.Console
                         options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
                     });
 
-                    services.AddHostedService<GCloudDemo>();
                     services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
                     services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
+                    //services.AddHostedService<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>
                 {
