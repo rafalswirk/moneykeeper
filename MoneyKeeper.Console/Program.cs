@@ -51,6 +51,7 @@ namespace MoneyKeeper.Console
 
                     services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
                     services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
+                    services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();
                     services.AddScoped<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>

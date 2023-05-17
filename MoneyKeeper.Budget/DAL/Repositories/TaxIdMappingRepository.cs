@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.DAL.Repositories
 {
-    internal class TaxIdMappingRepository : ITaxMappingRepository
+    public class TaxIdMappingRepository : ITaxMappingRepository
     {
         private readonly BudgetCategoryDbContext _context;
 
