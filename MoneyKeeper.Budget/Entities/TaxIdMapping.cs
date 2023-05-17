@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Entities
 {
-    internal class TaxIdMapping
+    public class TaxIdMapping
     {
         public int Id { get; set; }
         public string TaxId { get; set; }

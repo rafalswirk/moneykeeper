@@ -9,10 +9,10 @@ namespace MoneyKeeper.Budget.Repositories
 {
     internal interface ITaxMappingRepository
     {
-        Task AddAsync(CategorySpreadsheetMap category);
-        Task DeleteAsync(CategorySpreadsheetMap category);
-        Task<IReadOnlyCollection<CategorySpreadsheetMap>> BrowseAsync();
-        Task<CategorySpreadsheetMap> GetAsync(int id);
-        Task UpdateCategoryAsync(CategorySpreadsheetMap category);
+        Task AddAsync(TaxIdMapping category);
+        Task DeleteAsync(TaxIdMapping category);
+        Task<IReadOnlyCollection<TaxIdMapping>> BrowseAsync();
+        Task<TaxIdMapping> GetAsync(int id);
+        Task UpdateCategoryAsync(TaxIdMapping category);
     }
 }
