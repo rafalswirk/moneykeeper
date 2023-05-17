@@ -13,9 +13,9 @@ namespace MoneyKeeper.Budget.DAL.Repositories
     {
         private readonly BudgetCategoryDbContext _context;
 
-        public CategorySpreadsheetMapRepository(IBudgetCategoryRepository context)
+        public CategorySpreadsheetMapRepository(BudgetCategoryDbContext context)
         {
-            //_context = context;
+            _context = context;
         }
 
         public async Task AddAsync(CategorySpreadsheetMap category)
