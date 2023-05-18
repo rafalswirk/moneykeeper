@@ -2,7 +2,7 @@
 {
     public interface IGoogleDocsEditor
     {
-        Task AddValueToGoogleDocs(string token, string projectId);
+        Task AddValueToGoogleDocs();
         IEnumerable<string> GetValuesRange(string range);
         Task Init();
     }

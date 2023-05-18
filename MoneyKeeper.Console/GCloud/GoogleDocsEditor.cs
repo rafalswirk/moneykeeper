@@ -26,7 +26,7 @@ namespace MoneyKeeper.Console.GCloud
             (_sheetsService, _spreadsheet) = await GetSpreadSheet();
         }
 
-        public async Task AddValueToGoogleDocs(string token, string projectId)
+        public async Task AddValueToGoogleDocs()
         {
             GetValueFromCell(_sheetsService, _spreadsheet);
             WriteValueToCell(_sheetsService, _spreadsheet);
