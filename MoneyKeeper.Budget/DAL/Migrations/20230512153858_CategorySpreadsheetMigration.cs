@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MoneyKeeper.Budget.MoneyKeeper.Budget.DAL.Migrations
+namespace MoneyKeeper.Budget.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class CategorySpreadsheetMigration : Migration

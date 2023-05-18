@@ -30,6 +30,8 @@ namespace MoneyKeeper.Console
                 {
                     System.Console.WriteLine($"An error occurred while applying migrations: {ex.Message}");
                 }
+                var gloud = services.GetService<GCloudDemo>();
+                await gloud.Run();
             }
 
             await host.RunAsync();
@@ -40,7 +42,6 @@ namespace MoneyKeeper.Console
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<GCloudDemo>();
                     services.AddDbContext<Budget.DAL.BudgetCategoryDbContext>(options =>
                     {
                         using var serviceProvider = services.BuildServiceProvider();
@@ -48,9 +49,11 @@ namespace MoneyKeeper.Console
                         options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
                     });
 
-                    services.AddHostedService<GCloudDemo>();
                     services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
                     services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
+                    services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();
+                    services.AddScoped<ITaxIdRepository, TaxIdRepository>();
+                    services.AddScoped<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>
                 {
