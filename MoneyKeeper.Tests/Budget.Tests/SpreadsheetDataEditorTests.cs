@@ -11,6 +11,9 @@ namespace MoneyKeeper.Tests.Budget.Tests
     {
         [Theory]
         [InlineData("", "1.2", "1.2")]
+        [InlineData("1", "1.2", "=1+1.2")]
+        [InlineData("=1", "1.2", "=1+1.2")]
+        [InlineData("=1+2", "1.2", "=1+2+1.2")]
         public void Add_StringValueToContent_ReturnsFormulaWithAllData(string cellContent, string value, string expectedFormula)
         {
             var editor = new SpreadsheetDataEditor();

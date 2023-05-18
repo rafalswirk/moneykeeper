@@ -16,7 +16,7 @@ namespace MoneyKeeper.Console.GCloud
             }
             if (cellContent.StartsWith("="))
             {
-                return cellContent + $"+ {value}";
+                return cellContent + $"+{value}";
             }
             return $"={cellContent}+{value}";
         }
