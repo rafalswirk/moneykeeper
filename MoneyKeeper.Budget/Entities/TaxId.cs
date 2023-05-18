@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Entities
 {
-    public class TaxIdMapping
+    public class TaxId
     {
         public int Id { get; set; }
-        public TaxId TaxId { get; set; }
-        public CategorySpreadsheetMap CategoryMap { get; set; }
+        public string TaxIdentificationNumber { get; set; }
+        public string CompanyName { get; set; }
     }
 }

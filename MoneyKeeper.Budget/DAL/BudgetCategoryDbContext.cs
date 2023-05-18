@@ -13,6 +13,7 @@ namespace MoneyKeeper.Budget.DAL
         public DbSet<BudgetCategory> BudgetCategories { get; set; }
         public DbSet<CategorySpreadsheetMap> CategoryMap { get; set; }
         public DbSet<TaxIdMapping> TaxIdMapping { get; set; }
+        public DbSet<TaxId> TaxIds { get; set; }
         public BudgetCategoryDbContext(DbContextOptions<BudgetCategoryDbContext> options) : base(options)
         {
         }
