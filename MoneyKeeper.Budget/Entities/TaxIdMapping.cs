@@ -10,6 +10,6 @@ namespace MoneyKeeper.Budget.Entities
     {
         public int Id { get; set; }
         public TaxId TaxId { get; set; }
-        public CategorySpreadsheetMap CategoryMap { get; set; }
+        public BudgetCategory Category { get; set; }
     }
 }
