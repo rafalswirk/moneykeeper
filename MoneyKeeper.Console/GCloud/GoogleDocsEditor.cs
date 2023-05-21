@@ -16,6 +16,12 @@ namespace MoneyKeeper.Console.GCloud
     {
         SheetsService _sheetsService;
         Spreadsheet _spreadsheet;
+        private readonly SpreadsheetDataEditor _dataEditor;
+
+        public GoogleDocsEditor(SpreadsheetDataEditor dataEditor)
+        {
+            _dataEditor = dataEditor;
+        }
 
         public async Task Init()
         {
@@ -26,10 +32,11 @@ namespace MoneyKeeper.Console.GCloud
             (_sheetsService, _spreadsheet) = await GetSpreadSheet();
         }
 
-        public async Task AddValueToGoogleDocs()
+        public void AddValueToGoogleDocs(string sheet, string row, string column, string value)
         {
-            GetValueFromCell(_sheetsService, _spreadsheet);
-            WriteValueToCell(_sheetsService, _spreadsheet);
+            var cellValue = GetValueFromCell(sheet, column, row);
+            var newValue = _dataEditor.Add(cellValue, value);
+            WriteCellValue(sheet, column, row, newValue);
         }
 
         public IEnumerable<string> GetValuesRange(string range)
@@ -44,32 +51,34 @@ namespace MoneyKeeper.Console.GCloud
             return returnValue;
         }
 
-        private string GetValueFromCell(SheetsService service, Spreadsheet spreadsheet)
+        private string GetValueFromCell(string sheetName, string column, string row)
         {
-            var january = spreadsheet.Sheets.Single(s => s.Properties.Title == "Styczeń");
-            string range = $"{january.Properties.Title}!I58";
+            var cellCoordinates = $"{column}{row}";
+            var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == sheetName);
+            string sheetRange = $"{sheet.Properties.Title}!{cellCoordinates}";
 
-            var request = service.Spreadsheets.Values.Get(spreadsheet.SpreadsheetId, range);
+            var request = _sheetsService.Spreadsheets.Values.Get(_spreadsheet.SpreadsheetId, sheetRange);
             request.ValueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA;
             var valueRange = request.Execute();
-            var returnValue = valueRange.Values.First().Single().ToString();
+            var returnValue = valueRange.Values.Select(v => v.FirstOrDefault() ?? string.Empty).Cast<string>().Single();
             return returnValue;
         }
 
-        private static void WriteValueToCell(SheetsService service, Spreadsheet spreadsheet)
+        private void WriteCellValue(string sheetName, string column, string row, string value)
         {
-            var january = spreadsheet.Sheets.Single(s => s.Properties.Title == "Styczeń");
-            string range = $"{january.Properties.Title}!J58";
-            var value = new List<object>() { "=777+311", "11" };
+            var cellCoordinates = $"{column}{row}";
+            var january = _spreadsheet.Sheets.Single(s => s.Properties.Title == sheetName);
+            string range = $"{january.Properties.Title}!{cellCoordinates}";
+            var dataToSend = new List<object>() { value };
 
             var updateRequest = new ValueRange()
             {
                 MajorDimension = "COLUMNS",
                 Range = range,
-                Values = new List<IList<object>>() { value }
+                Values = new List<IList<object>>() { dataToSend }
             };
-            // Execute the update request
-            var request = service.Spreadsheets.Values.Update(updateRequest, "1U_ntsBx82SGhshgs1aR09zAyCB_L0EcJlMh__xAIn9w", range);
+
+            var request = _sheetsService.Spreadsheets.Values.Update(updateRequest, _spreadsheet.SpreadsheetId, range);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
             request.Execute();
         }
