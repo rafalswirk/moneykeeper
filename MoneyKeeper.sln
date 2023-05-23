@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Web", "MoneyKeeper\MoneyKeeper.Web.csproj", "{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Web", "MoneyKeeper.Web\MoneyKeeper.Web.csproj", "{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Client", "MoneyKeeper.Client\MoneyKeeper.Client.csproj", "{89E9AB92-CA80-41B6-8021-990D318B4EF5}"
 EndProject
