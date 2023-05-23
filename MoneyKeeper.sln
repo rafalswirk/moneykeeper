@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Tests", "MoneyKeeper.Tests\MoneyKeeper.Tests.csproj", "{87A79AAF-219D-4A70-A529-EB03094D098A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1AA818CE-921A-4266-9218-84185DB3068F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{C6E59D42-2FC0-4652-88D5-5F15E952D4CE}"
@@ -25,16 +23,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{128C77
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Client", "src\Client\MoneyKeeper.Client\MoneyKeeper.Client.csproj", "{74921CB0-5FC9-4EA4-8BC0-29177EDD6FA8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{071578B3-37EC-4263-9388-9B86F401EDB3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Tests", "src\Server\Tests\MoneyKeeper.Tests\MoneyKeeper.Tests.csproj", "{B498390A-986B-403F-874F-D90F634CEC66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{87A79AAF-219D-4A70-A529-EB03094D098A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87A79AAF-219D-4A70-A529-EB03094D098A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87A79AAF-219D-4A70-A529-EB03094D098A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87A79AAF-219D-4A70-A529-EB03094D098A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53873AFD-974F-4624-B8AD-D2AF4E4847BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53873AFD-974F-4624-B8AD-D2AF4E4847BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53873AFD-974F-4624-B8AD-D2AF4E4847BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +55,10 @@ Global
 		{74921CB0-5FC9-4EA4-8BC0-29177EDD6FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74921CB0-5FC9-4EA4-8BC0-29177EDD6FA8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74921CB0-5FC9-4EA4-8BC0-29177EDD6FA8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B498390A-986B-403F-874F-D90F634CEC66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B498390A-986B-403F-874F-D90F634CEC66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B498390A-986B-403F-874F-D90F634CEC66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B498390A-986B-403F-874F-D90F634CEC66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +73,8 @@ Global
 		{25EB6A83-CE05-4D36-8E23-B9CD2D33AF61} = {5750C55C-4B35-4740-8935-C45F26D7FA4B}
 		{128C7732-C875-406F-B1EB-D6449A2F544A} = {1AA818CE-921A-4266-9218-84185DB3068F}
 		{74921CB0-5FC9-4EA4-8BC0-29177EDD6FA8} = {128C7732-C875-406F-B1EB-D6449A2F544A}
+		{071578B3-37EC-4263-9388-9B86F401EDB3} = {C6E59D42-2FC0-4652-88D5-5F15E952D4CE}
+		{B498390A-986B-403F-874F-D90F634CEC66} = {071578B3-37EC-4263-9388-9B86F401EDB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3EBF3903-B71B-4856-B47B-5EAB545CFDCB}
