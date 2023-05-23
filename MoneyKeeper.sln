@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Web", "MoneyKeeper.Web\MoneyKeeper.Web.csproj", "{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Client", "MoneyKeeper.Client\MoneyKeeper.Client.csproj", "{89E9AB92-CA80-41B6-8021-990D318B4EF5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Tests", "MoneyKeeper.Tests\MoneyKeeper.Tests.csproj", "{87A79AAF-219D-4A70-A529-EB03094D098A}"
@@ -15,16 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Console", "Mone
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Budget", "MoneyKeeper.Budget\MoneyKeeper.Budget.csproj", "{047A696A-57C0-4F71-902F-BFC5967CCE30}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Web", "src\Server\Bootstrapper\MoneyKeeper.Web\MoneyKeeper.Web.csproj", "{8983BD95-4731-48FA-A27B-2953E1F8171E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89E9AB92-CA80-41B6-8021-990D318B4EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89E9AB92-CA80-41B6-8021-990D318B4EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89E9AB92-CA80-41B6-8021-990D318B4EF5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -47,6 +43,10 @@ Global
 		{047A696A-57C0-4F71-902F-BFC5967CCE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{047A696A-57C0-4F71-902F-BFC5967CCE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{047A696A-57C0-4F71-902F-BFC5967CCE30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8983BD95-4731-48FA-A27B-2953E1F8171E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8983BD95-4731-48FA-A27B-2953E1F8171E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8983BD95-4731-48FA-A27B-2953E1F8171E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8983BD95-4731-48FA-A27B-2953E1F8171E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
