@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper", "MoneyKeeper\MoneyKeeper.csproj", "{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Web", "MoneyKeeper\MoneyKeeper.Web.csproj", "{5AFE0F76-5DC2-46B6-8613-60B053E9AF76}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Client", "MoneyKeeper.Client\MoneyKeeper.Client.csproj", "{89E9AB92-CA80-41B6-8021-990D318B4EF5}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.OCR", "MoneyKee
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Console", "MoneyKeeper.Console\MoneyKeeper.Console.csproj", "{7DBE6906-07F6-4470-9AD9-498317FB9893}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyKeeper.Budget", "MoneyKeeper.Budget\MoneyKeeper.Budget.csproj", "{047A696A-57C0-4F71-902F-BFC5967CCE30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Budget", "MoneyKeeper.Budget\MoneyKeeper.Budget.csproj", "{047A696A-57C0-4F71-902F-BFC5967CCE30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
