@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MoneyKeeper.Console\MoneyKeeper.Console.csproj" />
-    <ProjectReference Include="..\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj" />
+    <ProjectReference Include="..\..\Bootstrapper\MoneyKeeper.Console\MoneyKeeper.Console.csproj" />
+    <ProjectReference Include="..\..\Modules\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj" />
   </ItemGroup>
 
   <ItemGroup>

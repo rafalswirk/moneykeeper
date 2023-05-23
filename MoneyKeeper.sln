@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Client", "src\C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{071578B3-37EC-4263-9388-9B86F401EDB3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Tests", "src\Server\Tests\MoneyKeeper.Tests\MoneyKeeper.Tests.csproj", "{B498390A-986B-403F-874F-D90F634CEC66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.UnitTests", "src\Server\Tests\MoneyKeeper.Tests\MoneyKeeper.UnitTests.csproj", "{B498390A-986B-403F-874F-D90F634CEC66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
