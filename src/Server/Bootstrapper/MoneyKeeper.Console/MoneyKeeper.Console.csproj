@@ -24,11 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\MoneyKeeper.Budget\MoneyKeeper.Budget.csproj" />
-    <ProjectReference Include="..\..\..\..\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Properties\launchSettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -37,6 +32,10 @@
 	<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 		<_Parameter1>MoneyKeeper.Tests</_Parameter1>
 	</AssemblyAttribute>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\MoneyKeeper.Budget\MoneyKeeper.Budget.csproj" />
+    <ProjectReference Include="..\..\Modules\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj" />
   </ItemGroup>
 
 </Project>
