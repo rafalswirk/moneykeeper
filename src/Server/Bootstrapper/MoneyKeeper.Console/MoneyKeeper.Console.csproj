@@ -29,10 +29,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <InternalsVisibleTo Include="MoneyKeeper.UnitTests"/>
+    <InternalsVisibleTo Include="MoneyKeeper.UnitTests" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\MoneyKeeper.Budget\MoneyKeeper.Budget.csproj" />
+    <ProjectReference Include="..\..\Modules\MoneyKeeper.Budget\MoneyKeeper.Budget.Core.csproj" />
     <ProjectReference Include="..\..\Modules\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj" />
   </ItemGroup>
 
