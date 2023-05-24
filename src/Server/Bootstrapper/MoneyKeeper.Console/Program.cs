@@ -11,6 +11,7 @@ using MoneyKeeper.Budget.Entities;
 using MoneyKeeper.Budget.Repositories;
 using MoneyKeeper.Console.GCloud;
 using MoneyKeeper.OCR.GCloud;
+using MoneyKeeper.Budget;
 
 namespace MoneyKeeper.Console
 {
@@ -44,20 +45,7 @@ namespace MoneyKeeper.Console
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddDbContext<Budget.DAL.BudgetCategoryDbContext>(options =>
-                    {
-                        using var serviceProvider = services.BuildServiceProvider();
-                        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                        options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
-                    });
-
-                    services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
-                    services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
-                    services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();
-                    services.AddScoped<ITaxIdRepository, TaxIdRepository>();
-                    services.AddScoped<ISheetToMonthMapRepository, SheetToMonthMapRepository>();
-                    services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
-                    services.AddScoped<GCloudDemo>();
+                    services.AddCore();
                 })
                 .ConfigureAppConfiguration(x =>
                 {
