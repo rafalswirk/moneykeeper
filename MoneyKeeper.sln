@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{5750
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Budget.Core", "src\Server\Modules\MoneyKeeper.Budget\MoneyKeeper.Budget.Core.csproj", "{03ED90B9-C956-4D69-9BA9-239883D76464}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.OCR", "src\Server\Modules\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj", "{25EB6A83-CE05-4D36-8E23-B9CD2D33AF61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Budget.OCR", "src\Server\Modules\MoneyKeeper.OCR\MoneyKeeper.Budget.OCR.csproj", "{25EB6A83-CE05-4D36-8E23-B9CD2D33AF61}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{128C7732-C875-406F-B1EB-D6449A2F544A}"
 EndProject
