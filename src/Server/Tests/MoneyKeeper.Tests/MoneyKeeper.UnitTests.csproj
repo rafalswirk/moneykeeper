@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Bootstrapper\MoneyKeeper.Console\MoneyKeeper.Console.csproj" />
-    <ProjectReference Include="..\..\Modules\MoneyKeeper.OCR\MoneyKeeper.OCR.csproj" />
   </ItemGroup>
 
   <ItemGroup>
