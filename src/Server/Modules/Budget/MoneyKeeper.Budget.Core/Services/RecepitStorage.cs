@@ -17,6 +17,12 @@ namespace MoneyKeeper.Budget.Core.Services
         public RecepitStorage(IReceiptInfoRepository receiptInfoRepository)
         {
             _receiptInfoRepository = receiptInfoRepository;
+
+            _imageDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+            if (!Directory.Exists(_imageDirectoryPath))
+            {
+                Directory.CreateDirectory(_imageDirectoryPath);
+            }
         }
 
         public async Task<ReceiptInfo> SaveReceipt(IFormFile file)

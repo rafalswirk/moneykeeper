@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MoneyKeeper.Budget.Core.Services;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace MoneyKeeper.Budget.API.Controllers
     public class ImagesController : ControllerBase
     {
         private readonly string _imageDirectoryPath;
+        private readonly RecepitStorage _receiptStorage;
 
-        public ImagesController()
+        public ImagesController(RecepitStorage receiptStorage)
         {
-            // Set the directory where images will be saved
+            _receiptStorage = receiptStorage;
+
             _imageDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
             if (!Directory.Exists(_imageDirectoryPath))
             {
@@ -26,27 +29,12 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
-            if (file == null || file.Length == 0)
+            try 
             {
-                return BadRequest("No file was uploaded.");
-            }
-
-            try
-            {
-                // Generate a unique filename for the image
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-
-                // Create the full path to the image file
-                var filePath = Path.Combine(_imageDirectoryPath, fileName);
-
-                // Save the image to the server
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
+                var info = await _receiptStorage.SaveReceipt(file);
 
                 // Return the URL of the saved image
-                var imageUrl = $"{Request.Scheme}://{Request.Host}/api/images/{fileName}";
+                var imageUrl = $"{Request.Scheme}://{Request.Host}/api/images/{info.ImageName}";
                 return Ok(new { imageUrl });
             }
             catch (Exception ex)
