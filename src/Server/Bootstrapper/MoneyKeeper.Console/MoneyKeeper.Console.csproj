@@ -32,8 +32,8 @@
     <InternalsVisibleTo Include="MoneyKeeper.UnitTests" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Modules\MoneyKeeper.Budget\MoneyKeeper.Budget.Core.csproj" />
-    <ProjectReference Include="..\..\Modules\MoneyKeeper.OCR\MoneyKeeper.Budget.OCR.csproj" />
+    <ProjectReference Include="..\..\Modules\Budget\MoneyKeeper.Budget.Core\MoneyKeeper.Budget.Core.csproj" />
+    <ProjectReference Include="..\..\Modules\Budget\MoneyKeeper.Budget.OCR\MoneyKeeper.Budget.OCR.csproj" />
   </ItemGroup>
 
 </Project>

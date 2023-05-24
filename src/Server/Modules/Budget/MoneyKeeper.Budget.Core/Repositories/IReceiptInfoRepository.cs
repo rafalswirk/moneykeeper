@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.Repositories
 {
-    internal interface IReceiptInfoRepository
+    public interface IReceiptInfoRepository
     {
         Task AddAsync(ReceiptInfo info);
         Task DeleteAsync(ReceiptInfo info);

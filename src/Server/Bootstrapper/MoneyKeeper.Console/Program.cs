@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MoneyKeeper.Budget.Core.DAL.Repositories;
+using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.DAL;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Entities;
@@ -54,6 +56,7 @@ namespace MoneyKeeper.Console
                     services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();
                     services.AddScoped<ITaxIdRepository, TaxIdRepository>();
                     services.AddScoped<ISheetToMonthMapRepository, SheetToMonthMapRepository>();
+                    services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
                     services.AddScoped<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>
