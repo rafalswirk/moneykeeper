@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Controllers
+namespace MoneyKeeper.Budget.API.Controllers
 {
 
     [ApiController]
