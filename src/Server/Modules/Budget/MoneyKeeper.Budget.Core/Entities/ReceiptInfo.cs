@@ -13,5 +13,6 @@ namespace MoneyKeeper.Budget.Core.Entities
         public bool OcrDataGenerated { get; set; }
         public bool OcrValidationResult { get; set; }
         public bool SpreadsheetEntered { get; set; }
+        public DateOnly UploadDate { get; set; }
     }
 }
