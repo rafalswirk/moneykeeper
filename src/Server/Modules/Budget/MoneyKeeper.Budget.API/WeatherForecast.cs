@@ -1,4 +1,4 @@
-namespace MoneyKeeper
+namespace MoneyKeeper.Budget.API
 {
     public class WeatherForecast
     {

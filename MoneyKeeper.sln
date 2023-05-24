@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Budget.Core", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Budget.OCR", "src\Server\Modules\Budget\MoneyKeeper.Budget.OCR\MoneyKeeper.Budget.OCR.csproj", "{7011A03F-685A-44E4-A92A-7E400735FE36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyKeeper.Budget.API", "src\Server\Modules\Budget\MoneyKeeper.Budget.API\MoneyKeeper.Budget.API.csproj", "{5545E6A7-D391-4BA6-A51E-19D4E94F1761}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{7011A03F-685A-44E4-A92A-7E400735FE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7011A03F-685A-44E4-A92A-7E400735FE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7011A03F-685A-44E4-A92A-7E400735FE36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5545E6A7-D391-4BA6-A51E-19D4E94F1761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5545E6A7-D391-4BA6-A51E-19D4E94F1761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5545E6A7-D391-4BA6-A51E-19D4E94F1761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5545E6A7-D391-4BA6-A51E-19D4E94F1761}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{7E8B52C9-7E8F-455E-A6C1-1346C986B48E} = {5750C55C-4B35-4740-8935-C45F26D7FA4B}
 		{4142A4D6-264F-42C1-BAE9-543421917CE5} = {7E8B52C9-7E8F-455E-A6C1-1346C986B48E}
 		{7011A03F-685A-44E4-A92A-7E400735FE36} = {7E8B52C9-7E8F-455E-A6C1-1346C986B48E}
+		{5545E6A7-D391-4BA6-A51E-19D4E94F1761} = {7E8B52C9-7E8F-455E-A6C1-1346C986B48E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3EBF3903-B71B-4856-B47B-5EAB545CFDCB}
