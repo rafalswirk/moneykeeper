@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoneyKeeper.Budget.DAL;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MoneyKeeper.Budget.DAL.Migrations
+namespace MoneyKeeper.Budget.Core.DAL.Migrations
 {
     [DbContext(typeof(BudgetCategoryDbContext))]
-    partial class BudgetCategoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524114445_ReceiptInfoUploadDate")]
+    partial class ReceiptInfoUploadDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

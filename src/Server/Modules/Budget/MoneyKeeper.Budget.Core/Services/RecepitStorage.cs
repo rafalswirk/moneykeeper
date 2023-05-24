@@ -40,12 +40,14 @@ namespace MoneyKeeper.Budget.Core.Services
                 {
                     await file.CopyToAsync(stream);
                 }
+                var uploadTime = DateTime.Now;
                 var receiptInfo = new ReceiptInfo
                 {
                     ImageName = fileName,
                     OcrDataGenerated = false,
                     OcrValidationResult = false,
-                    SpreadsheetEntered = false
+                    SpreadsheetEntered = false,
+                    UploadDate = new DateOnly(uploadTime.Year, uploadTime.Month, uploadTime.Day)
                 };
                 await _receiptInfoRepository.AddAsync(receiptInfo);
 
