@@ -23,4 +23,8 @@
 		<_Parameter1>MoneyKeeper.Tests</_Parameter1>
 	</AssemblyAttribute>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MoneyKeeper.Budget.OCR\MoneyKeeper.Budget.OCR.csproj" />
+  </ItemGroup>
 </Project>

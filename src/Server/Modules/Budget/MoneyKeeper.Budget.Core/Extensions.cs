@@ -6,6 +6,8 @@ using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
+using MoneyKeeper.Console.GCloud;
+using SixLabors.ImageSharp;
 using System.Runtime.CompilerServices;
 
 namespace MoneyKeeper.Budget
@@ -29,6 +31,11 @@ namespace MoneyKeeper.Budget
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
 
             services.AddScoped<RecepitStorage>();
+            services.AddScoped(x =>
+                new ImageProvider(
+                    x.GetRequiredService<IConfiguration>().GetSection("GCloud:AccessToken").Value,
+                    x.GetRequiredService<IConfiguration>().GetSection("GCloud:ProjectId").Value));
+            services.AddScoped<ReceiptAnalysis>();
 
             return services;
         }

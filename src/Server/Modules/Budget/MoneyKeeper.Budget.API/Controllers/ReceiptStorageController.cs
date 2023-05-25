@@ -9,7 +9,7 @@ namespace MoneyKeeper.Budget.API.Controllers
 {
 
     [ApiController]
-    [Route("api/receiptstorage")]
+    [Route("api/receipt/storage")]
     public class ReceiptStorageController : ControllerBase
     {
         private readonly string _imageDirectoryPath;
