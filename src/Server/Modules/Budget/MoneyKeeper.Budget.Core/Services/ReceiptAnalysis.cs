@@ -1,4 +1,5 @@
-﻿using MoneyKeeper.Budget.Core.Repositories;
+﻿using MoneyKeeper.Budget.Core.Data;
+using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Console.GCloud;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,21 @@ namespace MoneyKeeper.Budget.Core.Services
 {
     public class ReceiptAnalysis
     {
+        private readonly DataDirectories _dataDirectories;
         private readonly ImageProvider _imageProvider;
         private readonly IReceiptInfoRepository _receiptInfoRepository;
 
-        public ReceiptAnalysis(ImageProvider imageProvider, IReceiptInfoRepository receiptInfoRepository)
+        public ReceiptAnalysis(DataDirectories dataDirectories,ImageProvider imageProvider, IReceiptInfoRepository receiptInfoRepository)
         {
+            _dataDirectories = dataDirectories;
             _imageProvider = imageProvider;
             _receiptInfoRepository = receiptInfoRepository;
-        }
+        }   
 
         public async Task<string> Analysis(int receiptId)
         {
             var receiptInfo = await _receiptInfoRepository.GetAsync(receiptId);
-            var ocrData = await _imageProvider.SendImage(receiptInfo.ImageName);
+            var ocrData = await _imageProvider.SendImage(Path.Combine(_dataDirectories.ReceiptImagesPath, receiptInfo.ImageName));
             throw new NotImplementedException();
         }
     }

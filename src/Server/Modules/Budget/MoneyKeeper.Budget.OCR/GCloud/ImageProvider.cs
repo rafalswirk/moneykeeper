@@ -12,18 +12,16 @@ namespace MoneyKeeper.Console.GCloud
         string jsonContent = "{\n  \"requests\": [\n    {\n      \"image\": {\n        \"content\": \"base64_image_placeholder\"\n      },\n      \"features\": [\n        {\n          \"type\": \"TEXT_DETECTION\"\n        }\n      ]\n    }\n  ]\n}";
         private readonly string _token;
         private readonly string _projectId;
-        private readonly string _imagesDirectory;
 
         public ImageProvider(string token, string projectId)
         {
             _token = $"Bearer {token}";
             _projectId = projectId;
-            _imagesDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
         }
 
-        public async Task<string> SendImage(string imageName)
+        public async Task<string> SendImage(string imagePath)
         {
-            var base64Image = GetBase64(Path.Combine(_imagesDirectory, imageName));
+            var base64Image = GetBase64(imagePath);
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoneyKeeper.Budget.Core.DAL.Repositories;
+using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services;
 using MoneyKeeper.Budget.DAL.Repositories;
@@ -36,6 +37,10 @@ namespace MoneyKeeper.Budget
                     x.GetRequiredService<IConfiguration>().GetSection("GCloud:AccessToken").Value,
                     x.GetRequiredService<IConfiguration>().GetSection("GCloud:ProjectId").Value));
             services.AddScoped<ReceiptAnalysis>();
+            services.AddSingleton(x =>
+                x.GetRequiredService<IConfiguration>()
+                    .GetSection(nameof(DataDirectories))
+                    .Get<DataDirectories>());
 
             return services;
         }
