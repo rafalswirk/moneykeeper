@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Services;
 using System;
 using System.IO;
@@ -15,15 +16,11 @@ namespace MoneyKeeper.Budget.API.Controllers
         private readonly string _imageDirectoryPath;
         private readonly RecepitStorage _receiptStorage;
 
-        public ReceiptStorageController(RecepitStorage receiptStorage)
+        public ReceiptStorageController(DataDirectories dataDirectories, RecepitStorage receiptStorage)
         {
             _receiptStorage = receiptStorage;
 
-            _imageDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
-            if (!Directory.Exists(_imageDirectoryPath))
-            {
-                Directory.CreateDirectory(_imageDirectoryPath);
-            }
+            _imageDirectoryPath = dataDirectories.ReceiptImagesPath;
         }
 
         [HttpPost]

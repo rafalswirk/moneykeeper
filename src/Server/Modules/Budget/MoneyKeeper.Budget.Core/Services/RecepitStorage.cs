@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Entities;
 using MoneyKeeper.Budget.Core.Repositories;
 using System;
@@ -11,18 +12,14 @@ namespace MoneyKeeper.Budget.Core.Services
 {
     public class RecepitStorage
     {
-        private readonly string _imageDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+        private readonly string _imageDirectoryPath;
         private readonly IReceiptInfoRepository _receiptInfoRepository;
 
-        public RecepitStorage(IReceiptInfoRepository receiptInfoRepository)
+        public RecepitStorage(DataDirectories dataDirectories, IReceiptInfoRepository receiptInfoRepository)
         {
             _receiptInfoRepository = receiptInfoRepository;
 
-            _imageDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
-            if (!Directory.Exists(_imageDirectoryPath))
-            {
-                Directory.CreateDirectory(_imageDirectoryPath);
-            }
+            _imageDirectoryPath = dataDirectories.ReceiptImagesPath;
         }
 
         public async Task<ReceiptInfo> SaveReceipt(IFormFile file)
