@@ -16,7 +16,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         private readonly string _imageDirectoryPath;
         private readonly RecepitStorage _receiptStorage;
 
-        public ReceiptStorageController(DataDirectories dataDirectories, RecepitStorage receiptStorage)
+        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage)
         {
             _receiptStorage = receiptStorage;
 

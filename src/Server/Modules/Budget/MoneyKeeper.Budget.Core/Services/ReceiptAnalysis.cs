@@ -12,12 +12,12 @@ namespace MoneyKeeper.Budget.Core.Services
 {
     public class ReceiptAnalysis
     {
-        private readonly DataDirectories _dataDirectories;
+        private readonly DataDirectoriesWrapper _dataDirectories;
         private readonly IFileSystem _fileSystem;
         private readonly ImageProvider _imageProvider;
         private readonly IReceiptInfoRepository _receiptInfoRepository;
 
-        public ReceiptAnalysis(DataDirectories dataDirectories, IFileSystem fileSystem, ImageProvider imageProvider, IReceiptInfoRepository receiptInfoRepository)
+        public ReceiptAnalysis(DataDirectoriesWrapper dataDirectories, IFileSystem fileSystem, ImageProvider imageProvider, IReceiptInfoRepository receiptInfoRepository)
         {
             _dataDirectories = dataDirectories;
             _fileSystem = fileSystem;

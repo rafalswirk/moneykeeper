@@ -38,10 +38,11 @@ namespace MoneyKeeper.Budget
                     x.GetRequiredService<IConfiguration>().GetSection("GCloud:AccessToken").Value,
                     x.GetRequiredService<IConfiguration>().GetSection("GCloud:ProjectId").Value));
             services.AddScoped<ReceiptAnalysis>();
-            services.AddSingleton(x =>
+            services.AddScoped(x =>
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(DataDirectories))
                     .Get<DataDirectories>());
+            services.AddScoped<DataDirectoriesWrapper>();
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IDirectory, DirectoryWrapper>();
 

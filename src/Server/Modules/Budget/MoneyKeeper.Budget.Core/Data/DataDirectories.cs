@@ -6,36 +6,5 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.Data
 {
-    public class DataDirectories
-    {
-        private string _receiptImagesPath;
-        private string _ocrResultsPath;
-
-        public string ReceiptImagesPath 
-        { 
-            get => _receiptImagesPath;
-            set
-            {
-                EnsurePathExists(value);
-                _receiptImagesPath = value;
-            }
-        }
-
-        public string OcrResultsPath
-        {
-            get => _ocrResultsPath;
-            set
-            {
-                EnsurePathExists(value);
-                _ocrResultsPath = value;
-            }
-        }
-
-        private void EnsurePathExists(string path)
-        {
-            if (Directory.Exists(path))
-                return;
-            Directory.CreateDirectory(path);
-        }
-    }
+    public record DataDirectories(string ReceiptImagesPath, string OcrResultsPath);
 }

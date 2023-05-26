@@ -15,7 +15,7 @@ namespace MoneyKeeper.Budget.Core.Services
         private readonly string _imageDirectoryPath;
         private readonly IReceiptInfoRepository _receiptInfoRepository;
 
-        public RecepitStorage(DataDirectories dataDirectories, IReceiptInfoRepository receiptInfoRepository)
+        public RecepitStorage(DataDirectoriesWrapper dataDirectories, IReceiptInfoRepository receiptInfoRepository)
         {
             _receiptInfoRepository = receiptInfoRepository;
 
