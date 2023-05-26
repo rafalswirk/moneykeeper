@@ -7,10 +7,19 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Console.GCloud
 {
-    internal class ImageProvider
+    public class ImageProvider
     {
         string jsonContent = "{\n  \"requests\": [\n    {\n      \"image\": {\n        \"content\": \"base64_image_placeholder\"\n      },\n      \"features\": [\n        {\n          \"type\": \"TEXT_DETECTION\"\n        }\n      ]\n    }\n  ]\n}";
-        public async Task<string> SendImage(string imagePath, string token, string projectId)
+        private readonly string _token;
+        private readonly string _projectId;
+
+        public ImageProvider(string token, string projectId)
+        {
+            _token = $"Bearer {token}";
+            _projectId = projectId;
+        }
+
+        public async Task<string> SendImage(string imagePath)
         {
             var base64Image = GetBase64(imagePath);
             var client = new HttpClient();
@@ -20,8 +29,8 @@ namespace MoneyKeeper.Console.GCloud
                 RequestUri = new Uri("https://vision.googleapis.com/v1/images:annotate"),
                 Headers =
                     {
-                        { "Authorization", token },
-                        { "x-goog-user-project", projectId },
+                        { "Authorization", _token },
+                        { "x-goog-user-project", _projectId },
                     },
                 Content = new StringContent(jsonContent.Replace("base64_image_placeholder", base64Image))
                 {

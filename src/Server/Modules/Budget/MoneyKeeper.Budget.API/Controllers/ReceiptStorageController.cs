@@ -10,20 +10,21 @@ namespace MoneyKeeper.Budget.API.Controllers
 {
 
     [ApiController]
-    [Route("api/images")]
-    public class ImagesController : ControllerBase
+    [Route("api/receipt/storage")]
+    public class ReceiptStorageController : ControllerBase
     {
         private readonly string _imageDirectoryPath;
         private readonly RecepitStorage _receiptStorage;
 
-        public ImagesController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage)
+        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage)
         {
             _receiptStorage = receiptStorage;
+
             _imageDirectoryPath = dataDirectories.ReceiptImagesPath;
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage(IFormFile file)
+        public async Task<IActionResult> Upload(IFormFile file)
         {
             try 
             {
