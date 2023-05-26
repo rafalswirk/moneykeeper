@@ -9,6 +9,7 @@ using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
 using MoneyKeeper.Console.GCloud;
 using SixLabors.ImageSharp;
+using System.IO.Abstractions;
 using System.Runtime.CompilerServices;
 
 namespace MoneyKeeper.Budget
@@ -41,6 +42,8 @@ namespace MoneyKeeper.Budget
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(DataDirectories))
                     .Get<DataDirectories>());
+            services.AddScoped<IFileSystem, FileSystem>();
+            services.AddScoped<IDirectory, DirectoryWrapper>();
 
             return services;
         }
