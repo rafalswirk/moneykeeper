@@ -38,6 +38,7 @@ namespace MoneyKeeper.Budget
                     x.GetRequiredService<IConfiguration>().GetSection("GCloud:AccessToken").Value,
                     x.GetRequiredService<IConfiguration>().GetSection("GCloud:ProjectId").Value));
             services.AddScoped<ReceiptAnalysis>();
+            services.AddScoped<ReceiptAnalysisReader>();
             services.AddScoped(x =>
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(DataDirectories))

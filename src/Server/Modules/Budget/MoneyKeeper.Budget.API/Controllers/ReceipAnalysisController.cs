@@ -10,10 +10,12 @@ namespace MoneyKeeper.Budget.API.Controllers
     public class ReceipAnalysisController : ControllerBase
     {
         private readonly ReceiptAnalysis _receiptAnalysis;
+        private readonly ReceiptAnalysisReader _receiptAnalysisReader;
 
-        public ReceipAnalysisController(ReceiptAnalysis receiptAnalysis)
+        public ReceipAnalysisController(ReceiptAnalysis receiptAnalysis, ReceiptAnalysisReader receiptAnalysisReader)
         {
             _receiptAnalysis = receiptAnalysis;
+            _receiptAnalysisReader = receiptAnalysisReader;
         }
 
         [HttpPost]
@@ -28,7 +30,10 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> GetAnalysis(int id)
         {
-            throw new NotImplementedException();
+            var dto = await _receiptAnalysisReader.ReadAnalysis(id);
+            if (dto != null)
+                return Ok(dto);
+            return StatusCode(500);
         }
     }
 }
