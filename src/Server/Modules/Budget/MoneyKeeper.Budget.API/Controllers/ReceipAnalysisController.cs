@@ -19,8 +19,16 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost]
         public async Task<IActionResult> MakeAnalysis(int id)
         {
-            var analysisResultDto = await _receiptAnalysis.MakeAnalysis(id);
-            return Ok(analysisResultDto);
+            var dto = await _receiptAnalysis.MakeAnalysis(id);
+            if(dto != null)
+                return Ok(dto);
+            return StatusCode(500);
+        }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetAnalysis(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
