@@ -5,6 +5,7 @@ using MoneyKeeper.Budget.Core.DAL.Repositories;
 using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services;
+using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
 using MoneyKeeper.Console.GCloud;
@@ -46,6 +47,8 @@ namespace MoneyKeeper.Budget
             services.AddScoped<DataDirectoriesWrapper>();
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IDirectory, DirectoryWrapper>();
+            services.AddScoped<SpreadsheetDataEditor>();
+            services.AddScoped<GoogleDocsEditor>();
 
             return services;
         }

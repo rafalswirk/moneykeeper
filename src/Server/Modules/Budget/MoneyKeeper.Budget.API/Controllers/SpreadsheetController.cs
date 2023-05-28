@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MoneyKeeper.Budget.Core.DTO;
+using MoneyKeeper.Budget.Core.Services.GCloud;
+using MoneyKeeper.Budget.Repositories;
 
 namespace MoneyKeeper.Budget.API.Controllers
 {
@@ -6,9 +9,11 @@ namespace MoneyKeeper.Budget.API.Controllers
     [Route("api/receipt/spreadsheet")]
     public class SpreadsheetController: ControllerBase
     {
-        public SpreadsheetController()
+        private readonly GoogleDocsEditor _googleDocsEditor;
+
+        public SpreadsheetController(GoogleDocsEditor googleDocsEditor)
         {
-                
+            _googleDocsEditor = googleDocsEditor;
         }
 
 
@@ -19,9 +24,10 @@ namespace MoneyKeeper.Budget.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendValue()
-        { 
-            return BadRequest(); 
+        public IActionResult SendValue([FromBody]SpreadsheetValueDto dto)
+        {
+            _googleDocsEditor.AddValueToGoogleDocs(dto.Spreadsheet, dto.Row, dto.Column, dto.Value);
+            return Ok(); 
         }
     }
 }
