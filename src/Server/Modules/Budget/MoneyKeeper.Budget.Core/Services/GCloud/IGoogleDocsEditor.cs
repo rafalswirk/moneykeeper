@@ -1,4 +1,4 @@
-﻿namespace MoneyKeeper.Console.GCloud
+﻿namespace MoneyKeeper.Budget.Core.Services.GCloud
 {
     public interface IGoogleDocsEditor
     {

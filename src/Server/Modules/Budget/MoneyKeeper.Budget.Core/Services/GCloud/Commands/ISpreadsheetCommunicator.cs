@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Console.GCloud.Commands
+namespace MoneyKeeper.Budget.Core.Services.GCloud.Commands
 {
     internal interface ISpreadsheetCommunicator
     {

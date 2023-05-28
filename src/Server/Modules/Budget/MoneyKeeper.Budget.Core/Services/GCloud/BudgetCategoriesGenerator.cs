@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Console.GCloud
+namespace MoneyKeeper.Budget.Core.Services.GCloud
 {
     public class BudgetCategoriesGenerator
     {
