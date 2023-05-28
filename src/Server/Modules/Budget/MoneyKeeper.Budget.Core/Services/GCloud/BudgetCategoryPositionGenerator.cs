@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Console.GCloud
 {
-    internal class BudgetCategoryPositionGenerator
+    public class BudgetCategoryPositionGenerator
     {
         public IReadOnlyCollection<CategorySpreadsheetMap> Generate(IReadOnlyCollection<BudgetCategory> categories, List<string> rawData, int firstRowNumber)
         {

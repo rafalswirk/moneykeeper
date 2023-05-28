@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Console.GCloud
 {
-    internal class BudgetCategoriesGenerator
+    public class BudgetCategoriesGenerator
     {
         private IGoogleDocsEditor _googleDocsEditor;
 
@@ -16,7 +16,7 @@ namespace MoneyKeeper.Console.GCloud
             _googleDocsEditor = googleDocsEditor;
         }
 
-        internal IReadOnlyCollection<BudgetCategory> Generate(string range)
+        public IReadOnlyCollection<BudgetCategory> Generate(string range)
         {
             var rawData = _googleDocsEditor.GetValuesRange(range);
             var categories = new List<BudgetCategory>();

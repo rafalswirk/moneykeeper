@@ -6,10 +6,22 @@ namespace MoneyKeeper.Budget.API.Controllers
     [Route("api/receipt/spreadsheet")]
     public class SpreadsheetController: ControllerBase
     {
+        public SpreadsheetController()
+        {
+                
+        }
+
+
         [HttpGet]
         public IActionResult GetValue()
         {
             return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult SendValue()
+        { 
+            return BadRequest(); 
         }
     }
 }

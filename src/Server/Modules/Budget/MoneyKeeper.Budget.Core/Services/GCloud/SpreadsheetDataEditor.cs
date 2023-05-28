@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Console.GCloud
 {
-    internal class SpreadsheetDataEditor
+    public class SpreadsheetDataEditor
     {
         public string Add(string cellContent, string value)
         {

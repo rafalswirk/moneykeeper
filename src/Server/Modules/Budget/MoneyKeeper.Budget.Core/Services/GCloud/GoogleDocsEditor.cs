@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Console.GCloud
 {
-    internal class GoogleDocsEditor : IGoogleDocsEditor
+    public class GoogleDocsEditor : IGoogleDocsEditor
     {
         SheetsService _sheetsService;
         Spreadsheet _spreadsheet;
