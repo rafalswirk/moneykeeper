@@ -54,7 +54,10 @@ namespace MoneyKeeper.Budget
             services.AddScoped<SpreadsheetDataEditor>();
             services.AddScoped<GoogleDocsEditor>();
             services.AddScoped<BudgetCategoriesGenerator>();
+            services.AddScoped<BudgetCategoryPositionGenerator>();
             services.AddScoped<CategoriesSetup>();
+            services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
+            services.AddScoped<IGoogleDocsEditor, GoogleDocsEditor>();
             return services;
         }
     }
