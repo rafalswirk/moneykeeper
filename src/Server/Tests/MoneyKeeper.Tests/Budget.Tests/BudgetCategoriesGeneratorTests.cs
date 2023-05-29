@@ -1,4 +1,5 @@
-﻿using MoneyKeeper.Budget.Core.Services.GCloud;
+﻿using MoneyKeeper.Budget.Core.Data;
+using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Console.GCloud;
 using Moq;
 using System;
@@ -35,9 +36,10 @@ namespace MoneyKeeper.Tests.Budget.Tests
                 "Inne",
                 ""
             };
+            var spreadsheetSettings = new SpreadsheetSettings("Wzorzec kategorii", 79);
             var mock = new Mock<IGoogleDocsEditor>();
-            mock.Setup(m => m.GetValuesRange(It.Is<string>(s => s.Equals("Wzorzec kategorii")), It.IsAny<string>())).Returns(input);
-            var generator = new BudgetCategoriesGenerator(mock.Object);
+            mock.Setup(m => m.GetValuesRange(It.Is<string>(s => s.Equals(spreadsheetSettings.CategorySheetName)), It.IsAny<string>())).Returns(input);
+            var generator = new BudgetCategoriesGenerator(mock.Object, spreadsheetSettings);
             
             var categories = generator.Generate("B35:B177");
 

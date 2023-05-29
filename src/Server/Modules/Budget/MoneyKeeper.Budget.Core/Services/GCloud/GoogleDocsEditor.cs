@@ -41,8 +41,8 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
 
         public IEnumerable<string> GetValuesRange(string sheetName, string range)
         {
-            var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == "Wzorzec kategorii");
-            string sheetRange = $"{sheet.Properties.Title}!B35:B177";
+            var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == sheetName);
+            string sheetRange = $"{sheet.Properties.Title}!{range}";
 
             var request = _sheetsService.Spreadsheets.Values.Get(_spreadsheet.SpreadsheetId, sheetRange);
             request.ValueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA;

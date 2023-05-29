@@ -1,4 +1,5 @@
 ﻿using Google.Apis.Sheets.v4.Data;
+using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.Entities;
 using MoneyKeeper.Budget.Repositories;
@@ -17,18 +18,21 @@ namespace MoneyKeeper.Budget.Core.Services
         private readonly IGoogleDocsEditor _editor;
         private readonly BudgetCategoriesGenerator _categoriesGenerator;
         private readonly BudgetCategoryPositionGenerator _categoryPositionGenerator;
+        private readonly SpreadsheetSettings _categoriesSettings;
 
         public CategoriesSetup(IBudgetCategoryRepository budgetCategoryRepository,
                                ICategorySpreadsheetMapRepository spreadsheetMapRepository,
                                IGoogleDocsEditor editor,
                                BudgetCategoriesGenerator categoriesGenerator,
-                               BudgetCategoryPositionGenerator categoryPositionGenerator)
+                               BudgetCategoryPositionGenerator categoryPositionGenerator,
+                               SpreadsheetSettings categoriesSettings)
         {
             _budgetCategoryRepository = budgetCategoryRepository;
             _spreadsheetMapRepository = spreadsheetMapRepository;
             _editor = editor;
             _categoriesGenerator = categoriesGenerator;
             _categoryPositionGenerator = categoryPositionGenerator;
+            _categoriesSettings = categoriesSettings;
         }
         public async Task Make(string range)
         {
@@ -38,10 +42,10 @@ namespace MoneyKeeper.Budget.Core.Services
             {
                 await _budgetCategoryRepository.AddAsync(category);
             }
-            var rawData = _editor.GetValuesRange("Wzorzec kategorii", range);
+            var rawData = _editor.GetValuesRange(_categoriesSettings.CategorySheetName, range);
 
             var positionGenerator = new BudgetCategoryPositionGenerator();
-            var positions = positionGenerator.Generate(categories, rawData.ToList(), 79);
+            var positions = positionGenerator.Generate(categories, rawData.ToList(), _categoriesSettings.CategoryOffset);
 
             foreach (var position in positions)
             {

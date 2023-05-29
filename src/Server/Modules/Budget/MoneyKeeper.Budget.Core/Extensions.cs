@@ -44,6 +44,10 @@ namespace MoneyKeeper.Budget
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(DataDirectories))
                     .Get<DataDirectories>());
+            services.AddSingleton(x =>
+                x.GetRequiredService<IConfiguration>()
+                    .GetSection(nameof(SpreadsheetSettings))
+                    .Get<SpreadsheetSettings>());
             services.AddScoped<DataDirectoriesWrapper>();
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IDirectory, DirectoryWrapper>();

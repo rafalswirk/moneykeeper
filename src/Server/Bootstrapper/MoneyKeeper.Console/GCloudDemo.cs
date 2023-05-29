@@ -65,8 +65,8 @@ namespace MoneyKeeper.Console
             await editor.Init();
 
             editor.AddValueToGoogleDocs("Styczeń", "58", "I", "7");
-
-            var categoriesGenerator = new BudgetCategoriesGenerator(editor);
+            var spreadsheetSettings = new Budget.Core.Data.SpreadsheetSettings("Wzorzec kategorii", 79);
+            var categoriesGenerator = new BudgetCategoriesGenerator(editor, spreadsheetSettings);
             var categories = categoriesGenerator.Generate("fooo");
 
             //await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
@@ -76,11 +76,11 @@ namespace MoneyKeeper.Console
             {
                 await _budgetCategory.AddAsync(category);
             }
-            var rawData = editor.GetValuesRange("Wzorzec kategorii", "B35:B177");
+            var rawData = editor.GetValuesRange(spreadsheetSettings.CategorySheetName, "B35:B177");
 
 
             var positionGenerator = new BudgetCategoryPositionGenerator();
-            var positions = positionGenerator.Generate(categories, rawData.ToList(), 79);
+            var positions = positionGenerator.Generate(categories, rawData.ToList(), spreadsheetSettings.CategoryOffset);
 
             foreach (var position in positions)
             {
