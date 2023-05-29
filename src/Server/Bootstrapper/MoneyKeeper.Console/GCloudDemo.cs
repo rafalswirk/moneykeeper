@@ -76,7 +76,7 @@ namespace MoneyKeeper.Console
             {
                 await _budgetCategory.AddAsync(category);
             }
-            var rawData = editor.GetValuesRange("");
+            var rawData = editor.GetValuesRange("Wzorzec kategorii", "B35:B177");
 
 
             var positionGenerator = new BudgetCategoryPositionGenerator();

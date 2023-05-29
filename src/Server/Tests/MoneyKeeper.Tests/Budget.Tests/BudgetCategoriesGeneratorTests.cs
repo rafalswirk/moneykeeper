@@ -36,7 +36,7 @@ namespace MoneyKeeper.Tests.Budget.Tests
                 ""
             };
             var mock = new Mock<IGoogleDocsEditor>();
-            mock.Setup(m => m.GetValuesRange(It.IsAny<string>())).Returns(input);
+            mock.Setup(m => m.GetValuesRange(It.Is<string>(s => s.Equals("Wzorzec kategorii")), It.IsAny<string>())).Returns(input);
             var generator = new BudgetCategoriesGenerator(mock.Object);
             
             var categories = generator.Generate("B35:B177");

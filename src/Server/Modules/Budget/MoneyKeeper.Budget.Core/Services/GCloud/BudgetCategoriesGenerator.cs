@@ -18,7 +18,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
 
         public IReadOnlyCollection<BudgetCategory> Generate(string range)
         {
-            var rawData = _googleDocsEditor.GetValuesRange(range);
+            var rawData = _googleDocsEditor.GetValuesRange("Wzorzec kategorii", range);
             var categories = new List<BudgetCategory>();
             var groupBy = string.Empty;
             var assignNewGroup = true;

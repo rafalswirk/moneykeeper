@@ -39,7 +39,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             WriteCellValue(sheet, column, row, newValue);
         }
 
-        public IEnumerable<string> GetValuesRange(string range)
+        public IEnumerable<string> GetValuesRange(string sheetName, string range)
         {
             var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == "Wzorzec kategorii");
             string sheetRange = $"{sheet.Properties.Title}!B35:B177";
