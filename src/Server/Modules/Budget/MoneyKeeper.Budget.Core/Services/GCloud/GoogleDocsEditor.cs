@@ -18,29 +18,27 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
         Spreadsheet _spreadsheet;
         private readonly SpreadsheetDataEditor _dataEditor;
 
+        private object syncObject = new object();
+        private bool _isInitialized;
+
         public GoogleDocsEditor(SpreadsheetDataEditor dataEditor)
         {
             _dataEditor = dataEditor;
         }
 
-        public async Task Init()
+        public async Task AddValueToGoogleDocsAsync(string sheet, string row, string column, string value)
         {
-            var loader = new ServiceLoader();
-
-            var sheetsService = await loader.LoadService();
-
-            (_sheetsService, _spreadsheet) = await GetSpreadSheet();
-        }
-
-        public void AddValueToGoogleDocs(string sheet, string row, string column, string value)
-        {
+            if(!_isInitialized)
+                await Init();
             var cellValue = GetValueFromCell(sheet, column, row);
             var newValue = _dataEditor.Add(cellValue, value);
             WriteCellValue(sheet, column, row, newValue);
         }
 
-        public IEnumerable<string> GetValuesRange(string sheetName, string range)
+        public async Task<IEnumerable<string>> GetValuesRangeAsync(string sheetName, string range)
         {
+            if (!_isInitialized)
+                await Init();
             var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == sheetName);
             string sheetRange = $"{sheet.Properties.Title}!{range}";
 
@@ -49,6 +47,15 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             var valueRange = request.Execute();
             var returnValue = valueRange.Values.Select(v => v.FirstOrDefault() ?? string.Empty).Cast<string>().ToList();
             return returnValue;
+        }
+
+        private async Task Init()
+        {
+            var loader = new ServiceLoader();
+
+            var sheetsService = await loader.LoadService();
+
+            (_sheetsService, _spreadsheet) = await GetSpreadSheet();
         }
 
         private string GetValueFromCell(string sheetName, string column, string row)

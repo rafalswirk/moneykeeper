@@ -13,7 +13,7 @@ namespace MoneyKeeper.Tests.Budget.Tests
     public class BudgetCategoriesGeneratorTests
     {
         [Fact]
-        public void Generate_SpreadsheetRawData_ReturnsCategoryCollection()
+        public async Task Generate_SpreadsheetRawData_ReturnsCategoryCollection()
         {
             var input = new List<string>
             { 
@@ -38,10 +38,10 @@ namespace MoneyKeeper.Tests.Budget.Tests
             };
             var spreadsheetSettings = new SpreadsheetSettings("Wzorzec kategorii", 79);
             var mock = new Mock<IGoogleDocsEditor>();
-            mock.Setup(m => m.GetValuesRange(It.Is<string>(s => s.Equals(spreadsheetSettings.CategorySheetName)), It.IsAny<string>())).Returns(input);
+            mock.Setup(m => m.GetValuesRangeAsync(It.Is<string>(s => s.Equals(spreadsheetSettings.CategorySheetName)), It.IsAny<string>())).ReturnsAsync(input);
             var generator = new BudgetCategoriesGenerator(mock.Object, spreadsheetSettings);
             
-            var categories = generator.Generate("B35:B177");
+            var categories = await generator.GenerateAsync("B35:B177");
 
             Assert.NotNull(categories);
             Assert.Equal(9, categories.Count);

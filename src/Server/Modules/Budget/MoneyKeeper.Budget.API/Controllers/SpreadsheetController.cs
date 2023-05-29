@@ -30,14 +30,14 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost("sendvalue")]
         public IActionResult SendValue([FromBody]SpreadsheetValueDto dto)
         {
-            _googleDocsEditor.AddValueToGoogleDocs(dto.Spreadsheet, dto.Row, dto.Column, dto.Value);
+            _googleDocsEditor.AddValueToGoogleDocsAsync(dto.Spreadsheet, dto.Row, dto.Column, dto.Value);
             return Ok(); 
         }
 
         [HttpPost("generatecategories")]
         public async Task<IActionResult> GenerateCategories([FromBody] CategoriesRangeDto dto)
         {
-            await _categoriesSetup.Make($"{dto.From}:{dto.To}");
+            await _categoriesSetup.MakeAsync($"{dto.From}:{dto.To}");
             return Ok();
         }
 

@@ -19,9 +19,9 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             _categoriesSettings = categoriesSettings;
         }
 
-        public IReadOnlyCollection<BudgetCategory> Generate(string range)
+        public async Task<IReadOnlyCollection<BudgetCategory>> GenerateAsync(string range)
         {
-            var rawData = _googleDocsEditor.GetValuesRange(_categoriesSettings.CategorySheetName, range);
+            var rawData = await _googleDocsEditor.GetValuesRangeAsync(_categoriesSettings.CategorySheetName, range);
             var categories = new List<BudgetCategory>();
             var groupBy = string.Empty;
             var assignNewGroup = true;

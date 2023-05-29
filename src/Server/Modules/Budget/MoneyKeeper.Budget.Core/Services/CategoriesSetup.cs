@@ -34,15 +34,15 @@ namespace MoneyKeeper.Budget.Core.Services
             _categoryPositionGenerator = categoryPositionGenerator;
             _categoriesSettings = categoriesSettings;
         }
-        public async Task Make(string range)
+        public async Task MakeAsync(string range)
         {
-            var categories = _categoriesGenerator.Generate(range);
+            var categories = await _categoriesGenerator.GenerateAsync(range);
 
             foreach (var category in categories)
             {
                 await _budgetCategoryRepository.AddAsync(category);
             }
-            var rawData = _editor.GetValuesRange(_categoriesSettings.CategorySheetName, range);
+            var rawData = await _editor.GetValuesRangeAsync(_categoriesSettings.CategorySheetName, range);
 
             var positionGenerator = new BudgetCategoryPositionGenerator();
             var positions = positionGenerator.Generate(categories, rawData.ToList(), _categoriesSettings.CategoryOffset);
