@@ -27,21 +27,21 @@ namespace MoneyKeeper.Budget.API.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost]
+        [HttpPost("sendvalue")]
         public IActionResult SendValue([FromBody]SpreadsheetValueDto dto)
         {
             _googleDocsEditor.AddValueToGoogleDocs(dto.Spreadsheet, dto.Row, dto.Column, dto.Value);
             return Ok(); 
         }
 
-        [HttpPost]
+        [HttpPost("generatecategories")]
         public async Task<IActionResult> GenerateCategories([FromBody] CategoriesRangeDto dto)
         {
             await _categoriesSetup.Make($"{dto.From}:{dto.To}");
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("getcategories")]
         public IActionResult GetCategories()
         {
             throw new NotImplementedException();
