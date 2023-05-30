@@ -67,7 +67,9 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             var request = _sheetsService.Spreadsheets.Values.Get(_spreadsheet.SpreadsheetId, sheetRange);
             request.ValueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA;
             var valueRange = request.Execute();
-            var returnValue = valueRange.Values.Select(v => v.FirstOrDefault() ?? string.Empty).Cast<string>().Single();
+            if (valueRange.Values is null)
+                return string.Empty;
+            var returnValue = valueRange.Values.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? string.Empty;
             return returnValue;
         }
 
