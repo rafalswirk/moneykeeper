@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.Services.GCloud
 {
-    internal class DayToColumnCalculator
+    public class DayToColumnCalculator
     {
         const int HCharacterAsciOffset = 72;
         const int ZCharacterAsciOffset = 90;
