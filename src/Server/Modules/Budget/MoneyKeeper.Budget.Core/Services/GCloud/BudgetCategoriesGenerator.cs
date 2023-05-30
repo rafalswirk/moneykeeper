@@ -1,24 +1,27 @@
-﻿using MoneyKeeper.Budget.Entities;
+﻿using MoneyKeeper.Budget.Core.Data;
+using MoneyKeeper.Budget.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Console.GCloud
+namespace MoneyKeeper.Budget.Core.Services.GCloud
 {
-    internal class BudgetCategoriesGenerator
+    public class BudgetCategoriesGenerator
     {
         private IGoogleDocsEditor _googleDocsEditor;
+        private readonly SpreadsheetSettings _categoriesSettings;
 
-        public BudgetCategoriesGenerator(IGoogleDocsEditor googleDocsEditor)
+        public BudgetCategoriesGenerator(IGoogleDocsEditor googleDocsEditor, SpreadsheetSettings categoriesSettings)
         {
             _googleDocsEditor = googleDocsEditor;
+            _categoriesSettings = categoriesSettings;
         }
 
-        internal IReadOnlyCollection<BudgetCategory> Generate(string range)
+        public async Task<IReadOnlyCollection<BudgetCategory>> GenerateAsync(string range)
         {
-            var rawData = _googleDocsEditor.GetValuesRange(range);
+            var rawData = await _googleDocsEditor.GetValuesRangeAsync(_categoriesSettings.CategorySheetName, range);
             var categories = new List<BudgetCategory>();
             var groupBy = string.Empty;
             var assignNewGroup = true;

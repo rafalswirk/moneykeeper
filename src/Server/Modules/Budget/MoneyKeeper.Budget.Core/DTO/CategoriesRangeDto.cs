@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Console.GCloud.Commands
+namespace MoneyKeeper.Budget.Core.DTO
 {
-    internal interface ICommand<T>
-    {
-        T Execute();
-    }
+    public record CategoriesRangeDto(string From, string To);
 }

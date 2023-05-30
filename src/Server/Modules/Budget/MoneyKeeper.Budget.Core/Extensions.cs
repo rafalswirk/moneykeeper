@@ -5,6 +5,7 @@ using MoneyKeeper.Budget.Core.DAL.Repositories;
 using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services;
+using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
 using MoneyKeeper.Console.GCloud;
@@ -43,10 +44,20 @@ namespace MoneyKeeper.Budget
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(DataDirectories))
                     .Get<DataDirectories>());
+            services.AddSingleton(x =>
+                x.GetRequiredService<IConfiguration>()
+                    .GetSection(nameof(SpreadsheetSettings))
+                    .Get<SpreadsheetSettings>());
             services.AddScoped<DataDirectoriesWrapper>();
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IDirectory, DirectoryWrapper>();
-
+            services.AddScoped<SpreadsheetDataEditor>();
+            services.AddScoped<GoogleDocsEditor>();
+            services.AddScoped<BudgetCategoriesGenerator>();
+            services.AddScoped<BudgetCategoryPositionGenerator>();
+            services.AddScoped<CategoriesSetup>();
+            services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
+            services.AddScoped<IGoogleDocsEditor, GoogleDocsEditor>();
             return services;
         }
     }

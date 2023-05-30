@@ -10,45 +10,52 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Console.GCloud
+namespace MoneyKeeper.Budget.Core.Services.GCloud
 {
-    internal class GoogleDocsEditor : IGoogleDocsEditor
+    public class GoogleDocsEditor : IGoogleDocsEditor
     {
         SheetsService _sheetsService;
         Spreadsheet _spreadsheet;
         private readonly SpreadsheetDataEditor _dataEditor;
+
+        private object syncObject = new object();
+        private bool _isInitialized;
 
         public GoogleDocsEditor(SpreadsheetDataEditor dataEditor)
         {
             _dataEditor = dataEditor;
         }
 
-        public async Task Init()
+        public async Task AddValueToGoogleDocsAsync(string sheet, string row, string column, string value)
         {
-            var loader = new ServiceLoader();
-
-            var sheetsService = await loader.LoadService();
-
-            (_sheetsService, _spreadsheet) = await GetSpreadSheet();
-        }
-
-        public void AddValueToGoogleDocs(string sheet, string row, string column, string value)
-        {
+            if(!_isInitialized)
+                await Init();
             var cellValue = GetValueFromCell(sheet, column, row);
             var newValue = _dataEditor.Add(cellValue, value);
             WriteCellValue(sheet, column, row, newValue);
         }
 
-        public IEnumerable<string> GetValuesRange(string range)
+        public async Task<IEnumerable<string>> GetValuesRangeAsync(string sheetName, string range)
         {
-            var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == "Wzorzec kategorii");
-            string sheetRange = $"{sheet.Properties.Title}!B35:B177";
+            if (!_isInitialized)
+                await Init();
+            var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == sheetName);
+            string sheetRange = $"{sheet.Properties.Title}!{range}";
 
             var request = _sheetsService.Spreadsheets.Values.Get(_spreadsheet.SpreadsheetId, sheetRange);
             request.ValueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA;
             var valueRange = request.Execute();
             var returnValue = valueRange.Values.Select(v => v.FirstOrDefault() ?? string.Empty).Cast<string>().ToList();
             return returnValue;
+        }
+
+        private async Task Init()
+        {
+            var loader = new ServiceLoader();
+
+            var sheetsService = await loader.LoadService();
+
+            (_sheetsService, _spreadsheet) = await GetSpreadSheet();
         }
 
         private string GetValueFromCell(string sheetName, string column, string row)
@@ -60,7 +67,9 @@ namespace MoneyKeeper.Console.GCloud
             var request = _sheetsService.Spreadsheets.Values.Get(_spreadsheet.SpreadsheetId, sheetRange);
             request.ValueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMULA;
             var valueRange = request.Execute();
-            var returnValue = valueRange.Values.Select(v => v.FirstOrDefault() ?? string.Empty).Cast<string>().Single();
+            if (valueRange.Values is null)
+                return string.Empty;
+            var returnValue = valueRange.Values.FirstOrDefault()?.FirstOrDefault()?.ToString() ?? string.Empty;
             return returnValue;
         }
 
