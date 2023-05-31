@@ -41,5 +41,9 @@ namespace MoneyKeeper.Budget.DAL.Repositories
             _context.TaxIds.Update(taxId);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<TaxId> FindByTaxIdAsync(string taxIdNumber)
+            => await _context.TaxIds.SingleOrDefaultAsync(t => t.TaxIdentificationNumber == taxIdNumber);
+        
     }
 }
