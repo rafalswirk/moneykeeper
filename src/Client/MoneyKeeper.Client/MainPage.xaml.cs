@@ -11,6 +11,7 @@ namespace MoneyKeeper.Client
         private const string ReceiptApiUrl = "http://localhost:5126/api/receipt/storage";
 
         private readonly HttpClient _httpClient = new HttpClient();
+        private ReceiptInfoDto _uploadedImageInfo;
 
         public ObservableCollection<string> ImageUrls { get; } = new ObservableCollection<string>();
 
@@ -74,8 +75,9 @@ namespace MoneyKeeper.Client
                     var response = await _httpClient.PostAsync(ReceiptApiUrl, content);
                     if (response.IsSuccessStatusCode)
                     {
-                        var dto = await response.Content.ReadAsAsync<ReceiptInfoDto>();
-                        ImageUrls.Add(dto.ImageName);
+                        _uploadedImageInfo = await response.Content.ReadAsAsync<ReceiptInfoDto>();
+                        ImageUrls.Add(_uploadedImageInfo.ImageName);
+                        await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo));
                     }
                     else
                     {

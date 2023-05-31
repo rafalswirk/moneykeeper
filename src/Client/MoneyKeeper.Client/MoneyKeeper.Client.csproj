@@ -53,6 +53,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="View\ReceiptAnalysisPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\TakePhotoView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
