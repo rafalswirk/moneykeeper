@@ -14,5 +14,6 @@ namespace MoneyKeeper.Budget.Repositories
         Task<IReadOnlyCollection<TaxId>> BrowseAsync();
         Task<TaxId> GetAsync(int id);
         Task UpdateAsync(TaxId taxId);
+        Task<TaxId> FindByTaxIdAsync(string taxIdNumber);
     }
 }
