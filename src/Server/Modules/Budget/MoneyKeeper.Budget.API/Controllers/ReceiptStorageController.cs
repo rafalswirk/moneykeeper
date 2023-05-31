@@ -29,10 +29,7 @@ namespace MoneyKeeper.Budget.API.Controllers
             try 
             {
                 var info = await _receiptStorage.SaveReceipt(file);
-
-                // Return the URL of the saved image
-                var imageUrl = $"{Request.Scheme}://{Request.Host}/api/images/{info.ImageName}";
-                return Ok(new { imageUrl });
+                return Ok(info);
             }
             catch (Exception ex)
             {

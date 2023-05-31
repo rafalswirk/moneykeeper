@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MoneyKeeper.Budget.Core.Data;
+using MoneyKeeper.Budget.Core.DTO;
 using MoneyKeeper.Budget.Core.Entities;
 using MoneyKeeper.Budget.Core.Repositories;
 using System;
@@ -22,7 +23,7 @@ namespace MoneyKeeper.Budget.Core.Services
             _imageDirectoryPath = dataDirectories.ReceiptImagesPath;
         }
 
-        public async Task<ReceiptInfo> SaveReceipt(IFormFile file)
+        public async Task<ReceiptInfoDto> SaveReceipt(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -48,7 +49,7 @@ namespace MoneyKeeper.Budget.Core.Services
                 };
                 await _receiptInfoRepository.AddAsync(receiptInfo);
 
-                return receiptInfo;
+                return Map(receiptInfo);
             }
             catch (Exception)
             {
@@ -56,5 +57,14 @@ namespace MoneyKeeper.Budget.Core.Services
             }
 
         }
+
+        private ReceiptInfoDto Map(ReceiptInfo receiptInfo)
+            => new ReceiptInfoDto(
+                receiptInfo.Id, 
+                receiptInfo.ImageName, 
+                receiptInfo.OcrDataGenerated, 
+                receiptInfo.OcrValidationResult, 
+                receiptInfo.SpreadsheetEntered, 
+                new DateTime(receiptInfo.UploadDate.Year, receiptInfo.UploadDate.Month, receiptInfo.UploadDate.Day));
     }
 }

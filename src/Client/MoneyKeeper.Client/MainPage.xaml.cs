@@ -1,11 +1,15 @@
-﻿using MoneyKeeper.Client.View;
+﻿using MoneyKeeper.Client.DTO;
+using MoneyKeeper.Client.View;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 
 namespace MoneyKeeper.Client
 {
     public partial class MainPage : ContentPage
     {
         private const string ApiUrl = "http://localhost:5126/api/images/";
+        private const string ReceiptApiUrl = "http://localhost:5126/api/receipt/storage";
+
         private readonly HttpClient _httpClient = new HttpClient();
 
         public ObservableCollection<string> ImageUrls { get; } = new ObservableCollection<string>();
@@ -67,11 +71,11 @@ namespace MoneyKeeper.Client
                     var content = new MultipartFormDataContent();
                     content.Add(new StreamContent(await file.OpenReadAsync()), "file", file.FileName);
 
-                    var response = await _httpClient.PostAsync(ApiUrl, content);
+                    var response = await _httpClient.PostAsync(ReceiptApiUrl, content);
                     if (response.IsSuccessStatusCode)
                     {
-                        var imageUrl = await response.Content.ReadAsStringAsync();
-                        ImageUrls.Add(imageUrl);
+                        var dto = await response.Content.ReadAsAsync<ReceiptInfoDto>();
+                        ImageUrls.Add(dto.ImageName);
                     }
                     else
                     {
