@@ -23,5 +23,17 @@ namespace MoneyKeeper.Budget.API.Controllers
                 return NotFound();
             return Ok(new CompanyDto(company.Id, company.TaxIdentificationNumber, company.CompanyName));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCompany(CompanyDto companyDto)
+        {
+            await _taxIdRepository.AddAsync(new Entities.TaxId 
+            {
+                CompanyName = companyDto.Name,
+                TaxIdentificationNumber = companyDto.TaxID
+            });
+
+            return Ok();
+        }
     }
 }
