@@ -10,5 +10,7 @@
             HorizontalOptions="Center" />
         <Label 
             x:Name="lblImage"/>
+        <Button x:Name="btnStartAnalysis" Text="Start analysis" Clicked="btnStartAnalysis_Clicked"/>
+        <ListView x:Name="lstSteps"/>
     </VerticalStackLayout>
 </ContentPage>

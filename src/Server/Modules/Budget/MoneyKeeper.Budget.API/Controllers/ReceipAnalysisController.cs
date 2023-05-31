@@ -19,7 +19,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> MakeAnalysis(int id)
+        public async Task<IActionResult> MakeAnalysis([FromBody] int id)
         {
             var dto = await _receiptAnalysis.MakeAnalysis(id);
             if(dto != null)
