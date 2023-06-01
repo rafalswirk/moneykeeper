@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace MoneyKeeper.Client.View;
 
@@ -11,6 +12,8 @@ public partial class ReceiptAnalysisPage : ContentPage
     private const string ReceiptApiUrl = "http://localhost:5126/api/receipt/";
     private readonly HttpClient _httpClient = new HttpClient();
     private readonly ReceiptInfoDto _uploadedImageInfo;
+    private ReceiptDto _receiptDto;
+
     public ObservableCollection<string> Steps { get; set; } = new();
 
     public ReceiptAnalysisPage(DTO.ReceiptInfoDto uploadedImageInfo)
@@ -40,6 +43,7 @@ public partial class ReceiptAnalysisPage : ContentPage
                 Steps.Add($"Added company: {companyDto.ToString()}");
             }
             ctrlAddCompany.IsVisible = false;
+            await AddEntryToSpreadsheet(_receiptDto.TaxNumber, _receiptDto.Date, _receiptDto.Total);
         }
         catch (Exception ex)
         {
@@ -60,10 +64,10 @@ public partial class ReceiptAnalysisPage : ContentPage
                 return;
             }
 
-            var receiptDto = await response.Content.ReadAsAsync<ReceiptDto>();
-            Steps.Add(receiptDto.ToString());
+            _receiptDto = await response.Content.ReadAsAsync<ReceiptDto>();
+            Steps.Add(_receiptDto.ToString());
 
-            response = await PreapareGetRequestAsync($"{ReceiptApiUrl}companies/?taxId={receiptDto.TaxNumber}");
+            response = await PreapareGetRequestAsync($"{ReceiptApiUrl}companies/?taxId={_receiptDto.TaxNumber}");
             if (!response.IsSuccessStatusCode)
             {
                 Steps.Add("Cannot find company with provided tax id! Analysis terminated.");
@@ -72,14 +76,27 @@ public partial class ReceiptAnalysisPage : ContentPage
             {
                 Steps.Add("Please add new company to proceed");
                 ctrlAddCompany.IsVisible = true;
-                ctrlAddCompany.TaxId = receiptDto.TaxNumber;
+                ctrlAddCompany.TaxId = _receiptDto.TaxNumber;
+                return;
             }
             var companyDto = await response.Content.ReadAsAsync<CompanyDto>();
             Steps.Add(companyDto.ToString());
+
+            await AddEntryToSpreadsheet(_receiptDto.TaxNumber, _receiptDto.Date, _receiptDto.Total);
         }
         catch (Exception ex)
         {
             Steps.Add(ex.Message);
+        }
+    }
+
+    private async Task AddEntryToSpreadsheet(string taxNumber, DateTime date, double total)
+    {
+        var dto = new BudgetEntryDto(taxNumber, date, total);
+        var result = await PreaparePostRequestAsync("http://localhost:5126/api/budget", dto);
+        if (!result.IsSuccessStatusCode) 
+        {
+            Steps.Add("Value cannot be added to spreadsheet");
         }
     }
 
