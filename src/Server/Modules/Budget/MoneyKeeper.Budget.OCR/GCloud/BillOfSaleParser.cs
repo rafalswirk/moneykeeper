@@ -17,7 +17,7 @@ namespace MoneyKeeper.OCR.GCloud
             var textAnnotationParser = new TextAnnotationParser();
             var jsonData = JsonDocument.Parse(gCloudData);
             var rawTaxNumber = textAnnotationParser.Parse(jsonData, "nip");
-            var rawDate = textAnnotationParser.Parse(jsonData, "2023");
+            var rawDate = textAnnotationParser.Parse(jsonData, "23");
             var rawTotal = textAnnotationParser.Parse(jsonData, "suma");
 
             var taxNumber = ExtractTaxNumber(rawTaxNumber);
@@ -36,11 +36,18 @@ namespace MoneyKeeper.OCR.GCloud
         {
             foreach (var text in textData)
             {
-                var regex = new Regex(@"(?<=SUMA PLN\s)\d+(,\d+)?");
-                var match = regex.Match(text.Description);
+                if (text.Description.Contains("PTU"))
+                    continue;
+                var separator = text.Description.Contains(",") ? "," : ".";
+                var regex = new Regex($"\\d+({separator}\\d+)?");
+                var match = regex.Match(text.Description.ToLower());
+
+
                 if (match.Success)
                 {
-                    if (double.TryParse(match.Value, out double result))
+                    string commaSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                    var value = match.Value.Replace(",", commaSeparator).Replace(".", commaSeparator);
+                    if (double.TryParse(value, out double result))
                         return result;
                 }
             }
@@ -60,6 +67,17 @@ namespace MoneyKeeper.OCR.GCloud
                 }
             }
 
+            foreach (var text in textData)
+            {
+                var cleanText = text.Description.ToLower().Replace("nip", "").Replace(":", "").Replace("-", "").Replace(" ", "");
+                var regex = new Regex(@"\d{10}");
+                var match = regex.Match(cleanText);
+                if (match.Success)
+                {
+                    return match.Value;
+                }
+            }
+
             return string.Empty;
         }
 
@@ -76,8 +94,27 @@ namespace MoneyKeeper.OCR.GCloud
                         return result;
                     }
                 }
-            }
 
+                regex = new Regex(@"\d{2}-\d{2}-\d{4}");
+                match = regex.Match(text.Description);
+                if (match.Success)
+                {
+                    if (DateOnly.TryParseExact(match.Value.Replace("r", " "), "dd-MM-yyyy", out DateOnly result))
+                    {
+                        return result;
+                    }
+                }
+
+                regex = new Regex(@"\d{2}r\d{2}.\d{2}");
+                match = regex.Match(text.Description);
+                if (match.Success)
+                {
+                    if (DateOnly.TryParseExact(match.Value.Replace("r", " "), "yy MM.dd", out DateOnly result))
+                    {
+                        return result;
+                    }
+                }
+            }
             return null;
         }
 
