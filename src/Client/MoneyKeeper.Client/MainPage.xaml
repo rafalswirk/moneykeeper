@@ -27,7 +27,7 @@
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
                 HorizontalOptions="Center" />
-
+            <ActivityIndicator x:Name="activIndicator" Color="Red" IsRunning="False"/>
             <Button
                 x:Name="CounterBtn"
                 Text="Upload button"

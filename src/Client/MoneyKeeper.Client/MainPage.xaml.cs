@@ -66,7 +66,7 @@ namespace MoneyKeeper.Client
                     { DevicePlatform.WinUI, new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" } }
                 })
             });
-
+            activIndicator.IsRunning = true;
             if (file != null)
             {
                 try
@@ -82,6 +82,7 @@ namespace MoneyKeeper.Client
                         ImageUrls.Add(_uploadedImageInfo.ImageName);
                         var categoriesResponse = await categoriesRequest;
                         var categories = await categoriesResponse.Content.ReadAsAsync<IReadOnlyList<BudgetCategoryDto>>();
+                        activIndicator.IsRunning = false;
                         await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo, categories));
                     }
                     else
@@ -91,6 +92,8 @@ namespace MoneyKeeper.Client
                 }
                 catch (Exception ex)
                 {
+                    activIndicator.IsRunning = false;
+
                     await DisplayAlert("Alert", ex.Message, "OK");    
                 }
             }
