@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Client.DTO
 {
-    public record CompanyDto(int Id, string TaxID, string Name);
+    public record CompanyDto(int Id, string TaxID, string Name, int CategoryId);
 }

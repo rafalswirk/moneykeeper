@@ -38,7 +38,7 @@ public partial class ReceiptAnalysisPage : ContentPage
     {
         try
         {
-            var companyDto = new CompanyDto(0, ctrlAddCompany.TaxId, ctrlAddCompany.CompanyName);
+            var companyDto = new CompanyDto(0, ctrlAddCompany.TaxId, ctrlAddCompany.CompanyName, _categories[ctrlAddCompany.CategorySelectedIndex].Id);
             var result = await PreaparePostRequestAsync(ReceiptApiUrl + "receipt/companies", companyDto);
             if(result.IsSuccessStatusCode)
             {

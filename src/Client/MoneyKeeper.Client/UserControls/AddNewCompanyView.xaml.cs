@@ -19,7 +19,7 @@ public partial class AddNewCompanyView : ContentView
         set => pickCategory.ItemsSource = value; 
     }
 
-    public int SelectedIndex 
+    public int CategorySelectedIndex 
     { 
         get => pickCategory.SelectedIndex;
     }
