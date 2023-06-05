@@ -11,7 +11,18 @@ public partial class AddNewCompanyView : ContentView
     {
         get => entryCompanyName.Text;
         set => entryCompanyName.Text = value;
-    } 
+    }
+
+    public List<string> Categories 
+    { 
+        get => pickCategory.GetItemsAsList(); 
+        set => pickCategory.ItemsSource = value; 
+    }
+
+    public int SelectedIndex 
+    { 
+        get => pickCategory.SelectedIndex;
+    }
 
     public event EventHandler OnSave;
     public event EventHandler OnReject;

@@ -19,5 +19,6 @@
             <Button x:Name="btnSave" Text="Save" BackgroundColor="Green" Clicked="btnSave_Clicked"/>
             <Button x:Name="btnReject" Text="Reject" BackgroundColor="Red" Clicked="btnReject_Clicked"/>
         </StackLayout>
+        <Picker x:Name="pickCategory"/>
     </VerticalStackLayout>
 </ContentView>
