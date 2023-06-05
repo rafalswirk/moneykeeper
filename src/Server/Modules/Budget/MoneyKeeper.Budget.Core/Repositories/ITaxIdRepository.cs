@@ -9,7 +9,7 @@ namespace MoneyKeeper.Budget.Repositories
 {
     public interface ITaxIdRepository
     {
-        Task AddAsync(TaxId taxId);
+        Task<int> AddAsync(TaxId taxId);
         Task DeleteAsync(TaxId taxId);
         Task<IReadOnlyCollection<TaxId>> BrowseAsync();
         Task<TaxId> GetAsync(int id);

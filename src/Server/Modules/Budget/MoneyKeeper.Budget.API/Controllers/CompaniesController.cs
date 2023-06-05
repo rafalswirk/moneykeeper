@@ -10,11 +10,13 @@ namespace MoneyKeeper.Budget.API.Controllers
     {
         private readonly ITaxIdRepository _taxIdRepository;
         private readonly ITaxMappingRepository _taxMappingRepository;
+        private readonly IBudgetCategoryRepository _budgetCategoryRepository;
 
-        public CompaniesController(ITaxIdRepository taxIdRepository, ITaxMappingRepository taxMappingRepository)
+        public CompaniesController(ITaxIdRepository taxIdRepository, ITaxMappingRepository taxMappingRepository, IBudgetCategoryRepository budgetCategoryRepository)
         {
             _taxIdRepository = taxIdRepository;
             _taxMappingRepository = taxMappingRepository;
+            _budgetCategoryRepository = budgetCategoryRepository;
         }
 
         [HttpGet]
@@ -30,10 +32,15 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCompany(CompanyDto companyDto)
         {
-            await _taxIdRepository.AddAsync(new Entities.TaxId 
+            var companyId = await _taxIdRepository.AddAsync(new Entities.TaxId 
             {
                 CompanyName = companyDto.Name,
                 TaxIdentificationNumber = companyDto.TaxID
+            });
+            await _taxMappingRepository.AddAsync(new Entities.TaxIdMapping 
+            {
+                Category = await _budgetCategoryRepository.GetAsync(companyDto.CategoryId),
+                TaxId = await _taxIdRepository.GetAsync(companyId)
             });
 
             return Ok();

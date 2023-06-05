@@ -33,10 +33,10 @@ namespace MoneyKeeper.Budget.DAL.Repositories
         }
 
         public async Task<TaxIdMapping> FindByTaxIdAsync(string taxId)
-            => await _context.TaxIdMapping.SingleAsync(t => t.TaxId.TaxIdentificationNumber == taxId);
+            => await _context.TaxIdMapping.Include(i => i.Category).SingleAsync(t => t.TaxId.TaxIdentificationNumber == taxId);
 
         public async Task<TaxIdMapping> GetAsync(int id)
-            => await _context.TaxIdMapping.SingleAsync(x => x.Id == id);
+            => await _context.TaxIdMapping.Include(i => i.Category).SingleAsync(x => x.Id == id);
 
         public async Task UpdateCategoryAsync(TaxIdMapping category)
         {
