@@ -7,8 +7,11 @@ namespace MoneyKeeper.Client
 {
     public partial class MainPage : ContentPage
     {
-        private const string ApiUrl = "http://localhost:5126/api/images/";
-        private const string ReceiptApiUrl = "http://localhost:5126/api/receipt/storage";
+        private const string BaseApiUrl = "http://localhost:5126/api/";
+        private readonly string ImagesApiUrl = $"{BaseApiUrl}images/";
+        private readonly string ReceiptApiUrl = $"{BaseApiUrl}receipt/storage";
+        private readonly string CategoriesApiUrl = $"{BaseApiUrl}budget/categories";
+
 
         private readonly HttpClient _httpClient = new HttpClient();
         private ReceiptInfoDto _uploadedImageInfo;
@@ -28,7 +31,7 @@ namespace MoneyKeeper.Client
             // Fetch the list of image URLs from the API
             try
             {
-                var response = await _httpClient.GetAsync(ApiUrl + "all");
+                var response = await _httpClient.GetAsync(ImagesApiUrl + "all");
                 if (response.IsSuccessStatusCode)
                 {
                     var imageUrls = await response.Content.ReadAsAsync<List<string>>();
@@ -71,13 +74,15 @@ namespace MoneyKeeper.Client
                     // Upload the file to the API
                     var content = new MultipartFormDataContent();
                     content.Add(new StreamContent(await file.OpenReadAsync()), "file", file.FileName);
-
+                    var categoriesRequest = _httpClient.GetAsync(CategoriesApiUrl);
                     var response = await _httpClient.PostAsync(ReceiptApiUrl, content);
                     if (response.IsSuccessStatusCode)
                     {
                         _uploadedImageInfo = await response.Content.ReadAsAsync<ReceiptInfoDto>();
                         ImageUrls.Add(_uploadedImageInfo.ImageName);
-                        await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo));
+                        var categoriesResponse = await categoriesRequest;
+                        var categories = await categoriesResponse.Content.ReadAsAsync<IReadOnlyList<BudgetCategoryDto>>();
+                        await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo, categories));
                     }
                     else
                     {
@@ -95,7 +100,7 @@ namespace MoneyKeeper.Client
         {
             try
             {
-                var response = await _httpClient.GetAsync(ApiUrl + "isalive");
+                var response = await _httpClient.GetAsync(ImagesApiUrl + "isalive");
                 if(!response.IsSuccessStatusCode)
                     throw new Exception("Server is not alive");
                 await DisplayAlert("Alert", "Server is alive", "Ok");

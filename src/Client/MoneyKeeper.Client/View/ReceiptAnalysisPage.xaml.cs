@@ -12,16 +12,18 @@ public partial class ReceiptAnalysisPage : ContentPage
     private const string ReceiptApiUrl = "http://localhost:5126/api/";
     private readonly HttpClient _httpClient = new HttpClient();
     private readonly ReceiptInfoDto _uploadedImageInfo;
+    private readonly IReadOnlyList<BudgetCategoryDto> _categories;
     private ReceiptDto _receiptDto;
 
     public ObservableCollection<string> Steps { get; set; } = new();
 
-    public ReceiptAnalysisPage(DTO.ReceiptInfoDto uploadedImageInfo)
+    public ReceiptAnalysisPage(DTO.ReceiptInfoDto uploadedImageInfo, IReadOnlyList<BudgetCategoryDto> categories)
 	{
 		InitializeComponent();
         lstSteps.ItemsSource = Steps;
 		lblImage.Text = uploadedImageInfo.ToString();
         _uploadedImageInfo = uploadedImageInfo;
+        _categories = categories;
         ctrlAddCompany.OnSave += CtrlAddCompany_OnSave;
         ctrlAddCompany.OnReject += CtrlAddCompany_OnReject;
     }
@@ -77,6 +79,7 @@ public partial class ReceiptAnalysisPage : ContentPage
                 Steps.Add("Please add new company to proceed");
                 ctrlAddCompany.IsVisible = true;
                 ctrlAddCompany.TaxId = _receiptDto.TaxNumber;
+                ctrlAddCompany.Categories = _categories.Select(c => c.Category).ToList();
                 return;
             }
             var companyDto = await response.Content.ReadAsAsync<CompanyDto>();
