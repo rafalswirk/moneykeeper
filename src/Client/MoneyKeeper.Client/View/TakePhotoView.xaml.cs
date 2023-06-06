@@ -9,9 +9,15 @@ public partial class TakePhotoView : ContentPage
     public TakePhotoView()
 	{
 		InitializeComponent();
+        Dispatcher.DispatchAsync(async () => await TakePhoto());
 	}
 
     private async void btnCapturePhoto_Clicked(object sender, EventArgs e)
+    {
+        await TakePhoto();
+    }
+
+    private async Task TakePhoto()
     {
         if (!MediaPicker.IsCaptureSupported)
         {
@@ -25,7 +31,7 @@ public partial class TakePhotoView : ContentPage
             if (photo != null)
             {
                 // save the file into local storage
-                string localFilePath = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+                string localFilePath = Path.Combine(FileSystem.AppDataDirectory, photo.FileName);
 
                 using Stream sourceStream = await photo.OpenReadAsync();
                 using FileStream localFileStream = File.OpenWrite(localFilePath);
