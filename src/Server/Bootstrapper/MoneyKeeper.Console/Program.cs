@@ -46,6 +46,7 @@ namespace MoneyKeeper.Console
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddCore();
+                    services.AddScoped<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>
                 {
