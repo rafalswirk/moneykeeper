@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.DTO
+namespace MoneyKeeper.UnitTests.DataModels
 {
-    public record CompanyDto(int Id, string TaxID, string Name, int CategoryId);
+    internal record AnalyseResult(string NIP, DateTime Date, double Total);
 }

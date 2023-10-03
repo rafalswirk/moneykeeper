@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.DTO
+namespace MoneyKeeper.Client.DTO
 {
-    public record CompanyDto(int Id, string TaxID, string Name, int CategoryId);
+    public record ReceiptDto(string TaxNumber, DateTime Date, double Total);
 }

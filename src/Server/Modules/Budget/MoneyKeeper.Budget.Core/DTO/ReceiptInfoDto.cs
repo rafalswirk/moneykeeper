@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.DTO
 {
-    public record CompanyDto(int Id, string TaxID, string Name, int CategoryId);
+    public record ReceiptInfoDto(int Id, string ImageName, bool OcrDataGenerated, bool OcrDataValidationResult, bool SpreadsheetEntered, DateTime UploadDate);
 }

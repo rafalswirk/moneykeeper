@@ -1,12 +1,20 @@
-﻿using MoneyKeeper.Client.View;
+﻿using MoneyKeeper.Client.DTO;
+using MoneyKeeper.Client.View;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 
 namespace MoneyKeeper.Client
 {
     public partial class MainPage : ContentPage
     {
-        private const string ApiUrl = "http://localhost:5126/api/images/";
+        private const string BaseApiUrl = "http://localhost:5126/api/";
+        private readonly string ImagesApiUrl = $"{BaseApiUrl}images/";
+        private readonly string ReceiptApiUrl = $"{BaseApiUrl}receipt/storage";
+        private readonly string CategoriesApiUrl = $"{BaseApiUrl}budget/categories";
+
+
         private readonly HttpClient _httpClient = new HttpClient();
+        private ReceiptInfoDto _uploadedImageInfo;
 
         public ObservableCollection<string> ImageUrls { get; } = new ObservableCollection<string>();
 
@@ -23,7 +31,7 @@ namespace MoneyKeeper.Client
             // Fetch the list of image URLs from the API
             try
             {
-                var response = await _httpClient.GetAsync(ApiUrl + "all");
+                var response = await _httpClient.GetAsync(ImagesApiUrl + "all");
                 if (response.IsSuccessStatusCode)
                 {
                     var imageUrls = await response.Content.ReadAsAsync<List<string>>();
@@ -58,7 +66,7 @@ namespace MoneyKeeper.Client
                     { DevicePlatform.WinUI, new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp" } }
                 })
             });
-
+            activIndicator.IsRunning = true;
             if (file != null)
             {
                 try
@@ -66,12 +74,16 @@ namespace MoneyKeeper.Client
                     // Upload the file to the API
                     var content = new MultipartFormDataContent();
                     content.Add(new StreamContent(await file.OpenReadAsync()), "file", file.FileName);
-
-                    var response = await _httpClient.PostAsync(ApiUrl, content);
+                    var categoriesRequest = _httpClient.GetAsync(CategoriesApiUrl);
+                    var response = await _httpClient.PostAsync(ReceiptApiUrl, content);
                     if (response.IsSuccessStatusCode)
                     {
-                        var imageUrl = await response.Content.ReadAsStringAsync();
-                        ImageUrls.Add(imageUrl);
+                        _uploadedImageInfo = await response.Content.ReadAsAsync<ReceiptInfoDto>();
+                        ImageUrls.Add(_uploadedImageInfo.ImageName);
+                        var categoriesResponse = await categoriesRequest;
+                        var categories = await categoriesResponse.Content.ReadAsAsync<IReadOnlyList<BudgetCategoryDto>>();
+                        activIndicator.IsRunning = false;
+                        await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo, categories));
                     }
                     else
                     {
@@ -80,6 +92,8 @@ namespace MoneyKeeper.Client
                 }
                 catch (Exception ex)
                 {
+                    activIndicator.IsRunning = false;
+
                     await DisplayAlert("Alert", ex.Message, "OK");    
                 }
             }
@@ -89,7 +103,7 @@ namespace MoneyKeeper.Client
         {
             try
             {
-                var response = await _httpClient.GetAsync(ApiUrl + "isalive");
+                var response = await _httpClient.GetAsync(ImagesApiUrl + "isalive");
                 if(!response.IsSuccessStatusCode)
                     throw new Exception("Server is not alive");
                 await DisplayAlert("Alert", "Server is alive", "Ok");

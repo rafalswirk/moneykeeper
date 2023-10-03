@@ -35,8 +35,14 @@ namespace MoneyKeeper.Budget.Core.Services
             try
             {
                 var receiptInfo = await _receiptInfoRepository.GetAsync(receiptId);
+                var jsonFilePath = Path.Combine(_dataDirectories.OcrResultsPath, Path.ChangeExtension(receiptInfo.ImageName, ".json"));
+                if (_fileSystem.File.Exists(jsonFilePath))
+                {
+                    var bufferedReceipt = _parser.Parse(_fileSystem.File.ReadAllText(jsonFilePath));
+                    return Map(bufferedReceipt);
+                }
                 var ocrRawData = await _imageProvider.SendImage(Path.Combine(_dataDirectories.ReceiptImagesPath, receiptInfo.ImageName));
-                _fileSystem.File.WriteAllText(Path.Combine(_dataDirectories.OcrResultsPath, $"{Path.GetFileNameWithoutExtension(receiptInfo.ImageName)}.json"), ocrRawData);
+                _fileSystem.File.WriteAllText(jsonFilePath, ocrRawData);
                 receiptInfo.OcrDataGenerated = true;
                 await _receiptInfoRepository.UpdateAsync(receiptInfo);
                 var receipt = _parser.Parse(ocrRawData);

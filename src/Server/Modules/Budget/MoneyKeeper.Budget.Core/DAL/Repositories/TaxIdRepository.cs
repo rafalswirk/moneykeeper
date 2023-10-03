@@ -18,10 +18,11 @@ namespace MoneyKeeper.Budget.DAL.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(TaxId taxId)
+        public async Task<int> AddAsync(TaxId taxId)
         {
-            _context.TaxIds.Add(taxId);
+            var result = _context.TaxIds.Add(taxId);
             await _context.SaveChangesAsync();
+            return result.Entity.Id;
         }
 
         public async Task<IReadOnlyCollection<TaxId>> BrowseAsync()
