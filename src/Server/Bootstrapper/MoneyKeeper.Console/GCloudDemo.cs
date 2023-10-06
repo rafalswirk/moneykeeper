@@ -62,7 +62,7 @@ namespace MoneyKeeper.Console
 
             //next - add value to google spreadsheet
 
-            var editor = new GoogleDocsEditor(new SpreadsheetDataEditor());
+            var editor = new GoogleDocsEditor(new ServiceLoader(""), new SpreadsheetDataEditor());
 
             await editor.AddValueToGoogleDocsAsync("Styczeń", "58", "I", "7");
             var spreadsheetSettings = new Budget.Core.Data.SpreadsheetSettings("Wzorzec kategorii", 79);

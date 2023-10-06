@@ -16,13 +16,15 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
     {
         SheetsService _sheetsService;
         Spreadsheet _spreadsheet;
+        private readonly ServiceLoader _serviceLoader;
         private readonly SpreadsheetDataEditor _dataEditor;
 
         private object syncObject = new object();
         private bool _isInitialized;
 
-        public GoogleDocsEditor(SpreadsheetDataEditor dataEditor)
+        public GoogleDocsEditor(ServiceLoader serviceLoader, SpreadsheetDataEditor dataEditor)
         {
+            _serviceLoader = serviceLoader;
             _dataEditor = dataEditor;
         }
 
@@ -51,11 +53,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
 
         private async Task Init()
         {
-            var loader = new ServiceLoader();
-
-            var sheetsService = await loader.LoadService();
-
-            (_sheetsService, _spreadsheet) = await GetSpreadSheet();
+            (_sheetsService, _spreadsheet) = await GetSpreadSheet(_serviceLoader.LoadService());
         }
 
         private string GetValueFromCell(string sheetName, string column, string row)
@@ -92,26 +90,9 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             request.Execute();
         }
 
-        private async Task<(SheetsService, Spreadsheet)> GetSpreadSheet()
+        private async Task<(SheetsService, Spreadsheet)> GetSpreadSheet(SheetsService service)
         {
-            UserCredential credential;
-            using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
-            {
-                var clientSecrets = await GoogleClientSecrets.FromStreamAsync(stream);
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    clientSecrets.Secrets,
-                    new[] { SheetsService.Scope.Spreadsheets },
-                    "user", CancellationToken.None, new FileDataStore("Development"));
-            }
-
-            // Create the service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = "Books API Sample",
-            });
-
-            var sheetId = "1U_ntsBx82SGhshgs1aR09zAyCB_L0EcJlMh__xAIn9w";
+            var sheetId = "1U_ntsBx82SGhshgs1aR09zAyCB_L0EcJlMh__xAIn9w";   //todo move sheetId to different place
             var spreadsheet = service.Spreadsheets.Get(sheetId).Execute();
             return (service, spreadsheet);
         }
