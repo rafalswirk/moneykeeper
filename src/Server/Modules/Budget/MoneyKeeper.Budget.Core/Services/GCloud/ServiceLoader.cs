@@ -11,19 +11,17 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.Services.GCloud
 {
-    internal class ServiceLoader
+    public class ServiceLoader
     {
-        public async Task<SheetsService> LoadService()
+        private readonly string _credentialFilePath;
+
+        public ServiceLoader(string credentialFilePath)
         {
-            UserCredential credential;
-            using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
-            {
-                var clientSecrets = await GoogleClientSecrets.FromStreamAsync(stream);
-                credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    clientSecrets.Secrets,
-                    new[] { SheetsService.Scope.Spreadsheets },
-                    "user", CancellationToken.None, new FileDataStore("Development"));
-            }
+            _credentialFilePath = credentialFilePath;
+        }
+        public SheetsService LoadService()
+        {
+            GoogleCredential credential = GoogleCredential.FromFile(_credentialFilePath).CreateScoped(SheetsService.Scope.Spreadsheets);
 
             var service = new SheetsService(new BaseClientService.Initializer()
             {

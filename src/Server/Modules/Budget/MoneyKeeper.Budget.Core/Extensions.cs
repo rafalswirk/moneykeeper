@@ -36,10 +36,11 @@ namespace MoneyKeeper.Budget
             services.AddScoped<RecepitStorage>();
             services.AddScoped(x =>
                 new ImageProvider(
-                    x.GetRequiredService<IConfiguration>().GetSection("GCloud:AccessToken").Value,
-                    x.GetRequiredService<IConfiguration>().GetSection("GCloud:ProjectId").Value));
+                    x.GetRequiredService<IConfiguration>().GetSection("GCloud:ApiKey").Value));
             services.AddScoped<ReceiptAnalysis>();
             services.AddScoped<ReceiptAnalysisReader>();
+            services.AddScoped<ServiceLoader>(x =>
+                new ServiceLoader(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ServiceAccountFile").Value));
             services.AddScoped(x =>
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(DataDirectories))

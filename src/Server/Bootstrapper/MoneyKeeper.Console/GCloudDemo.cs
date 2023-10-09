@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = System.IO.File;
 
 namespace MoneyKeeper.Console
 {
@@ -35,12 +36,12 @@ namespace MoneyKeeper.Console
             //.AddUserSecrets<Program>()
             //.Build();
 
-            var token = _configuration.GetSection("GCloud:AccessToken");
-            var projectId = _configuration.GetSection("GCloud:ProjectId");
+            //var apiKey = _configuration.GetSection("GCloud:ApiKey");
+            //var projectId = _configuration.GetSection("GCloud:ProjectId");
 
-            //var imageProvider = new GCloud.ImageProvider();
-            //var filePath = "";
-            //if(args.Length == 0)
+            //var imageProvider = new GCloud.ImageProvider(apiKey.Value);
+            //var filePath = @"C:\Users\rafal\source\repos\money-keeper\src\Server\Tests\MoneyKeeper.Tests\TestData\BillsOfSale\GCloud\1_gcloud.jpg";
+            //if (args.Length == 0)
             //{
             //    System.Console.WriteLine("No image path provided using hardcoded value!");
             //    filePath = @"d:\Paragony\IMG_20230418_102305232~2.jpg";
@@ -50,7 +51,7 @@ namespace MoneyKeeper.Console
             //    filePath = args[0];
             //}
             //var jsonFileName = $"gcloud-{Path.GetFileNameWithoutExtension(filePath)}.json";
-            //var gloudJson = await imageProvider.SendImage(filePath, $"Bearer {token.Value}", projectId.Value);
+            //var gloudJson = await imageProvider.SendImage(filePath);
             //File.WriteAllText(jsonFileName, gloudJson); //paragon2
 
             //var parser = new BillOfSaleParser();
@@ -61,7 +62,7 @@ namespace MoneyKeeper.Console
 
             //next - add value to google spreadsheet
 
-            var editor = new GoogleDocsEditor(new SpreadsheetDataEditor());
+            var editor = new GoogleDocsEditor(new ServiceLoader(""), new SpreadsheetDataEditor());
 
             await editor.AddValueToGoogleDocsAsync("Styczeń", "58", "I", "7");
             var spreadsheetSettings = new Budget.Core.Data.SpreadsheetSettings("Wzorzec kategorii", 79);

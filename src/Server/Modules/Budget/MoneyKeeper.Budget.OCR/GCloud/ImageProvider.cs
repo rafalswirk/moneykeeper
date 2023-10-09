@@ -10,35 +10,23 @@ namespace MoneyKeeper.Console.GCloud
     public class ImageProvider
     {
         string jsonContent = "{\n  \"requests\": [\n    {\n      \"image\": {\n        \"content\": \"base64_image_placeholder\"\n      },\n      \"features\": [\n        {\n          \"type\": \"TEXT_DETECTION\"\n        }\n      ]\n    }\n  ]\n}";
-        private readonly string _token;
-        private readonly string _projectId;
+        private readonly string _apiKey;
 
-        public ImageProvider(string token, string projectId)
+        public ImageProvider(string apiKey)
         {
-            _token = $"Bearer {token}";
-            _projectId = projectId;
+            _apiKey = apiKey;
         }
 
         public async Task<string> SendImage(string imagePath)
         {
             var base64Image = GetBase64(imagePath);
             var client = new HttpClient();
+
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri("https://vision.googleapis.com/v1/images:annotate"),
-                Headers =
-                    {
-                        { "Authorization", _token },
-                        { "x-goog-user-project", _projectId },
-                    },
-                Content = new StringContent(jsonContent.Replace("base64_image_placeholder", base64Image))
-                {
-                    Headers =
-                    {
-                        ContentType = new MediaTypeHeaderValue("application/json")
-                    }
-                }
+                RequestUri = new Uri($"https://vision.googleapis.com/v1/images:annotate?key={_apiKey}"),
+                Content = new StringContent(GenerateJsonPayload(base64Image))
             };
             using (var response = await client.SendAsync(request))
             {
@@ -47,6 +35,25 @@ namespace MoneyKeeper.Console.GCloud
                 System.Console.WriteLine(body);
                 return body;
             }
+        }
+
+        private string GenerateJsonPayload(string imageBase64)
+        {
+            string jsonPayload = @"{
+                'requests': [
+                    {
+                        'image': {
+                            'content': '" + imageBase64 + @"'
+                        },
+                        'features': [
+                            {
+                                'type': 'TEXT_DETECTION'
+                            }
+                        ]
+                    }
+                ]
+            }";
+            return jsonPayload;
         }
 
         public string GetBase64(string imagePath) 
