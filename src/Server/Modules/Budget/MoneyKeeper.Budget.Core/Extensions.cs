@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MoneyKeeper.Budget.Core.DAL.Repositories;
 using MoneyKeeper.Budget.Core.Data;
-using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services;
 using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.DAL.Repositories;
@@ -31,9 +29,7 @@ namespace MoneyKeeper.Budget
             services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();
             services.AddScoped<ITaxIdRepository, TaxIdRepository>();
             services.AddScoped<ISheetToMonthMapRepository, SheetToMonthMapRepository>();
-            services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
 
-            services.AddScoped<RecepitStorage>();
             services.AddScoped(x =>
                 new ImageProvider(
                     x.GetRequiredService<IConfiguration>().GetSection("GCloud:ApiKey").Value));
@@ -49,7 +45,6 @@ namespace MoneyKeeper.Budget
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(SpreadsheetSettings))
                     .Get<SpreadsheetSettings>());
-            services.AddScoped<DataDirectoriesWrapper>();
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<IDirectory, DirectoryWrapper>();
             services.AddScoped<SpreadsheetDataEditor>();
