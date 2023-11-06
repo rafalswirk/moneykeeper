@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\MoneyKeeper.Transactions\MoneyKeeper.Transactions.Core.csproj" />
+	  <ProjectReference Include="..\MoneyKeeper.Transactions.Core\MoneyKeeper.Transactions.Core.csproj" />
 	</ItemGroup>
 
 </Project>

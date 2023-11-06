@@ -14,7 +14,7 @@ namespace MoneyKeeper.Budget
 {
     public static class Extensions
     {
-        public static IServiceCollection AddCore(this IServiceCollection services)
+        public static IServiceCollection AddBudget(this IServiceCollection services)
         {
             services.AddDbContext<Budget.DAL.BudgetCategoryDbContext>(options =>
             {

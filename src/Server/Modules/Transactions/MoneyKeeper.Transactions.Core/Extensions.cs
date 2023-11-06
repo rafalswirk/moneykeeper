@@ -16,7 +16,7 @@ namespace MoneyKeeper.Transactions.Core
 {
     public static class Extensions
     {
-        public static IServiceCollection AddCore(this IServiceCollection services)
+        public static IServiceCollection AddTransactions(this IServiceCollection services)
         {
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<RecepitStorage>();

@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Transactions.OC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Budget.API", "src\Server\Modules\Budget\MoneyKeeper.Budget.API\MoneyKeeper.Budget.API.csproj", "{5545E6A7-D391-4BA6-A51E-19D4E94F1761}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Transactions.Core", "src\Server\Modules\Transactions\MoneyKeeper.Transactions\MoneyKeeper.Transactions.Core.csproj", "{B24B6B07-9A06-439B-9F92-1FBCDA6FE0F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Transactions.Core", "src\Server\Modules\Transactions\MoneyKeeper.Transactions.Core\MoneyKeeper.Transactions.Core.csproj", "{B24B6B07-9A06-439B-9F92-1FBCDA6FE0F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transactions", "Transactions", "{46A9D1AA-3490-4E5F-B372-41E6BD4E04FF}"
 EndProject

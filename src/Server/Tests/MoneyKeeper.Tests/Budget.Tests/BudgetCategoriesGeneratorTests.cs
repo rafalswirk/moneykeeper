@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Tests.Budget.Tests
+namespace MoneyKeeper.UnitTests.Budget.Tests
 {
     public class BudgetCategoriesGeneratorTests
     {
@@ -15,7 +15,7 @@ namespace MoneyKeeper.Tests.Budget.Tests
         public async Task Generate_SpreadsheetRawData_ReturnsCategoryCollection()
         {
             var input = new List<string>
-            { 
+            {
                 "Telekomunikacja",
                 "Telefon 1",
                 "Telefon 2",
@@ -39,7 +39,7 @@ namespace MoneyKeeper.Tests.Budget.Tests
             var mock = new Mock<IGoogleDocsEditor>();
             mock.Setup(m => m.GetValuesRangeAsync(It.Is<string>(s => s.Equals(spreadsheetSettings.CategorySheetName)), It.IsAny<string>())).ReturnsAsync(input);
             var generator = new BudgetCategoriesGenerator(mock.Object, spreadsheetSettings);
-            
+
             var categories = await generator.GenerateAsync("B35:B177");
 
             Assert.NotNull(categories);

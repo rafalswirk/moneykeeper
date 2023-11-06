@@ -1,6 +1,8 @@
 using MoneyKeeper.Budget;
+using MoneyKeeper.Budget.Core;
+using MoneyKeeper.Transactions.Core;
 
-namespace MoneyKeeper
+namespace MoneyKeeper.Web
 {
     public class Program
     {
@@ -14,7 +16,8 @@ namespace MoneyKeeper
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddCore();
+            builder.Services.AddBudget();
+            builder.Services.AddTransactions();
 
             var app = builder.Build();
 
