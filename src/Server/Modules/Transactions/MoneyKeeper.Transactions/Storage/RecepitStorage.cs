@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using MoneyKeeper.Budget.Core.Data;
-using MoneyKeeper.Budget.Core.Entities;
-using MoneyKeeper.Budget.Core.Repositories;
+using MoneyKeeper.Transactions.Core.Data;
 using MoneyKeeper.Transactions.Core.DTO;
+using MoneyKeeper.Transactions.Core.Entities;
+using MoneyKeeper.Transactions.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

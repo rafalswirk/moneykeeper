@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.Entities
+namespace MoneyKeeper.Transactions.Core.Entities
 {
     public class ReceiptInfo
     {
