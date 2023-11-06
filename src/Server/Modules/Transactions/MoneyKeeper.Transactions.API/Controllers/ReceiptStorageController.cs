@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MoneyKeeper.Budget.Core.Data;
-using MoneyKeeper.Budget.Core.Services;
+using MoneyKeeper.Transactions.Core.Data;
+using MoneyKeeper.Transactions.Core.Storage;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.API.Controllers
+namespace MoneyKeeper.Transactions.API.Controllers
 {
 
     [ApiController]
@@ -26,7 +26,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            try 
+            try
             {
                 var info = await _receiptStorage.SaveReceipt(file);
                 return Ok(info);

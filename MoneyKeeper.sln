@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyKeeper.Transactions.Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transactions", "Transactions", "{46A9D1AA-3490-4E5F-B372-41E6BD4E04FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyKeeper.Transactions.API", "src\Server\Modules\Transactions\MoneyKeeper.Transactions.API\MoneyKeeper.Transactions.API.csproj", "{F720C22E-B543-4034-924F-1D47D3423D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{B24B6B07-9A06-439B-9F92-1FBCDA6FE0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B24B6B07-9A06-439B-9F92-1FBCDA6FE0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B24B6B07-9A06-439B-9F92-1FBCDA6FE0F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F720C22E-B543-4034-924F-1D47D3423D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F720C22E-B543-4034-924F-1D47D3423D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F720C22E-B543-4034-924F-1D47D3423D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F720C22E-B543-4034-924F-1D47D3423D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{5545E6A7-D391-4BA6-A51E-19D4E94F1761} = {7E8B52C9-7E8F-455E-A6C1-1346C986B48E}
 		{B24B6B07-9A06-439B-9F92-1FBCDA6FE0F9} = {46A9D1AA-3490-4E5F-B372-41E6BD4E04FF}
 		{46A9D1AA-3490-4E5F-B372-41E6BD4E04FF} = {5750C55C-4B35-4740-8935-C45F26D7FA4B}
+		{F720C22E-B543-4034-924F-1D47D3423D99} = {46A9D1AA-3490-4E5F-B372-41E6BD4E04FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3EBF3903-B71B-4856-B47B-5EAB545CFDCB}
