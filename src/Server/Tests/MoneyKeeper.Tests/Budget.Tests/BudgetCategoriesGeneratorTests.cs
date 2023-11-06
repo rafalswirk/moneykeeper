@@ -1,6 +1,5 @@
 ﻿using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Services.GCloud;
-using MoneyKeeper.Console.GCloud;
 using Moq;
 using System;
 using System.Collections.Generic;

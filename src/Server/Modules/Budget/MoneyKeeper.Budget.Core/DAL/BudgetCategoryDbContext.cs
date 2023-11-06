@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoneyKeeper.Budget.Core.Entities;
 using MoneyKeeper.Budget.Entities;
 using System;
 using System.Collections.Generic;

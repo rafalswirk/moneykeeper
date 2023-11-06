@@ -3,14 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MoneyKeeper.Budget.Core.DAL.Repositories;
-using MoneyKeeper.Budget.Core.Repositories;
-using MoneyKeeper.Budget.DAL;
-using MoneyKeeper.Budget.DAL.Repositories;
-using MoneyKeeper.Budget.Entities;
-using MoneyKeeper.Budget.Repositories;
-using MoneyKeeper.Console.GCloud;
-using MoneyKeeper.OCR.GCloud;
 using MoneyKeeper.Budget;
 
 namespace MoneyKeeper.Console

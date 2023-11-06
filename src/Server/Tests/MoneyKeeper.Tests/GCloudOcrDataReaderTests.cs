@@ -1,4 +1,4 @@
-using MoneyKeeper.OCR.GCloud;
+using MoneyKeeper.Transactions.OCR.GCloud;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Text.Json;
