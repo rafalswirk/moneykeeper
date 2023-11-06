@@ -6,7 +6,6 @@ using MoneyKeeper.Budget.Core.Services;
 using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
-using SixLabors.ImageSharp;
 using System.IO.Abstractions;
 using System.Runtime.CompilerServices;
 
