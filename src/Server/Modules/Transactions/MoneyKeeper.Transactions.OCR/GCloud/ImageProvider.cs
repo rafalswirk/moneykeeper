@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Console.GCloud
+namespace MoneyKeeper.Transactions.OCR.GCloud
 {
     public class ImageProvider
     {
@@ -32,7 +32,7 @@ namespace MoneyKeeper.Console.GCloud
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-                System.Console.WriteLine(body);
+                Console.WriteLine(body);
                 return body;
             }
         }
@@ -56,7 +56,7 @@ namespace MoneyKeeper.Console.GCloud
             return jsonPayload;
         }
 
-        public string GetBase64(string imagePath) 
+        public string GetBase64(string imagePath)
         {
             var image = Image.Load(File.ReadAllBytes(imagePath));
             using (MemoryStream m = new MemoryStream())

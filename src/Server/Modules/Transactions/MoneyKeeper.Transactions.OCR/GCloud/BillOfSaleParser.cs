@@ -1,4 +1,4 @@
-﻿using MoneyKeeper.OCR.GCloud.Models;
+﻿using MoneyKeeper.Transactions.OCR.GCloud.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.OCR.GCloud
+namespace MoneyKeeper.Transactions.OCR.GCloud
 {
     public class BillOfSaleParser
     {
@@ -23,7 +23,7 @@ namespace MoneyKeeper.OCR.GCloud
             var taxNumber = ExtractTaxNumber(rawTaxNumber);
             var date = ExtractDate(rawDate);
             var total = ExtractSum(rawTotal);
-            
+
             if (string.IsNullOrEmpty(taxNumber) || date == null || total == -1)
             {
                 return null;

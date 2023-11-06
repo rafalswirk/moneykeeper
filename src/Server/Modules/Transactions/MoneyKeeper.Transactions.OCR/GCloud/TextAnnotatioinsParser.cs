@@ -1,10 +1,10 @@
-﻿using MoneyKeeper.OCR.GCloud.Models;
+﻿using MoneyKeeper.Transactions.OCR.GCloud.Models;
 using System.Drawing;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MoneyKeeper.OCR.GCloud
+namespace MoneyKeeper.Transactions.OCR.GCloud
 {
     public record TextAnnotation(string Description);
 
@@ -18,16 +18,16 @@ namespace MoneyKeeper.OCR.GCloud
                 .EnumerateArray()
                 .First()
                 .GetProperty("textAnnotations");
-                //.EnumerateArray();
+            //.EnumerateArray();
 
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var annotations = JsonSerializer.Deserialize<IReadOnlyCollection<Annotation>>(textAnnotations, options);
+            var annotations = textAnnotations.Deserialize<IReadOnlyCollection<Annotation>>(options);
             if (annotations == null)
             {
                 return new List<TextAnnotation>(0);
             }
             var searchResults = annotations.Skip(1)?.Where(a => a.Description.ToLower().Contains(textPattern)) ?? new List<Annotation>(0);
-            
+
             var results = new List<TextAnnotation>();
             foreach (var tex in searchResults)
             {
@@ -48,7 +48,7 @@ namespace MoneyKeeper.OCR.GCloud
             {
                 var annotationHeight = annotation.BoundingPoly.Vertices[2].Y - annotation.BoundingPoly.Vertices[0].Y;
                 var annotationMiddle = annotation.BoundingPoly.Vertices[0].Y + annotationHeight / 2;
-                var heightMargin = (int)(annotationHeight * margin / 100);
+                var heightMargin = annotationHeight * margin / 100;
 
                 if (annotationMiddle >= mainAnnotationMiddlePoint - heightMargin
                                        && annotationMiddle <= mainAnnotationMiddlePoint + heightMargin)
