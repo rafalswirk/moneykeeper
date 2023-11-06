@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MoneyKeeper.Budget.Core.Data;
-using MoneyKeeper.Budget.Core.DTO;
 using MoneyKeeper.Budget.Core.Entities;
 using MoneyKeeper.Budget.Core.Repositories;
+using MoneyKeeper.Transactions.Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.Services
+namespace MoneyKeeper.Transactions.Core.Storage
 {
     public class RecepitStorage
     {
@@ -60,11 +60,11 @@ namespace MoneyKeeper.Budget.Core.Services
 
         private ReceiptInfoDto Map(ReceiptInfo receiptInfo)
             => new ReceiptInfoDto(
-                receiptInfo.Id, 
-                receiptInfo.ImageName, 
-                receiptInfo.OcrDataGenerated, 
-                receiptInfo.OcrValidationResult, 
-                receiptInfo.SpreadsheetEntered, 
+                receiptInfo.Id,
+                receiptInfo.ImageName,
+                receiptInfo.OcrDataGenerated,
+                receiptInfo.OcrValidationResult,
+                receiptInfo.SpreadsheetEntered,
                 new DateTime(receiptInfo.UploadDate.Year, receiptInfo.UploadDate.Month, receiptInfo.UploadDate.Day));
     }
 }
