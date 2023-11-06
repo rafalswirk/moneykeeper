@@ -30,11 +30,6 @@ namespace MoneyKeeper.Budget
             services.AddScoped<ITaxIdRepository, TaxIdRepository>();
             services.AddScoped<ISheetToMonthMapRepository, SheetToMonthMapRepository>();
 
-            services.AddScoped(x =>
-                new ImageProvider(
-                    x.GetRequiredService<IConfiguration>().GetSection("GCloud:ApiKey").Value));
-            services.AddScoped<ReceiptAnalysis>();
-            services.AddScoped<ReceiptAnalysisReader>();
             services.AddScoped<ServiceLoader>(x =>
                 new ServiceLoader(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ServiceAccountFile").Value));
             services.AddScoped(x =>

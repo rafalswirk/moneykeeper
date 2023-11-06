@@ -10,4 +10,7 @@
 		<PackageReference Include="System.IO.Abstractions" Version="19.2.29" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\MoneyKeeper.Transactions.OCR\MoneyKeeper.Transactions.OCR.csproj" />
+	</ItemGroup>
 </Project>

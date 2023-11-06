@@ -1,9 +1,8 @@
-﻿using MoneyKeeper.Budget.Core.Data;
-using MoneyKeeper.Budget.Core.DTO;
-using MoneyKeeper.Budget.Core.Repositories;
-using MoneyKeeper.Console.GCloud;
-using MoneyKeeper.OCR.GCloud;
-using MoneyKeeper.OCR.GCloud.Models;
+﻿using MoneyKeeper.Transactions.Core.Data;
+using MoneyKeeper.Transactions.Core.DTO;
+using MoneyKeeper.Transactions.Core.Repositories;
+using MoneyKeeper.Transactions.OCR.GCloud;
+using MoneyKeeper.Transactions.OCR.GCloud.Models;
 using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.Services
+namespace MoneyKeeper.Transactions.Core.Services
 {
     public class ReceiptAnalysisReader
     {
