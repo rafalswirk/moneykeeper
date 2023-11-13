@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MoneyKeeper.Transactions.Core.DAL;
 using MoneyKeeper.Transactions.Core.DAL.Repositories;
 using MoneyKeeper.Transactions.Core.Data;
 using MoneyKeeper.Transactions.Core.Repositories;
@@ -18,6 +20,12 @@ namespace MoneyKeeper.Transactions.Core
     {
         public static IServiceCollection AddTransactions(this IServiceCollection services)
         {
+            services.AddDbContext<TransactionsDbContext>(options =>
+            {
+                using var serviceProvider = services.BuildServiceProvider();
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
+            });
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<RecepitStorage>();
             services.AddScoped<DataDirectoriesWrapper>();
