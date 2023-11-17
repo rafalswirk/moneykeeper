@@ -14,10 +14,11 @@ namespace MoneyKeeper.Web
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            if(builder.Environment.IsDevelopment())
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddBudget();
-            builder.Services.AddTransactions();
+            builder.Services.AddTransactions(builder.Environment.EnvironmentName);
 
             var app = builder.Build();
 

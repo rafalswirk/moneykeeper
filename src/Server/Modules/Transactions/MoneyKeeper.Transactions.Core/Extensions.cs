@@ -18,7 +18,7 @@ namespace MoneyKeeper.Transactions.Core
 {
     public static class Extensions
     {
-        public static IServiceCollection AddTransactions(this IServiceCollection services)
+        public static IServiceCollection AddTransactions(this IServiceCollection services, string environment)
         {
             services.AddDbContext<TransactionsDbContext>(options =>
             {

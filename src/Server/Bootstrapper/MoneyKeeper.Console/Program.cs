@@ -42,7 +42,7 @@ namespace MoneyKeeper.Console
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddBudget();
-                    services.AddTransactions();
+                    services.AddTransactions(hostContext.HostingEnvironment.EnvironmentName);
                     services.AddScoped<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>
