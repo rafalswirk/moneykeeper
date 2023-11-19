@@ -30,10 +30,6 @@ namespace MoneyKeeper.Budget
 
             services.AddScoped<ServiceLoader>(x =>
                 new ServiceLoader(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ServiceAccountFile").Value));
-            services.AddScoped(x =>
-                x.GetRequiredService<IConfiguration>()
-                    .GetSection(nameof(DataDirectories))
-                    .Get<DataDirectories>());
             services.AddSingleton(x =>
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(SpreadsheetSettings))
