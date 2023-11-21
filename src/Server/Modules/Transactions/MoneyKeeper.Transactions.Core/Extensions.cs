@@ -18,14 +18,29 @@ namespace MoneyKeeper.Transactions.Core
 {
     public static class Extensions
     {
+        private const string DevelopmentEnvironment = "Development";
         public static IServiceCollection AddTransactions(this IServiceCollection services, string environment)
         {
-            services.AddDbContext<TransactionsDbContext>(options =>
+            if (environment.Equals(DevelopmentEnvironment))
             {
-                using var serviceProvider = services.BuildServiceProvider();
-                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
-            });
+                services.AddDbContext<TransactionsDbContext>(options =>
+                {
+                    using var serviceProvider = services.BuildServiceProvider();
+                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    var ddd = configuration.GetSection("Database:ConnectionString").Value;
+                    options.UseSqlite(configuration.GetSection("Database:ConnectionString").Value);
+                });
+            }
+            else
+            {
+                services.AddDbContext<TransactionsDbContext>(options =>
+                {
+                    using var serviceProvider = services.BuildServiceProvider();
+                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
+                });
+
+            }
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<RecepitStorage>();
             services.AddScoped<DataDirectoriesWrapper>();
