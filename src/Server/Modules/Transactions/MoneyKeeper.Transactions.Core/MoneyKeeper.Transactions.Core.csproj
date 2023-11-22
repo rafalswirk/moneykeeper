@@ -14,4 +14,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\MoneyKeeper.Transactions.OCR\MoneyKeeper.Transactions.OCR.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="DAL\Migrations\" />
+	</ItemGroup>
 </Project>
