@@ -30,6 +30,7 @@ namespace MoneyKeeper.Transactions.Core
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
                     options.UseSqlite(configuration.GetSection("Development:Database:ConnectionString").Value);
                 });
+                services.ApplyMigrations();
             }
             else
             {

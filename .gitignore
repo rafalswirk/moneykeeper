@@ -362,3 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /src/Server/Bootstrapper/MoneyKeeper.Web/Data/
+
+#Development local database
+Development_Transactions.db
+Development_Transactions.db-shm
+Development_Transactions.db-wal

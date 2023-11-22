@@ -15,5 +15,10 @@ namespace MoneyKeeper.Transactions.Core.DAL
         public TransactionsDbContext(DbContextOptions<TransactionsDbContext> options) : base(options)
         {
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }
