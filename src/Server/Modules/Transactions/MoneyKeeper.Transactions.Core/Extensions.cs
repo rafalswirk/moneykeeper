@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using MoneyKeeper.Transactions.Core.DAL;
 using MoneyKeeper.Transactions.Core.DAL.Repositories;
 using MoneyKeeper.Transactions.Core.Data;
@@ -27,8 +28,7 @@ namespace MoneyKeeper.Transactions.Core
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    var ddd = configuration.GetSection("Database:ConnectionString").Value;
-                    options.UseSqlite(configuration.GetSection("Database:ConnectionString").Value);
+                    options.UseSqlite(configuration.GetSection("Development:Database:ConnectionString").Value);
                 });
             }
             else
