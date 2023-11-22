@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Transactions.Core.DAL
+namespace MoneyKeeper.Budget.DAL
 {
     internal static class Extensions
     {

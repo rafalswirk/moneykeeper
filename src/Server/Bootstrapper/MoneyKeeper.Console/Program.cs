@@ -41,7 +41,7 @@ namespace MoneyKeeper.Console
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddBudget();
+                    services.AddBudget(hostContext.HostingEnvironment.EnvironmentName);
                     services.AddTransactions(hostContext.HostingEnvironment.EnvironmentName);
                     services.AddScoped<GCloudDemo>();
                 })

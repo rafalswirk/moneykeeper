@@ -28,9 +28,9 @@ namespace MoneyKeeper.Transactions.Core
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseSqlite(configuration.GetSection("Development:Database:ConnectionString").Value);
+                    options.UseSqlite(configuration.GetSection("Development:Transactions:Database:ConnectionString").Value);
                 });
-                services.ApplyMigrations();
+                services.ApplyMigrations<TransactionsDbContext>();
             }
             else
             {

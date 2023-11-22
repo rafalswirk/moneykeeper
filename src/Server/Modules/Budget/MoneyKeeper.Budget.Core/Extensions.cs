@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MoneyKeeper.Budget.Core.Data;
 using MoneyKeeper.Budget.Core.Services;
 using MoneyKeeper.Budget.Core.Services.GCloud;
+using MoneyKeeper.Budget.DAL;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
 using System.IO.Abstractions;
@@ -13,15 +14,29 @@ namespace MoneyKeeper.Budget
 {
     public static class Extensions
     {
-        public static IServiceCollection AddBudget(this IServiceCollection services)
-        {
-            services.AddDbContext<Budget.DAL.BudgetCategoryDbContext>(options =>
-            {
-                using var serviceProvider = services.BuildServiceProvider();
-                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
-            });
+        private const string DevelopmentEnvironment = "Development";
 
+        public static IServiceCollection AddBudget(this IServiceCollection services, string environment)
+        {
+            if (environment.Equals(DevelopmentEnvironment))
+            {
+                services.AddDbContext<BudgetCategoryDbContext>(options =>
+                {
+                    using var serviceProvider = services.BuildServiceProvider();
+                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    options.UseSqlite(configuration.GetSection("Development:Budget:Database:ConnectionString").Value);
+                });
+                services.ApplyMigrations<BudgetCategoryDbContext>();
+            }
+            else
+            {
+                services.AddDbContext<BudgetCategoryDbContext>(options =>
+                {
+                    using var serviceProvider = services.BuildServiceProvider();
+                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
+                });
+            }
             services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
             services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
             services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();

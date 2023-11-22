@@ -17,7 +17,7 @@ namespace MoneyKeeper.Web
             if(builder.Environment.IsDevelopment())
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddBudget();
+            builder.Services.AddBudget(builder.Environment.EnvironmentName);
             builder.Services.AddTransactions(builder.Environment.EnvironmentName);
 
             var app = builder.Build();
