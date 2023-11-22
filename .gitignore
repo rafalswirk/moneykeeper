@@ -367,3 +367,6 @@ FodyWeavers.xsd
 Development_Transactions.db
 Development_Transactions.db-shm
 Development_Transactions.db-wal
+Development_Budget.db
+Development_Budget.db-shm
+Development_Budget.db-wal
