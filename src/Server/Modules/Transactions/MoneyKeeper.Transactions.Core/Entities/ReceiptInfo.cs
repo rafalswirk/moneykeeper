@@ -11,7 +11,7 @@ namespace MoneyKeeper.Transactions.Core.Entities
         public int Id { get; set; }
         public string ImageName { get; set; }
         public bool OcrDataGenerated { get; set; }
-        public bool OcrValidationResult { get; set; }
+        public bool? OcrValidationResult { get; set; }
         public bool SpreadsheetEntered { get; set; }
         public DateOnly UploadDate { get; set; }
     }

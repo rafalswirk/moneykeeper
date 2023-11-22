@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoneyKeeper.Transactions.Core.DAL;
 
@@ -10,9 +11,11 @@ using MoneyKeeper.Transactions.Core.DAL;
 namespace MoneyKeeper.Transactions.Core.DAL.Migrations
 {
     [DbContext(typeof(TransactionsDbContext))]
-    partial class TransactionsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231122144255_Nullable-ocr-result")]
+    partial class Nullableocrresult
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -28,13 +31,13 @@ namespace MoneyKeeper.Transactions.Core.DAL.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("OcrDataGenerated")
-                        .HasColumnType("BOOLEAN");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool?>("OcrValidationResult")
-                        .HasColumnType("BOOLEAN");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("SpreadsheetEntered")
-                        .HasColumnType("BOOLEAN");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("UploadDate")
                         .HasColumnType("TEXT");
