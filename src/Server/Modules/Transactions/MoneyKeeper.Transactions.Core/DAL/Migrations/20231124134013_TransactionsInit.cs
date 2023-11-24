@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace MoneyKeeper.Transactions.Core.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class Transactions_Init : Migration
+    public partial class TransactionsInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,13 +16,13 @@ namespace MoneyKeeper.Transactions.Core.DAL.Migrations
                 name: "ReceiptInfos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ImageName = table.Column<string>(type: "TEXT", nullable: false),
-                    OcrDataGenerated = table.Column<bool>(type: "BOOLEAN", nullable: false),
-                    OcrValidationResult = table.Column<bool>(type: "BOOLEAN", nullable: false),
-                    SpreadsheetEntered = table.Column<bool>(type: "BOOLEAN", nullable: false),
-                    UploadDate = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ImageName = table.Column<string>(type: "text", nullable: false),
+                    OcrDataGenerated = table.Column<bool>(type: "boolean", nullable: false),
+                    OcrValidationResult = table.Column<bool>(type: "boolean", nullable: true),
+                    SpreadsheetEntered = table.Column<bool>(type: "boolean", nullable: false),
+                    UploadDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
