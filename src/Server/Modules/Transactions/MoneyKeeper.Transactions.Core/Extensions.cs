@@ -38,7 +38,7 @@ namespace MoneyKeeper.Transactions.Core
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
+                    options.UseNpgsql(configuration.GetSection("Production:Transactions:Database:ConnectionString").Value);
                 });
 
             }

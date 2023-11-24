@@ -20,6 +20,7 @@ namespace MoneyKeeper.Budget
         {
             if (environment.Equals(DevelopmentEnvironment))
             {
+                Console.WriteLine("Running with Sqlite");
                 services.AddDbContext<BudgetCategoryDbContext>(options =>
                 {
                     using var serviceProvider = services.BuildServiceProvider();
@@ -30,11 +31,12 @@ namespace MoneyKeeper.Budget
             }
             else
             {
+                Console.WriteLine("Running with Npqsql");
                 services.AddDbContext<BudgetCategoryDbContext>(options =>
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseNpgsql(configuration.GetSection("Database:ConnectionString").Value);
+                    options.UseNpgsql(configuration.GetSection("Production:Budget:Database:ConnectionString").Value);
                 });
             }
             services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
