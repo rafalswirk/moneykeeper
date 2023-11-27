@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.OCR.GCloud.Models
+namespace MoneyKeeper.Transactions.OCR.GCloud.Models
 {
     public record Vertices(int X, int Y);
     public record BoundingPoly(Vertices[] Vertices);

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13" />
+	    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+		<PackageReference Include="System.IO.Abstractions" Version="19.2.69" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\MoneyKeeper.Transactions.OCR\MoneyKeeper.Transactions.OCR.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="DAL\Migrations\" />
+	</ItemGroup>
+</Project>

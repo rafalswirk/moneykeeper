@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MoneyKeeper.Budget.Core.Services;
-using MoneyKeeper.Console.GCloud;
+using MoneyKeeper.Transactions.Core.Services;
 
-namespace MoneyKeeper.Budget.API.Controllers
+namespace MoneyKeeper.Transactions.API.Controllers
 
 {
     [ApiController]
@@ -22,7 +21,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         public async Task<IActionResult> MakeAnalysis([FromBody] int id)
         {
             var dto = await _receiptAnalysis.MakeAnalysis(id);
-            if(dto != null)
+            if (dto != null)
                 return Ok(dto);
             return StatusCode(500);
         }

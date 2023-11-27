@@ -1,13 +1,12 @@
 ﻿using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.Entities;
-using MoneyKeeper.Console.GCloud;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Tests.Budget.Tests
+namespace MoneyKeeper.UnitTests.Budget.Tests
 {
     public class BudgetCategoryPositionGeneratorTests
     {
@@ -41,8 +40,8 @@ namespace MoneyKeeper.Tests.Budget.Tests
 
             Assert.NotNull(mappings);
             Assert.Equal(5, mappings.Count);
-            Assert.True(mappings.Single(m => m.Category.Category == "Inne" && m.Category.Group == "Opieka zdrowotna").Row == "18");    
-            Assert.True(mappings.Single(m => m.Category.Category == "TV").Row == "12");    
+            Assert.True(mappings.Single(m => m.Category.Category == "Inne" && m.Category.Group == "Opieka zdrowotna").Row == "18");
+            Assert.True(mappings.Single(m => m.Category.Category == "TV").Row == "12");
         }
     }
 }

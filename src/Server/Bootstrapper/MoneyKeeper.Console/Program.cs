@@ -3,15 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MoneyKeeper.Budget.Core.DAL.Repositories;
-using MoneyKeeper.Budget.Core.Repositories;
-using MoneyKeeper.Budget.DAL;
-using MoneyKeeper.Budget.DAL.Repositories;
-using MoneyKeeper.Budget.Entities;
-using MoneyKeeper.Budget.Repositories;
-using MoneyKeeper.Console.GCloud;
-using MoneyKeeper.OCR.GCloud;
 using MoneyKeeper.Budget;
+using MoneyKeeper.Budget.Core;
+using MoneyKeeper.Budget.Core.DAL;
+using MoneyKeeper.Budget.DAL;
+using MoneyKeeper.Transactions.Core;
 
 namespace MoneyKeeper.Console
 {
@@ -26,7 +22,7 @@ namespace MoneyKeeper.Console
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var dbContext = services.GetRequiredService<Budget.DAL.BudgetCategoryDbContext>();
+                    var dbContext = services.GetRequiredService<BudgetCategoryDbContext>();
                     
                 }
                 catch (Exception ex)
@@ -45,7 +41,8 @@ namespace MoneyKeeper.Console
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddCore();
+                    services.AddBudget(hostContext.HostingEnvironment.EnvironmentName);
+                    services.AddTransactions(hostContext.HostingEnvironment.EnvironmentName);
                     services.AddScoped<GCloudDemo>();
                 })
                 .ConfigureAppConfiguration(x =>

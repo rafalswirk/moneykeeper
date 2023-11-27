@@ -1,20 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoneyKeeper.Budget.Core.Entities;
-using MoneyKeeper.Budget.Core.Repositories;
-using MoneyKeeper.Budget.DAL;
+using MoneyKeeper.Transactions.Core.DAL;
+using MoneyKeeper.Transactions.Core.Entities;
+using MoneyKeeper.Transactions.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.DAL.Repositories
+namespace MoneyKeeper.Transactions.Core.DAL.Repositories
 {
     public class ReceiptInfoRepository : IReceiptInfoRepository
     {
-        private readonly BudgetCategoryDbContext _context;
+        private readonly TransactionsDbContext _context;
 
-        public ReceiptInfoRepository(BudgetCategoryDbContext context)
+        public ReceiptInfoRepository(TransactionsDbContext context)
         {
             _context = context;
         }

@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.Data
+namespace MoneyKeeper.Transactions.Core.Data
 {
     public class DataDirectoriesWrapper
     {
         private readonly IDirectory _directory;
         private readonly DataDirectories _dataDirectories;
-        
+
         public string ReceiptImagesPath
         {
             get

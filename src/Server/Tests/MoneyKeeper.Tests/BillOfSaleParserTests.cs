@@ -1,4 +1,4 @@
-﻿using MoneyKeeper.OCR.GCloud;
+﻿using MoneyKeeper.Transactions.OCR.GCloud;
 using System;
 using System.Collections.Generic;
 using System.Linq;
