@@ -10,6 +10,7 @@
             Padding="30,0"
             VerticalOptions="Center">
 
+            <controls:ReceiptsControl Receipts="{Binding Receipts}"/>
             <Image
                 Source="dotnet_bot.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
@@ -49,7 +50,6 @@
                 Clicked="btnTakePhoto_Clicked"
                 HorizontalOptions="Center" />
             <ListView x:Name="listView" ItemsSource="{Binding ImageUrls}" />
-            <controls:ReceiptsControl Receipts="{Binding Receipts}"/>
 
         </VerticalStackLayout>
     </ScrollView>
