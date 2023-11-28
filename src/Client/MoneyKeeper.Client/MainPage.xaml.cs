@@ -15,6 +15,7 @@ namespace MoneyKeeper.Client
 
         private readonly HttpClient _httpClient = new HttpClient();
         private ReceiptInfoDto _uploadedImageInfo;
+        public ObservableCollection<ReceiptInfoDto> Receipts { get; set; } = new ObservableCollection<ReceiptInfoDto>();
 
         public ObservableCollection<string> ImageUrls { get; } = new ObservableCollection<string>();
 
@@ -79,11 +80,12 @@ namespace MoneyKeeper.Client
                     if (response.IsSuccessStatusCode)
                     {
                         _uploadedImageInfo = await response.Content.ReadAsAsync<ReceiptInfoDto>();
+                        Receipts.Add(_uploadedImageInfo);
                         ImageUrls.Add(_uploadedImageInfo.ImageName);
-                        var categoriesResponse = await categoriesRequest;
-                        var categories = await categoriesResponse.Content.ReadAsAsync<IReadOnlyList<BudgetCategoryDto>>();
-                        activIndicator.IsRunning = false;
-                        await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo, categories));
+                        //var categoriesResponse = await categoriesRequest;
+                        //var categories = await categoriesResponse.Content.ReadAsAsync<IReadOnlyList<BudgetCategoryDto>>();
+                        //activIndicator.IsRunning = false;
+                        //await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo, categories));
                     }
                     else
                     {
