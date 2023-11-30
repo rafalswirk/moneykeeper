@@ -7,7 +7,7 @@
             BindingContext="{x:Reference control}"
             ItemsSource="{Binding Receipts}"
             VerticalOptions="Center" 
-            HorizontalOptions="Center">
+            HorizontalOptions="Center" ItemSelected="ListView_ItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

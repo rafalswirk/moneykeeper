@@ -23,6 +23,12 @@ namespace MoneyKeeper.Client
         {
             InitializeComponent();
             BindingContext = this;
+            receiptsControl.ReceiptSelected += ReceiptsControl_ReceiptSelected;
+        }
+
+        private async void ReceiptsControl_ReceiptSelected(object sender, ReceiptInfoDto e)
+        {
+            await DisplayAlert("", $"{e.Id} {e.UploadDate}", "Ok");
         }
 
         protected override async void OnAppearing()
