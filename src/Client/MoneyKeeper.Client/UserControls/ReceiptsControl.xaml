@@ -11,13 +11,13 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
+                        <Grid HeightRequest="50">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Entry IsReadOnly="True" Text="{Binding Id}" Grid.Column="0"/>
-                            <Entry IsReadOnly="True" Text="{Binding UploadDate}" Grid.Column="1"/>
+                            <Label Text="{Binding Id}" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding UploadDate}" Grid.Column="1" VerticalTextAlignment="Center"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
