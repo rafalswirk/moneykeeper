@@ -53,6 +53,7 @@ namespace MoneyKeeper.Transactions.Core
                 new ImageProvider(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ApiKey").Value));
             services.AddScoped<ReceiptAnalysis>();
             services.AddScoped<ReceiptAnalysisReader>();
+            services.AddScoped<ReceiptStorageReader>();
 
             return services;
         }

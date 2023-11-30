@@ -32,14 +32,14 @@ namespace MoneyKeeper.Client
             // Fetch the list of image URLs from the API
             try
             {
-                var response = await _httpClient.GetAsync(ImagesApiUrl + "all");
+                var response = await _httpClient.GetAsync(ReceiptApiUrl + "/all");
                 if (response.IsSuccessStatusCode)
                 {
-                    var imageUrls = await response.Content.ReadAsAsync<List<string>>();
+                    var allInfo = await response.Content.ReadAsAsync<IEnumerable<ReceiptInfoDto>>();
                     ImageUrls.Clear();
-                    foreach (var imageUrl in imageUrls)
+                    foreach (var receiptInfo in allInfo)
                     {
-                        ImageUrls.Add(imageUrl);
+                        Receipts.Add(receiptInfo);
                     }
 
                 }

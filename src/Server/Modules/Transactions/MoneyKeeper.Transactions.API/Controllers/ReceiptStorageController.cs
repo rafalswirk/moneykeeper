@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MoneyKeeper.Transactions.Core.Data;
+using MoneyKeeper.Transactions.Core.Services;
 using MoneyKeeper.Transactions.Core.Storage;
 using System;
 using System.IO;
@@ -15,12 +16,13 @@ namespace MoneyKeeper.Transactions.API.Controllers
     {
         private readonly string _imageDirectoryPath;
         private readonly RecepitStorage _receiptStorage;
+        private readonly ReceiptStorageReader _storageReader;
 
-        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage)
+        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage, ReceiptStorageReader storageReader)
         {
-            _receiptStorage = receiptStorage;
-
             _imageDirectoryPath = dataDirectories.ReceiptImagesPath;
+            _receiptStorage = receiptStorage;
+            _storageReader = storageReader;
         }
 
         [HttpPost]
@@ -55,19 +57,10 @@ namespace MoneyKeeper.Transactions.API.Controllers
         }
 
         [HttpGet("all")]
-        public IActionResult GetImageUrls()
+        public async Task<IActionResult> GetAllInfo()
         {
-            // Get the list of image files
-            var imageFiles = Directory.GetFiles(_imageDirectoryPath);
-            // Create a list of image URLs
-            var imageUrls = new List<string>();
-            foreach (var imageFile in imageFiles)
-            {
-                var fileName = Path.GetFileName(imageFile);
-                var imageUrl = $"{Request.Scheme}://{Request.Host}/api/images/{fileName}";
-                imageUrls.Add(imageUrl);
-            }
-            return Ok(imageUrls);
+            var info = await _storageReader.GetReceipts();
+            return Ok(info);
         }
 
         [HttpGet("isalive")]
