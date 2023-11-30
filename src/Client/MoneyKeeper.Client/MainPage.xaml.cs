@@ -28,7 +28,7 @@ namespace MoneyKeeper.Client
 
         private async void ReceiptsControl_ReceiptSelected(object sender, ReceiptInfoDto e)
         {
-            await DisplayAlert("", $"{e.Id} {e.UploadDate}", "Ok");
+            await Navigation.PushAsync(new ReceiptDetails(e));
         }
 
         protected override async void OnAppearing()
