@@ -4,21 +4,34 @@
              x:Class="MoneyKeeper.Client.View.ReceiptDetails"
              Title="ReceiptDetails" x:Name="control">
     <VerticalStackLayout BindingContext="{x:Reference control}">
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding Info.Id}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"/>
-        <Label 
-            Text="{Binding Info.ImageName}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label 
-            Text="{Binding Info.OcrDataGenerated}"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" StrokeThickness="1" Stroke="Yellow">
+                <Image Source="dotnet_bot.png"  SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200" HorizontalOptions="Center" />
+            </Border>
+            <VerticalStackLayout Grid.Row="1">
+                <Label 
+                    Text="Welcome to .NET MAUI!"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label 
+                    Text="{Binding Info.Id}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"/>
+                <Label 
+                    Text="{Binding Info.ImageName}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label 
+                    Text="{Binding Info.OcrDataGenerated}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>
