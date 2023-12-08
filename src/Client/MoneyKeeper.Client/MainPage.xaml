@@ -4,54 +4,54 @@
              x:Class="MoneyKeeper.Client.MainPage"
              xmlns:controls="clr-namespace:MoneyKeeper.Client.UserControls">
 
-    <ScrollView>
-        <VerticalStackLayout
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
 
-            <controls:ReceiptsControl x:Name="receiptsControl" Receipts="{Binding Receipts}"/>
-            <Image
+                <controls:ReceiptsControl x:Name="receiptsControl" Receipts="{Binding Receipts}"/>
+                <Image
                 Source="dotnet_bot.png"
                 SemanticProperties.Description="Cute dot net bot waving hi to you!"
                 HeightRequest="200"
                 HorizontalOptions="Center" />
 
-            <Label
+                <Label
                 Text="Hello, World!"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
                 HorizontalOptions="Center" />
 
-            <Label
+                <Label
                 Text="Welcome to .NET Multi-platform App UI"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="18"
                 HorizontalOptions="Center" />
-            <ActivityIndicator x:Name="activIndicator" Color="Red" IsRunning="False"/>
-            <Button
+                <ActivityIndicator x:Name="activIndicator" Color="Red" IsRunning="False"/>
+                <Button
                 x:Name="CounterBtn"
                 Text="Upload button"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="UploadButton_Clicked"
                 HorizontalOptions="Center" />
 
-            <Button
+                <Button
                 x:Name="btnIsAlive"
                 Text="Is alive"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="btnIsAlive_Clicked"
                 HorizontalOptions="Center" />
-            <Button
-                x:Name="btnTakePhoto"
-                Text="Take photo"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="btnTakePhoto_Clicked"
-                HorizontalOptions="Center" />
-            <ListView x:Name="listView" ItemsSource="{Binding ImageUrls}" />
-
-        </VerticalStackLayout>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button
+            x:Name="btnTakePhoto"
+            Text="+"
+            SemanticProperties.Hint="Counts the number of times you click"
+            Clicked="btnTakePhoto_Clicked"
+            HorizontalOptions="End" VerticalOptions="End"  CornerRadius="45" Margin="10"/>
+    </Grid>
 
 </ContentPage>
