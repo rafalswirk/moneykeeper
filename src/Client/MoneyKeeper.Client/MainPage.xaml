@@ -5,19 +5,23 @@
              xmlns:controls="clr-namespace:MoneyKeeper.Client.UserControls">
 
     <Grid>
-        <ScrollView>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="1" Opacity="0.3"
+            Source="dotnet_bot.png"
+            SemanticProperties.Description="Cute dot net bot waving hi to you!"
+            HeightRequest="200"
+            HorizontalOptions="Center" />
+        <ScrollView Grid.Column="1">
             <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
 
                 <controls:ReceiptsControl x:Name="receiptsControl" Receipts="{Binding Receipts}"/>
-                <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
                 <Label
                 Text="Hello, World!"
                 SemanticProperties.HeadingLevel="Level1"
@@ -43,11 +47,12 @@
                 Text="Is alive"
                 SemanticProperties.Hint="Counts the number of times you click"
                 Clicked="btnIsAlive_Clicked"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"/>
             </VerticalStackLayout>
         </ScrollView>
-        <Button
+        <Button Grid.Column="1"
             x:Name="btnTakePhoto"
+            WidthRequest="50" HeightRequest="50" 
             Text="+"
             SemanticProperties.Hint="Counts the number of times you click"
             Clicked="btnTakePhoto_Clicked"
