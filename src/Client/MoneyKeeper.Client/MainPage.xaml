@@ -5,17 +5,12 @@
              xmlns:controls="clr-namespace:MoneyKeeper.Client.UserControls">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Image Grid.Column="1" Opacity="0.3"
+        <Image Opacity="0.3"
             Source="dotnet_bot.png"
             SemanticProperties.Description="Cute dot net bot waving hi to you!"
             HeightRequest="200"
             HorizontalOptions="Center" />
-        <ScrollView Grid.Column="1">
+        <ScrollView>
             <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
@@ -50,7 +45,7 @@
                 HorizontalOptions="Center"/>
             </VerticalStackLayout>
         </ScrollView>
-        <Button Grid.Column="1"
+        <Button
             x:Name="btnTakePhoto"
             WidthRequest="50" HeightRequest="50" 
             Text="+"
