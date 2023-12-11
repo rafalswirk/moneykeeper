@@ -43,6 +43,7 @@ namespace MoneyKeeper.Client
                 {
                     var allInfo = await response.Content.ReadAsAsync<IEnumerable<ReceiptInfoDto>>();
                     ImageUrls.Clear();
+                    Receipts.Clear();
                     foreach (var receiptInfo in allInfo)
                     {
                         Receipts.Add(receiptInfo);
