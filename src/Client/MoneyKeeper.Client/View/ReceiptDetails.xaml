@@ -66,7 +66,7 @@
                 <Switch Grid.Column="1" Grid.Row="3"/>
                 <HorizontalStackLayout Grid.Row="4">
                     <Button Text="Analyse" WidthRequest="200" HorizontalOptions="Start"/>
-                    <Button Text="Write to spreadsheet" HorizontalOptions="End"/>
+                    <Button x:Name="btnWriteToSpreadsheet" Text="Write to spreadsheet" HorizontalOptions="End" Clicked="btnWriteToSpreadsheet_Clicked"/>
                 </HorizontalStackLayout>
             </Grid>
         </ScrollView>

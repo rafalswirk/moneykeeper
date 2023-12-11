@@ -20,4 +20,8 @@ public partial class ReceiptDetails : ContentPage
         imagePreview.Source = ImageSource.FromUri(new Uri(apiUrl));
     }
 
+    private void btnWriteToSpreadsheet_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }
