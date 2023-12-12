@@ -1,4 +1,5 @@
-﻿using MoneyKeeper.Client.DTO;
+﻿using MoneyKeeper.Client.Core.Backend;
+using MoneyKeeper.Client.DTO;
 using MoneyKeeper.Client.View;
 using System.Collections.ObjectModel;
 using System.Net.Http;
@@ -7,10 +8,9 @@ namespace MoneyKeeper.Client
 {
     public partial class MainPage : ContentPage
     {
-        private const string BaseApiUrl = "http://localhost:5126/api/";
-        private readonly string ImagesApiUrl = $"{BaseApiUrl}images/";
-        private readonly string ReceiptApiUrl = $"{BaseApiUrl}receipt/storage";
-        private readonly string CategoriesApiUrl = $"{BaseApiUrl}budget/categories";
+        private readonly string ImagesApiUrl = $"{Consts.BaseApiUrl}images/";
+        private readonly string ReceiptApiUrl = $"{Consts.BaseApiUrl}receipt/storage";
+        private readonly string CategoriesApiUrl = $"{Consts.BaseApiUrl}budget/categories";
 
 
         private readonly HttpClient _httpClient = new HttpClient();

@@ -1,13 +1,13 @@
+using MoneyKeeper.Client.Core.Backend;
 using MoneyKeeper.Client.DTO;
 
 namespace MoneyKeeper.Client.View;
 
 public partial class ReceiptDetails : ContentPage
 {
-    private const string BaseApiUrl = "http://localhost:5126/api/";
-    private readonly string ImagesApiUrl = $"{BaseApiUrl}images/";
-    private readonly string ReceiptApiUrl = $"{BaseApiUrl}receipt/storage";
-    private readonly string CategoriesApiUrl = $"{BaseApiUrl}budget/categories";
+    private readonly string ImagesApiUrl = $"{Consts.BaseApiUrl}images/";
+    private readonly string ReceiptApiUrl = $"{Consts.BaseApiUrl}receipt/storage";
+    private readonly string CategoriesApiUrl = $"{Consts.BaseApiUrl}budget/categories";
 
     public ReceiptInfoDto Info { get; }
 
@@ -15,7 +15,7 @@ public partial class ReceiptDetails : ContentPage
 	{
         Info = info;
 		InitializeComponent();
-        string apiUrl = $"{BaseApiUrl}images/{Info.ImageName}";
+        string apiUrl = $"{Consts.BaseApiUrl}images/{Info.ImageName}";
 
         imagePreview.Source = ImageSource.FromUri(new Uri(apiUrl));
     }
