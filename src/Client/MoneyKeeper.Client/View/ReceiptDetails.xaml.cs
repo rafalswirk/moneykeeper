@@ -11,7 +11,7 @@ public partial class ReceiptDetails : ContentPage
 
     public ReceiptInfoDto Info { get; }
 
-	public ReceiptDetails(DTO.ReceiptInfoDto info)
+    public ReceiptDetails(DTO.ReceiptInfoDto info)
 	{
         Info = info;
 		InitializeComponent();
@@ -23,5 +23,12 @@ public partial class ReceiptDetails : ContentPage
     private void btnWriteToSpreadsheet_Clicked(object sender, EventArgs e)
     {
 
+    }
+
+    private async void control_Appearing(object sender, EventArgs e)
+    {
+        var categoriesSource = new TransactionCategories();
+        var categories = await categoriesSource.GetCategories();
+        pckCategories.ItemsSource = categories.ToList();
     }
 }
