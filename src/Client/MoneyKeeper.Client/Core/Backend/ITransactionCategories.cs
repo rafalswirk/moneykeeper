@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoneyKeeper.Client.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace MoneyKeeper.Client.Core.Backend
 {
     internal interface ITransactionCategories
     {
-        Task<IReadOnlyCollection<string>> GetCategories();
+        Task<IReadOnlyCollection<BudgetCategoryDto>> GetCategories();
     }
 }
