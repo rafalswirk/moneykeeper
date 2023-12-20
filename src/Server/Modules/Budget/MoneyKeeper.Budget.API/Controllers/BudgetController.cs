@@ -71,11 +71,10 @@ namespace MoneyKeeper.Budget.API.Controllers
             {
                 var budgetCategories = await _budgetCategoryRepository.BrowseAsync();
                 var mappings = await _taxMappingRepository.BrowseAsync();
-                var category = mappings.Single(m => m.Category.Category == dto.Category).Category;
                 var sheetToMonth = await _sheetToMonthMapRepository.BrowseAsync();
 
                 var spreadsheetMap = await _categorySpreadsheetMapRepository.BrowseAsync();
-                var row = spreadsheetMap.Single(m => m.Category.Id == category.Id).Row;
+                var row = spreadsheetMap.Single(m => m.Category.Id == dto.CategoryId).Row;
 
                 await _googleDocsEditor.AddValueToGoogleDocsAsync(
                     sheetToMonth.Single(s => s.Month == dto.Date.Month).SheetName,

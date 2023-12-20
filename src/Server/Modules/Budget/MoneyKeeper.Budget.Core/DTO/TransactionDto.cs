@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.DTO
 {
-    public record TransactionDto(DateTime Date, string Category, double Sum);
+    public record TransactionDto(DateTime Date, int CategoryId, double Sum);
 }
