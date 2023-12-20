@@ -1,4 +1,5 @@
 using MoneyKeeper.Client.Core.Backend;
+using MoneyKeeper.Client.Core.Backend.Budget;
 using MoneyKeeper.Client.DTO;
 
 namespace MoneyKeeper.Client.View;
@@ -20,9 +21,19 @@ public partial class ReceiptDetails : ContentPage
         imagePreview.Source = ImageSource.FromUri(new Uri(apiUrl));
     }
 
-    private void btnWriteToSpreadsheet_Clicked(object sender, EventArgs e)
+    private async void btnWriteToSpreadsheet_Clicked(object sender, EventArgs e)
     {
+        try
+        {
+            var category = (pckCategories.SelectedItem as BudgetCategoryDto).Category;
+            var transaction = new TransactionCommitByCategory();
+            await transaction.CommitTransactionAsync(new TransactionDto(dpTransactionDate.Date, category, double.Parse(enSum.Text)));
 
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
     private async void control_Appearing(object sender, EventArgs e)

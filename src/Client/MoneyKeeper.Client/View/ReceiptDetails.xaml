@@ -52,9 +52,9 @@
                 <Label Grid.Column="0" Grid.Row="1" Text="Category: " VerticalTextAlignment="Center"/>
                 <Label Grid.Column="0" Grid.Row="2" Text="Purchase date: " VerticalTextAlignment="Center"/>
                 <Label Grid.Column="0" Grid.Row="3" Text="Accept autoanalyse" VerticalTextAlignment="Center"/>
-                <Entry Grid.Column="1" Grid.Row="0" Keyboard="Numeric"/>
+                <Entry x:Name="enSum" Grid.Column="1" Grid.Row="0" Keyboard="Numeric"/>
                 <Picker x:Name="pckCategories" ItemDisplayBinding="{Binding ., Converter={StaticResource BudgetCategoryToText}}" Grid.Column="1" Grid.Row="1" ToolTipProperties.Text="Category"/>
-                <DatePicker Grid.Column="1" Grid.Row="2"/>
+                <DatePicker x:Name="dpTransactionDate" Grid.Column="1" Grid.Row="2"/>
                 <Switch Grid.Column="1" Grid.Row="3"/>
                 <HorizontalStackLayout Grid.Row="4">
                     <Button Text="Analyse" WidthRequest="200" HorizontalOptions="Start"/>
