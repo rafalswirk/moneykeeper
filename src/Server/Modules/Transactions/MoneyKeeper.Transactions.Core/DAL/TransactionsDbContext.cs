@@ -11,6 +11,7 @@ namespace MoneyKeeper.Transactions.Core.DAL
     public class TransactionsDbContext : DbContext
     {
         public DbSet<ReceiptInfo> ReceiptInfos { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         public TransactionsDbContext(DbContextOptions<TransactionsDbContext> options) : base(options)
         {
