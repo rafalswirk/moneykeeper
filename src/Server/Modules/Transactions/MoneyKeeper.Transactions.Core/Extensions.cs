@@ -43,6 +43,7 @@ namespace MoneyKeeper.Transactions.Core
 
             }
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
+            services.AddScoped<ITransactionStorageRepository, TransactionsStorageRepository>();
             services.AddScoped<RecepitStorage>();
             services.AddScoped<DataDirectoriesWrapper>();
             services.AddScoped(x =>
