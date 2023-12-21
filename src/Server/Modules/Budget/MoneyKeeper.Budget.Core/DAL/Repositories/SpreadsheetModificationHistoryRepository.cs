@@ -19,6 +19,7 @@ namespace MoneyKeeper.Budget.Core.DAL.Repositories
         public async Task RecordModificationAsync(Entities.SpreadsheetModificationHistory modification)
         {
             await _context.ModificationHistory.AddAsync(modification);
+            await _context.SaveChangesAsync();
         }
     }
 }
