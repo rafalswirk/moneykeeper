@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using MoneyKeeper.Budget.Core.DAL.Repositories;
 using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Entities;
@@ -20,12 +21,14 @@ namespace MoneyKeeper.Console
         private readonly IBudgetCategoryRepository _budgetCategory;
         private readonly ICategorySpreadsheetMapRepository _spreadsheetMapRepository;
         private readonly IConfiguration _configuration;
+        private readonly IGoogleDocsEditor _googleDocsEditor;
 
-        public GCloudDemo(IBudgetCategoryRepository budgetCategory, ICategorySpreadsheetMapRepository spreadsheetMapRepository, IConfiguration configuration)
+        public GCloudDemo(IBudgetCategoryRepository budgetCategory, ICategorySpreadsheetMapRepository spreadsheetMapRepository, IConfiguration configuration, IGoogleDocsEditor googleDocsEditor)
         {
             _budgetCategory = budgetCategory;
             _spreadsheetMapRepository = spreadsheetMapRepository;
             _configuration = configuration;
+            _googleDocsEditor = googleDocsEditor;
         }
         public async Task Run()
         {
@@ -61,11 +64,9 @@ namespace MoneyKeeper.Console
 
             //next - add value to google spreadsheet
 
-            var editor = new GoogleDocsEditor(new ServiceLoader(""), new SpreadsheetDataEditor());
-
-            await editor.AddValueToGoogleDocsAsync("Styczeń", "58", "I", "7");
+            await _googleDocsEditor.AddValueToGoogleDocsAsync("Styczeń", "58", "I", "7");
             var spreadsheetSettings = new Budget.Core.Data.SpreadsheetSettings("Wzorzec kategorii", 79);
-            var categoriesGenerator = new BudgetCategoriesGenerator(editor, spreadsheetSettings);
+            var categoriesGenerator = new BudgetCategoriesGenerator(_googleDocsEditor, spreadsheetSettings);
             var categories = await categoriesGenerator.GenerateAsync("fooo");
 
             //await editor.AddValueToGoogleDocs($"Bearer {token.Value}", projectId.Value);
@@ -75,7 +76,7 @@ namespace MoneyKeeper.Console
             {
                 await _budgetCategory.AddAsync(category);
             }
-            var rawData = await editor.GetValuesRangeAsync(spreadsheetSettings.CategorySheetName, "B35:B177");
+            var rawData = await _googleDocsEditor.GetValuesRangeAsync(spreadsheetSettings.CategorySheetName, "B35:B177");
 
 
             var positionGenerator = new BudgetCategoryPositionGenerator();
