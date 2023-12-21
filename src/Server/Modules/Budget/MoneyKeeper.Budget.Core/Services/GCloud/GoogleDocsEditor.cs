@@ -3,6 +3,7 @@ using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
+using MoneyKeeper.Budget.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,14 +19,14 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
         Spreadsheet _spreadsheet;
         private readonly ServiceLoader _serviceLoader;
         private readonly SpreadsheetDataEditor _dataEditor;
-
-        private object syncObject = new object();
+        private readonly ISpreadsheetModificationHistory _modificationHistory;
         private bool _isInitialized;
 
-        public GoogleDocsEditor(ServiceLoader serviceLoader, SpreadsheetDataEditor dataEditor)
+        public GoogleDocsEditor(ServiceLoader serviceLoader, SpreadsheetDataEditor dataEditor, ISpreadsheetModificationHistory modificationHistory)
         {
             _serviceLoader = serviceLoader;
             _dataEditor = dataEditor;
+            _modificationHistory = modificationHistory;
         }
 
         public async Task AddValueToGoogleDocsAsync(string sheet, string row, string column, string value)
@@ -35,6 +36,14 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             var cellValue = GetValueFromCell(sheet, column, row);
             var newValue = _dataEditor.Add(cellValue, value);
             WriteCellValue(sheet, column, row, newValue);
+            await _modificationHistory.RecordModificationAsync(new Entities.SpreadsheetModificationHistory 
+            {
+                Column = column,
+                Row = row,
+                SheetName = sheet,
+                Value = value,
+                ModificationDate = DateTime.Now,
+            });
         }
 
         public async Task<IEnumerable<string>> GetValuesRangeAsync(string sheetName, string range)
