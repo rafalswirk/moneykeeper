@@ -1,5 +1,4 @@
 using MoneyKeeper.Client.Core.Backend;
-using MoneyKeeper.Client.Core.Backend.Budget;
 using MoneyKeeper.Client.DTO;
 
 namespace MoneyKeeper.Client.View;
@@ -26,7 +25,7 @@ public partial class ReceiptDetails : ContentPage
         try
         {
             var category = (pckCategories.SelectedItem as BudgetCategoryDto);
-            var transaction = new TransactionCommitByCategory();
+            var transaction = new TransactionCommit();
             await transaction.CommitTransactionAsync(new TransactionDto(dpTransactionDate.Date, category.Id, double.Parse(enSum.Text)));
 
         }

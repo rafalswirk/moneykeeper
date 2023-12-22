@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Client.Core.Backend.Budget
+namespace MoneyKeeper.Client.Core.Backend
 {
-    internal class TransactionCommitByCategory
+    internal class TransactionCommit
     {
         public async Task CommitTransactionAsync(TransactionDto transaction)
         {
