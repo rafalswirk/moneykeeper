@@ -26,8 +26,8 @@ public partial class ReceiptDetails : ContentPage
         {
             var category = (pckCategories.SelectedItem as BudgetCategoryDto);
             var transaction = new TransactionCommit();
-            await transaction.CommitTransactionAsync(new TransactionDto(dpTransactionDate.Date, category.Id, double.Parse(enSum.Text)));
-
+            await transaction.CommitTransactionAsync(
+                new TransactionData(double.Parse(enSum.Text), dpTransactionDate.Date, category.Id, Info.Id));
         }
         catch (Exception)
         {
