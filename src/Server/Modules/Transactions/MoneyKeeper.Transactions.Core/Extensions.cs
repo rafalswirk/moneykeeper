@@ -55,6 +55,7 @@ namespace MoneyKeeper.Transactions.Core
             services.AddScoped<ReceiptAnalysis>();
             services.AddScoped<ReceiptAnalysisReader>();
             services.AddScoped<ReceiptStorageReader>();
+            services.AddScoped<TransactionsService>();
 
             return services;
         }
