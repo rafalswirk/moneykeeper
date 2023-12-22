@@ -32,7 +32,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
         public async Task AddValueToGoogleDocsAsync(string sheet, string row, string column, string value)
         {
             if(!_isInitialized)
-                await Init();
+                Init();
             var cellValue = GetValueFromCell(sheet, column, row);
             var newValue = _dataEditor.Add(cellValue, value);
             WriteCellValue(sheet, column, row, newValue);
@@ -49,7 +49,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
         public async Task<IEnumerable<string>> GetValuesRangeAsync(string sheetName, string range)
         {
             if (!_isInitialized)
-                await Init();
+                Init();
             var sheet = _spreadsheet.Sheets.Single(s => s.Properties.Title == sheetName);
             string sheetRange = $"{sheet.Properties.Title}!{range}";
 
@@ -60,9 +60,9 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             return returnValue;
         }
 
-        private async Task Init()
+        private void Init()
         {
-            (_sheetsService, _spreadsheet) = await GetSpreadSheet(_serviceLoader.LoadService());
+            (_sheetsService, _spreadsheet) = _serviceLoader.LoadService();
         }
 
         private string GetValueFromCell(string sheetName, string column, string row)
@@ -97,13 +97,6 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             var request = _sheetsService.Spreadsheets.Values.Update(updateRequest, _spreadsheet.SpreadsheetId, range);
             request.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
             request.Execute();
-        }
-
-        private async Task<(SheetsService, Spreadsheet)> GetSpreadSheet(SheetsService service)
-        {
-            var sheetId = "1U_ntsBx82SGhshgs1aR09zAyCB_L0EcJlMh__xAIn9w";   //todo move sheetId to different place
-            var spreadsheet = service.Spreadsheets.Get(sheetId).Execute();
-            return (service, spreadsheet);
         }
     }
 }
