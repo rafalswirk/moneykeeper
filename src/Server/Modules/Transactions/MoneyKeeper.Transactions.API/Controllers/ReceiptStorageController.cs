@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MoneyKeeper.Transactions.Core.Data;
+using MoneyKeeper.Transactions.Core.DTO;
 using MoneyKeeper.Transactions.Core.Services;
 using MoneyKeeper.Transactions.Core.Storage;
 using System;
@@ -17,12 +18,14 @@ namespace MoneyKeeper.Transactions.API.Controllers
         private readonly string _imageDirectoryPath;
         private readonly RecepitStorage _receiptStorage;
         private readonly ReceiptStorageReader _storageReader;
+        private readonly ReceiptUpdate _receiptUpdate;
 
-        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage, ReceiptStorageReader storageReader)
+        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage, ReceiptStorageReader storageReader, ReceiptUpdate receiptUpdate)
         {
             _imageDirectoryPath = dataDirectories.ReceiptImagesPath;
             _receiptStorage = receiptStorage;
             _storageReader = storageReader;
+            _receiptUpdate = receiptUpdate;
         }
 
         [HttpPost]
@@ -63,7 +66,14 @@ namespace MoneyKeeper.Transactions.API.Controllers
             return Ok(info);
         }
 
-        [HttpGet("isalive")]
+        [HttpPatch("spreadsheetEntered")]
+        public async Task<IActionResult> ReceiptEnteredToSpreadsheet(int id)
+        {
+            await _receiptUpdate.SetReceiptEnteredToSpreadsheet(id);
+            return Ok();
+        }
+
+        [HttpGet("alive")]
         public IActionResult IsAlive()
         {
             return Ok();

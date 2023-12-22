@@ -28,7 +28,6 @@ namespace MoneyKeeper.Transactions.Core.Services
                 Date = dto.Date,
                 Value = dto.Value,
                 Info = receipt,
-                EntryDate = DateTime.Now
             };
             await _transactionStorage.AddAsync(transaction);
         }

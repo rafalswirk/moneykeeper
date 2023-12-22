@@ -14,6 +14,5 @@ namespace MoneyKeeper.Transactions.Core.Entities
         public double Value { get; set; }
         public DateTime Date { get; set; }
         public ReceiptInfo Info { get; set; }
-        public DateTime EntryDate { get; set; }
     }
 }
