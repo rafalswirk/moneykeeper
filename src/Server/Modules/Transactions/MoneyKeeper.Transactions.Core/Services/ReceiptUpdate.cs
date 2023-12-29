@@ -20,7 +20,7 @@ namespace MoneyKeeper.Transactions.Core.Services
         public async Task SetReceiptEnteredToSpreadsheet(int receiptInfoId)
         {
             var info = await _receiptInfoRepository.GetAsync(receiptInfoId);
-            //info.SpreadheetEntryDate = DateTime.Now;
+            info.SpreadsheetEnterTime = DateTime.Now;
             info.SpreadsheetEntered = true;
             await _receiptInfoRepository.UpdateAsync(info);
         }
