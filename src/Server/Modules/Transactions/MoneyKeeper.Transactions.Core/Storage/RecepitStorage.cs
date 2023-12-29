@@ -46,7 +46,7 @@ namespace MoneyKeeper.Transactions.Core.Storage
                     OcrValidationResult = false,
                     SpreadsheetEntered = false,
                     SpreadsheetEnterTime = DateTime.MinValue,
-                    //UploadDate = new DateOnly(uploadTime.Year, uploadTime.Month, uploadTime.Day)
+                    UploadDate = new DateOnly(uploadTime.Year, uploadTime.Month, uploadTime.Day)
                 };
                 await _receiptInfoRepository.AddAsync(receiptInfo);
 
@@ -66,7 +66,6 @@ namespace MoneyKeeper.Transactions.Core.Storage
                 receiptInfo.OcrDataGenerated,
                 receiptInfo.OcrValidationResult,
                 receiptInfo.SpreadsheetEntered,
-                //new DateTime(receiptInfo.UploadDate.Year, receiptInfo.UploadDate.Month, receiptInfo.UploadDate.Day));
-                DateTime.Now);
+                new DateTime(receiptInfo.UploadDate.Year, receiptInfo.UploadDate.Month, receiptInfo.UploadDate.Day));
     }
 }

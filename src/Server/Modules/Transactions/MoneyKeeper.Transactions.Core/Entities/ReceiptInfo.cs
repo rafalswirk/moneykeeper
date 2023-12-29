@@ -19,6 +19,8 @@ namespace MoneyKeeper.Transactions.Core.Entities
         public bool? OcrValidationResult { get; set; }
         [Column(TypeName = "boolean")]
         public bool SpreadsheetEntered { get; set; }
+        [Column(TypeName = "date")]
+        public DateOnly UploadDate { get; set; }
         [Column(TypeName = "TimestampTz")]
         public DateTime SpreadsheetEnterTime { get; set; }
 

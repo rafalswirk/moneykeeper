@@ -26,7 +26,6 @@ namespace MoneyKeeper.Transactions.Core.Services
 
         private ReceiptInfoDto Map<T>(ReceiptInfo receipt)
             => new(receipt.Id, receipt.ImageName, receipt.OcrDataGenerated, receipt.OcrValidationResult,
-                //receipt.SpreadsheetEntered, new DateTime(receipt.UploadDate.Year, receipt.UploadDate.Month, receipt.UploadDate.Day));
-                receipt.SpreadsheetEntered, DateTime.Today);
+                receipt.SpreadsheetEntered, new DateTime(receipt.UploadDate.Year, receipt.UploadDate.Month, receipt.UploadDate.Day));
     }
 }
