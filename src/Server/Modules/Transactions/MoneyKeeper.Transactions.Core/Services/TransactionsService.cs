@@ -23,11 +23,11 @@ namespace MoneyKeeper.Transactions.Core.Services
         public async Task StoreTransaction(TransactionDto dto)
         {
             var receipt = await _receiptInfoRepository.GetAsync(dto.ReceiptId);
-            var transaction = new Transaction 
+            var transaction = new Transaction
             {
-                Date = dto.Date,
+                TransactionDate = dto.Date,
                 Value = dto.Value,
-                Info = receipt,
+                ReceiptInfoId = dto.ReceiptId,
             };
             await _transactionStorage.AddAsync(transaction);
         }

@@ -5,30 +5,37 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoneyKeeper.Transactions.Core.DAL;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace MoneyKeeper.Transactions.Core.DAL.Migrations
 {
     [DbContext(typeof(TransactionsDbContext))]
-    [Migration("20231222115915_MovingSpreasheetEntryDate")]
-    partial class MovingSpreasheetEntryDate
+    [Migration("20240102152031_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("MoneyKeeper.Transactions.Core.Entities.ReceiptInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ImageName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("OcrDataGenerated")
                         .HasColumnType("boolean");
@@ -36,14 +43,14 @@ namespace MoneyKeeper.Transactions.Core.DAL.Migrations
                     b.Property<bool?>("OcrValidationResult")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("SpreadheetEntryDate")
-                        .HasColumnType("TEXT");
+                    b.Property<DateTime>("SpreadsheetEnterTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("SpreadsheetEntered")
                         .HasColumnType("boolean");
 
                     b.Property<DateOnly>("UploadDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -54,33 +61,39 @@ namespace MoneyKeeper.Transactions.Core.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("InfoId")
-                        .HasColumnType("INTEGER");
+                    b.Property<int?>("ReceiptInfoId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<double>("Value")
-                        .HasColumnType("REAL");
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InfoId");
+                    b.HasIndex("ReceiptInfoId")
+                        .IsUnique();
 
                     b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("MoneyKeeper.Transactions.Core.Entities.Transaction", b =>
                 {
-                    b.HasOne("MoneyKeeper.Transactions.Core.Entities.ReceiptInfo", "Info")
-                        .WithMany()
-                        .HasForeignKey("InfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MoneyKeeper.Transactions.Core.Entities.ReceiptInfo", "ReceiptInfo")
+                        .WithOne("Transaction")
+                        .HasForeignKey("MoneyKeeper.Transactions.Core.Entities.Transaction", "ReceiptInfoId");
 
-                    b.Navigation("Info");
+                    b.Navigation("ReceiptInfo");
+                });
+
+            modelBuilder.Entity("MoneyKeeper.Transactions.Core.Entities.ReceiptInfo", b =>
+                {
+                    b.Navigation("Transaction");
                 });
 #pragma warning restore 612, 618
         }
