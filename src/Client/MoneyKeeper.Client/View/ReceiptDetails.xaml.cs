@@ -1,4 +1,5 @@
 using MoneyKeeper.Client.Core.Backend;
+using MoneyKeeper.Client.Core.Exceptions;
 using MoneyKeeper.Client.DTO;
 
 namespace MoneyKeeper.Client.View;
@@ -24,14 +25,27 @@ public partial class ReceiptDetails : ContentPage
     {
         try
         {
+            stack.IsVisible = false;
+            activIndicator.IsVisible = true;
+            activIndicator.IsRunning = true;
             var category = (pckCategories.SelectedItem as BudgetCategoryDto);
             var transaction = new TransactionCommit();
             await transaction.CommitTransactionAsync(
                 new TransactionData(double.Parse(enSum.Text), dpTransactionDate.Date, category.Id, Info.Id));
         }
+        catch(MoneyKeeperException)
+        {
+            await DisplayAlert("Error", "Error during transaction creation!", "OK");
+        }
         catch (Exception)
         {
             throw;
+        }
+        finally 
+        {
+            stack.IsVisible = true;
+            activIndicator.IsVisible = false;
+            activIndicator.IsRunning = false;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using Flurl;
 using Flurl.Http;
+using MoneyKeeper.Client.Core.Exceptions;
 using MoneyKeeper.Client.DTO;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,16 @@ namespace MoneyKeeper.Client.Core.Backend
     {
         public async Task CommitTransactionAsync(TransactionData transaction)
         {
-            await Consts.BaseApiUrl.AppendPathSegments("budget", "transaction").PostJsonAsync(new TransactionDto(transaction.Date, transaction.CategoryId, transaction.Value));
-            await Consts.BaseApiUrl.AppendPathSegments("receipt", "storage", "spreadsheetEntered").SetQueryParam("id", transaction.ReceiptId).PatchAsync();
-            await Consts.BaseApiUrl.AppendPathSegment("transactions").PostJsonAsync(new TransactionStoreDto(transaction.Value, transaction.Date, transaction.ReceiptId));
+            try
+            {
+                await Consts.BaseApiUrl.AppendPathSegments("budget", "transaction").PostJsonAsync(new TransactionDto(transaction.Date, transaction.CategoryId, transaction.Value));
+                await Consts.BaseApiUrl.AppendPathSegments("receipt", "storage", "spreadsheetEntered").SetQueryParam("id", transaction.ReceiptId).PatchAsync();
+                await Consts.BaseApiUrl.AppendPathSegment("transactions").PostJsonAsync(new TransactionStoreDto(transaction.Value, transaction.Date, transaction.ReceiptId));
+            }
+            catch (Exception ex)
+            {
+                throw new TransactionCommitError("Cannot commit new transaction", ex);
+            }
         }
     }
 }
