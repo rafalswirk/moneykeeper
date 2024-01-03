@@ -25,7 +25,7 @@ namespace MoneyKeeper.Transactions.Core.Services
             var receipt = await _receiptInfoRepository.GetAsync(dto.ReceiptId);
             var transaction = new Transaction
             {
-                TransactionDate = dto.Date,
+                TransactionDate = dto.Date.ToUniversalTime(),
                 Value = dto.Value,
                 ReceiptInfoId = dto.ReceiptId,
             };

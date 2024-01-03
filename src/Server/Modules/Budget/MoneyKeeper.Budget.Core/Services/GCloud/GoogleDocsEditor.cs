@@ -42,7 +42,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
                 Row = row,
                 SheetName = sheet,
                 Value = value,
-                ModificationDate = DateTime.Now,
+                ModificationDate = DateTime.UtcNow,
             });
         }
 
