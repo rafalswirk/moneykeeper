@@ -10,25 +10,12 @@
             SemanticProperties.Description="Cute dot net bot waving hi to you!"
             HeightRequest="200"
             HorizontalOptions="Center" />
-        <ScrollView>
+        <ScrollView VerticalOptions="Start">
             <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-
                 <controls:ReceiptsControl x:Name="receiptsControl" Receipts="{Binding Receipts}"/>
-                <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-                <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
                 <ActivityIndicator x:Name="activIndicator" Color="Red" IsRunning="False"/>
                 <Button
                 x:Name="CounterBtn"
