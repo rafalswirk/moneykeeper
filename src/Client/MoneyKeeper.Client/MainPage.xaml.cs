@@ -101,9 +101,11 @@ namespace MoneyKeeper.Client
                 }
                 catch (Exception ex)
                 {
-                    activIndicator.IsRunning = false;
-
                     await DisplayAlert("Alert", ex.Message, "OK");    
+                }
+                finally
+                {
+                    activIndicator.IsRunning = false;
                 }
             }
         }
