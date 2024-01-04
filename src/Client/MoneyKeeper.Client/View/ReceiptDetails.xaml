@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <ScrollView Grid.Row="0" HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always">
@@ -52,16 +53,20 @@
                 <Label Grid.Column="0" Grid.Row="1" Text="Category: " VerticalTextAlignment="Center"/>
                 <Label Grid.Column="0" Grid.Row="2" Text="Purchase date: " VerticalTextAlignment="Center"/>
                 <Label Grid.Column="0" Grid.Row="3" Text="Accept autoanalyse" VerticalTextAlignment="Center"/>
-                <Entry x:Name="enSum" Grid.Column="1" Grid.Row="0" Keyboard="Numeric"/>
+                <Entry x:Name="enSum" Text="{Binding Value}" Grid.Column="1" Grid.Row="0" Keyboard="Numeric"/>
                 <Picker x:Name="pckCategories" ItemDisplayBinding="{Binding ., Converter={StaticResource BudgetCategoryToText}}" Grid.Column="1" Grid.Row="1" ToolTipProperties.Text="Category"/>
                 <DatePicker x:Name="dpTransactionDate" Grid.Column="1" Grid.Row="2"/>
                 <Switch Grid.Column="1" Grid.Row="3"/>
                 <ActivityIndicator x:Name="activIndicator" Grid.Row="4" Color="Orange" IsVisible="False" IsRunning="False"/>
-                <HorizontalStackLayout Grid.Row="4" x:Name="stack" IsVisible="True">
-                    <Button Text="Analyse" WidthRequest="200" HorizontalOptions="Start"/>
-                    <Button x:Name="btnWriteToSpreadsheet" Text="Write to spreadsheet" HorizontalOptions="End" Clicked="btnWriteToSpreadsheet_Clicked"/>
-                </HorizontalStackLayout>
             </Grid>
         </ScrollView>
+        <Grid Grid.Row="2" Grid.RowSpan="2" x:Name="stack" IsVisible="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Analyse" HorizontalOptions="Fill" />
+            <Button Grid.Column="1" x:Name="btnWriteToSpreadsheet" Text="Write" HorizontalOptions="Fill" Clicked="btnWriteToSpreadsheet_Clicked"/>
+        </Grid>
     </Grid>
 </ContentPage>

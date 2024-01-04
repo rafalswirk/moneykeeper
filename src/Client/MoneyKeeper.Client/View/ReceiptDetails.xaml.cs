@@ -1,6 +1,7 @@
 using MoneyKeeper.Client.Core.Backend;
 using MoneyKeeper.Client.Core.Exceptions;
 using MoneyKeeper.Client.DTO;
+using System.Globalization;
 
 namespace MoneyKeeper.Client.View;
 
@@ -11,6 +12,7 @@ public partial class ReceiptDetails : ContentPage
     private readonly string CategoriesApiUrl = $"{Consts.BaseApiUrl}budget/categories";
 
     public ReceiptInfoDto Info { get; }
+    public double Value { get; set; }
 
     public ReceiptDetails(DTO.ReceiptInfoDto info)
 	{
@@ -31,7 +33,7 @@ public partial class ReceiptDetails : ContentPage
             var category = (pckCategories.SelectedItem as BudgetCategoryDto);
             var transaction = new TransactionCommit();
             await transaction.CommitTransactionAsync(
-                new TransactionData(double.Parse(enSum.Text), dpTransactionDate.Date, category.Id, Info.Id));
+                new TransactionData(Value, dpTransactionDate.Date, category.Id, Info.Id));
         }
         catch(MoneyKeeperException)
         {
