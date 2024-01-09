@@ -1,4 +1,5 @@
 ﻿using MoneyKeeper.Client.Core.Backend;
+using MoneyKeeper.Client.Core.Backend.Storage;
 using MoneyKeeper.Client.DTO;
 using MoneyKeeper.Client.View;
 using System.Collections.ObjectModel;
@@ -79,25 +80,10 @@ namespace MoneyKeeper.Client
             {
                 try
                 {
-                    // Upload the file to the API
-                    var content = new MultipartFormDataContent();
-                    content.Add(new StreamContent(await file.OpenReadAsync()), "file", file.FileName);
-                    var categoriesRequest = _httpClient.GetAsync(CategoriesApiUrl);
-                    var response = await _httpClient.PostAsync(ReceiptApiUrl, content);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        _uploadedImageInfo = await response.Content.ReadAsAsync<ReceiptInfoDto>();
-                        Receipts.Add(_uploadedImageInfo);
-                        ImageUrls.Add(_uploadedImageInfo.ImageName);
-                        //var categoriesResponse = await categoriesRequest;
-                        //var categories = await categoriesResponse.Content.ReadAsAsync<IReadOnlyList<BudgetCategoryDto>>();
-                        //activIndicator.IsRunning = false;
-                        //await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo, categories));
-                    }
-                    else
-                    {
-                        // Handle API error
-                    }
+                    var storeReceipt = new StoreReceipt();
+                    var dto = await storeReceipt.StoreAsync(file.FileName, await file.OpenReadAsync());
+                    Receipts.Add(dto);
+                    ImageUrls.Add(dto.ImageName);
                 }
                 catch (Exception ex)
                 {
