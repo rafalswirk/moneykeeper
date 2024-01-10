@@ -45,7 +45,7 @@ namespace MoneyKeeper.Client
                     var allInfo = await response.Content.ReadAsAsync<IEnumerable<ReceiptInfoDto>>();
                     ImageUrls.Clear();
                     Receipts.Clear();
-                    foreach (var receiptInfo in allInfo)
+                    foreach (var receiptInfo in allInfo.Where(i => i.SpreadsheetEntered == false))
                     {
                         Receipts.Add(receiptInfo);
                     }
