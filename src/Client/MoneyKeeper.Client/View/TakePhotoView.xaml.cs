@@ -1,6 +1,8 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Graphics;
+using MoneyKeeper.Client.Core.Backend.Storage;
+
 namespace MoneyKeeper.Client.View;
 
 public partial class TakePhotoView : ContentPage
@@ -30,16 +32,10 @@ public partial class TakePhotoView : ContentPage
 
             if (photo != null)
             {
-                // save the file into local storage
-                string localFilePath = Path.Combine(FileSystem.AppDataDirectory, photo.FileName);
-
                 using Stream sourceStream = await photo.OpenReadAsync();
-                using FileStream localFileStream = File.OpenWrite(localFilePath);
-
-                await sourceStream.CopyToAsync(localFileStream);
-                image.Source = ImageSource.FromFile(localFilePath);
-
-
+                var receiptStorage = new StoreReceipt();
+                await receiptStorage.StoreAsync(photo.FileName, sourceStream);
+                await Navigation.PopAsync(true);
             }
         }
     }

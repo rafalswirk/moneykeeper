@@ -10,15 +10,14 @@ namespace MoneyKeeper.Transactions.Core.Entities
 {
     public class ReceiptInfo
     {
-        [Key]
         public int Id { get; set; }
         public string ImageName { get; set; }
-        [Column(TypeName = "boolean")]
         public bool OcrDataGenerated { get; set; }
-        [Column(TypeName = "boolean")]
         public bool? OcrValidationResult { get; set; }
-        [Column(TypeName = "boolean")]
         public bool SpreadsheetEntered { get; set; }
         public DateOnly UploadDate { get; set; }
+        public DateTime SpreadsheetEnterTime { get; set; }
+        public Transaction? Transaction { get; set; }
+
     }
 }

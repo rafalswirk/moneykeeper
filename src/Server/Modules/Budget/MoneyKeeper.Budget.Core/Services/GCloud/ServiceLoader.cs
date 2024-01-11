@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
+using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,12 +15,14 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
     public class ServiceLoader
     {
         private readonly string _credentialFilePath;
+        private readonly string _spreadsheetId;
 
-        public ServiceLoader(string credentialFilePath)
+        public ServiceLoader(string credentialFilePath, string spreadsheetId)
         {
             _credentialFilePath = credentialFilePath;
+            _spreadsheetId = spreadsheetId;
         }
-        public SheetsService LoadService()
+        public (SheetsService, Spreadsheet) LoadService()
         {
             GoogleCredential credential = GoogleCredential.FromFile(_credentialFilePath).CreateScoped(SheetsService.Scope.Spreadsheets);
 
@@ -29,8 +32,8 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
                 ApplicationName = "Books API Sample",
             });
 
-            
-            return service;
+            var spreadsheet = service.Spreadsheets.Get(_spreadsheetId).Execute();
+            return (service, spreadsheet);
         }
     }
 }

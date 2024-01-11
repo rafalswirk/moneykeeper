@@ -63,5 +63,30 @@ namespace MoneyKeeper.Budget.API.Controllers
                 throw;
             }
         }
+
+        [HttpPost("transaction")]
+        public async Task<IActionResult> AddTransaction([FromBody] TransactionDto dto)
+        {
+            try
+            {
+                var budgetCategories = await _budgetCategoryRepository.BrowseAsync();
+                var mappings = await _taxMappingRepository.BrowseAsync();
+                var sheetToMonth = await _sheetToMonthMapRepository.BrowseAsync();
+
+                var spreadsheetMap = await _categorySpreadsheetMapRepository.BrowseAsync();
+                var row = spreadsheetMap.Single(m => m.Category.Id == dto.CategoryId).Row;
+
+                await _googleDocsEditor.AddValueToGoogleDocsAsync(
+                    sheetToMonth.Single(s => s.Month == dto.Date.Month).SheetName,
+                    row,
+                    _dayToColumn.CalculateColumn(dto.Date.Day),
+                    dto.Sum.ToString());
+                return Ok();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

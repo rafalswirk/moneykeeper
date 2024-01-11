@@ -4,29 +4,29 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MoneyKeeper.Transactions.Core.DAL.Migrations
+namespace MoneyKeeper.Budget.Core.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class TransactionsInit : Migration
+    public partial class SpreadsheetModificationHistory : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ReceiptInfos",
+                name: "ModificationHistory",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ImageName = table.Column<string>(type: "text", nullable: false),
-                    OcrDataGenerated = table.Column<bool>(type: "boolean", nullable: false),
-                    OcrValidationResult = table.Column<bool>(type: "boolean", nullable: true),
-                    SpreadsheetEntered = table.Column<bool>(type: "boolean", nullable: false),
-                    UploadDate = table.Column<DateOnly>(type: "date", nullable: false)
+                    SheetName = table.Column<string>(type: "text", nullable: false),
+                    Row = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    Column = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: false),
+                    ModificationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReceiptInfos", x => x.Id);
+                    table.PrimaryKey("PK_ModificationHistory", x => x.Id);
                 });
         }
 
@@ -34,7 +34,7 @@ namespace MoneyKeeper.Transactions.Core.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ReceiptInfos");
+                name: "ModificationHistory");
         }
     }
 }

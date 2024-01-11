@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MoneyKeeper.Transactions.Core.DAL.Migrations
 {
     [DbContext(typeof(TransactionsDbContext))]
-    [Migration("20231124134013_TransactionsInit")]
-    partial class TransactionsInit
+    [Migration("20240102152031_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,9 @@ namespace MoneyKeeper.Transactions.Core.DAL.Migrations
                     b.Property<bool?>("OcrValidationResult")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTime>("SpreadsheetEnterTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<bool>("SpreadsheetEntered")
                         .HasColumnType("boolean");
 
@@ -52,6 +55,45 @@ namespace MoneyKeeper.Transactions.Core.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ReceiptInfos");
+                });
+
+            modelBuilder.Entity("MoneyKeeper.Transactions.Core.Entities.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ReceiptInfoId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiptInfoId")
+                        .IsUnique();
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("MoneyKeeper.Transactions.Core.Entities.Transaction", b =>
+                {
+                    b.HasOne("MoneyKeeper.Transactions.Core.Entities.ReceiptInfo", "ReceiptInfo")
+                        .WithOne("Transaction")
+                        .HasForeignKey("MoneyKeeper.Transactions.Core.Entities.Transaction", "ReceiptInfoId");
+
+                    b.Navigation("ReceiptInfo");
+                });
+
+            modelBuilder.Entity("MoneyKeeper.Transactions.Core.Entities.ReceiptInfo", b =>
+                {
+                    b.Navigation("Transaction");
                 });
 #pragma warning restore 612, 618
         }

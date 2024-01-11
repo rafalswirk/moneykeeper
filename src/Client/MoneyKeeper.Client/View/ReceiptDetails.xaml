@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MoneyKeeper.Client.View.ReceiptDetails"
+             xmlns:converters="clr-namespace:MoneyKeeper.Client.Converters"
+             Title="ReceiptDetails" x:Name="control" Appearing="control_Appearing">
+    <ContentPage.Resources>
+        <converters:BudgetCategoryToText x:Key="BudgetCategoryToText"/>
+    </ContentPage.Resources>
+    <Grid BindingContext="{x:Reference control}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.Row="0" HorizontalScrollBarVisibility="Always" VerticalScrollBarVisibility="Always">
+            <Image x:Name="imagePreview" Aspect="AspectFill" Source="dotnet_bot.png"  SemanticProperties.Description="Cute dot net bot waving hi to you!"
+            HorizontalOptions="Center" />
+        </ScrollView>
+        <HorizontalStackLayout Grid.Row="0" Spacing="10" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" BackgroundColor="Gray" Opacity="0.7" HeightRequest="20">
+            <Label VerticalOptions="Start" HorizontalOptions="Start">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Id: "/>
+                        <Span Text="{Binding Info.Id}"/>
+                        <Span Text="    Image name: "/>
+                        <Span Text="{Binding Info.ImageName}"/>
+                        <Span Text="    OCR generated: "/>
+                        <Span Text="{Binding Info.OcrDataGenerated}"/>
+                        <Span Text="    OCR validation result: "/>
+                        <Span Text="{Binding Info.OcrDataValidationResult}"/>
+                        <Span Text="    Value entered: "/>
+                        <Span Text="{Binding Info.SpreadsheetEntered}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </HorizontalStackLayout>
+        <ScrollView Grid.Row="1" Margin="10">
+            <Grid RowSpacing="1" ColumnSpacing="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Text="Sum: " VerticalTextAlignment="Center"/>
+                <Label Grid.Column="0" Grid.Row="1" Text="Category: " VerticalTextAlignment="Center"/>
+                <Label Grid.Column="0" Grid.Row="2" Text="Purchase date: " VerticalTextAlignment="Center"/>
+                <Label Grid.Column="0" Grid.Row="3" Text="Accept autoanalyse" VerticalTextAlignment="Center"/>
+                <Entry x:Name="enSum" Text="{Binding Value}" Grid.Column="1" Grid.Row="0" Keyboard="Numeric"/>
+                <Picker x:Name="pckCategories" ItemDisplayBinding="{Binding ., Converter={StaticResource BudgetCategoryToText}}" Grid.Column="1" Grid.Row="1" ToolTipProperties.Text="Category"/>
+                <DatePicker x:Name="dpTransactionDate" Grid.Column="1" Grid.Row="2"/>
+                <Switch Grid.Column="1" Grid.Row="3"/>
+                <ActivityIndicator x:Name="activIndicator" Grid.Row="4" Color="Orange" IsVisible="False" IsRunning="False"/>
+            </Grid>
+        </ScrollView>
+        <Grid Grid.Row="2" Grid.RowSpan="2" x:Name="stack" IsVisible="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="Analyse" HorizontalOptions="Fill" />
+            <Button Grid.Column="1" x:Name="btnWriteToSpreadsheet" Text="Write" HorizontalOptions="Fill" Clicked="btnWriteToSpreadsheet_Clicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>

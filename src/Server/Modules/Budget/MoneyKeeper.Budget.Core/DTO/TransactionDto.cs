@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Budget.Core.Data
+namespace MoneyKeeper.Budget.Core.DTO
 {
-    public record DataDirectories(string ReceiptImagesPath, string OcrResultsPath);
+    public record TransactionDto(DateTime Date, int CategoryId, double Sum);
 }

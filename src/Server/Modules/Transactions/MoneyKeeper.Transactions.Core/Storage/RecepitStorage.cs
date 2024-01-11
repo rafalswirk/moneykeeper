@@ -45,6 +45,7 @@ namespace MoneyKeeper.Transactions.Core.Storage
                     OcrDataGenerated = false,
                     OcrValidationResult = false,
                     SpreadsheetEntered = false,
+                    SpreadsheetEnterTime = DateTime.MinValue,
                     UploadDate = new DateOnly(uploadTime.Year, uploadTime.Month, uploadTime.Day)
                 };
                 await _receiptInfoRepository.AddAsync(receiptInfo);

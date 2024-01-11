@@ -1,4 +1,6 @@
-﻿using MoneyKeeper.Client.DTO;
+﻿using MoneyKeeper.Client.Core.Backend;
+using MoneyKeeper.Client.Core.Backend.Storage;
+using MoneyKeeper.Client.DTO;
 using MoneyKeeper.Client.View;
 using System.Collections.ObjectModel;
 using System.Net.Http;
@@ -7,14 +9,14 @@ namespace MoneyKeeper.Client
 {
     public partial class MainPage : ContentPage
     {
-        private const string BaseApiUrl = "http://localhost:5126/api/";
-        private readonly string ImagesApiUrl = $"{BaseApiUrl}images/";
-        private readonly string ReceiptApiUrl = $"{BaseApiUrl}receipt/storage";
-        private readonly string CategoriesApiUrl = $"{BaseApiUrl}budget/categories";
+        private readonly string ImagesApiUrl = $"{Consts.BaseApiUrl}images/";
+        private readonly string ReceiptApiUrl = $"{Consts.BaseApiUrl}receipt/storage";
+        private readonly string CategoriesApiUrl = $"{Consts.BaseApiUrl}budget/categories";
 
 
         private readonly HttpClient _httpClient = new HttpClient();
         private ReceiptInfoDto _uploadedImageInfo;
+        public ObservableCollection<ReceiptInfoDto> Receipts { get; set; } = new ObservableCollection<ReceiptInfoDto>();
 
         public ObservableCollection<string> ImageUrls { get; } = new ObservableCollection<string>();
 
@@ -22,6 +24,12 @@ namespace MoneyKeeper.Client
         {
             InitializeComponent();
             BindingContext = this;
+            receiptsControl.ReceiptSelected += ReceiptsControl_ReceiptSelected;
+        }
+
+        private async void ReceiptsControl_ReceiptSelected(object sender, ReceiptInfoDto e)
+        {
+            await Navigation.PushAsync(new ReceiptDetails(e));
         }
 
         protected override async void OnAppearing()
@@ -31,14 +39,15 @@ namespace MoneyKeeper.Client
             // Fetch the list of image URLs from the API
             try
             {
-                var response = await _httpClient.GetAsync(ImagesApiUrl + "all");
+                var response = await _httpClient.GetAsync(ReceiptApiUrl + "/all");
                 if (response.IsSuccessStatusCode)
                 {
-                    var imageUrls = await response.Content.ReadAsAsync<List<string>>();
+                    var allInfo = await response.Content.ReadAsAsync<IEnumerable<ReceiptInfoDto>>();
                     ImageUrls.Clear();
-                    foreach (var imageUrl in imageUrls)
+                    Receipts.Clear();
+                    foreach (var receiptInfo in allInfo.Where(i => i.SpreadsheetEntered == false))
                     {
-                        ImageUrls.Add(imageUrl);
+                        Receipts.Add(receiptInfo);
                     }
 
                 }
@@ -71,30 +80,18 @@ namespace MoneyKeeper.Client
             {
                 try
                 {
-                    // Upload the file to the API
-                    var content = new MultipartFormDataContent();
-                    content.Add(new StreamContent(await file.OpenReadAsync()), "file", file.FileName);
-                    var categoriesRequest = _httpClient.GetAsync(CategoriesApiUrl);
-                    var response = await _httpClient.PostAsync(ReceiptApiUrl, content);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        _uploadedImageInfo = await response.Content.ReadAsAsync<ReceiptInfoDto>();
-                        ImageUrls.Add(_uploadedImageInfo.ImageName);
-                        var categoriesResponse = await categoriesRequest;
-                        var categories = await categoriesResponse.Content.ReadAsAsync<IReadOnlyList<BudgetCategoryDto>>();
-                        activIndicator.IsRunning = false;
-                        await Navigation.PushAsync(new ReceiptAnalysisPage(_uploadedImageInfo, categories));
-                    }
-                    else
-                    {
-                        // Handle API error
-                    }
+                    var storeReceipt = new StoreReceipt();
+                    var dto = await storeReceipt.StoreAsync(file.FileName, await file.OpenReadAsync());
+                    Receipts.Add(dto);
+                    ImageUrls.Add(dto.ImageName);
                 }
                 catch (Exception ex)
                 {
-                    activIndicator.IsRunning = false;
-
                     await DisplayAlert("Alert", ex.Message, "OK");    
+                }
+                finally
+                {
+                    activIndicator.IsRunning = false;
                 }
             }
         }

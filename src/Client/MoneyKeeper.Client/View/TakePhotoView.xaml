@@ -14,14 +14,6 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" BorderColor="Black" BorderWidth="1"
-                x:Name="btnStore" 
-                Text="Store"
-                SemanticProperties.Hint="Just store receipt photo for further analysis"/>
-            <Button Grid.Column="1"
-                x:Name="btnAnalyse"
-                Text="Analyse"
-                SemanticProperties.Hint="Store and analyse receipt photo"/>
         </Grid>
         
     </Grid>

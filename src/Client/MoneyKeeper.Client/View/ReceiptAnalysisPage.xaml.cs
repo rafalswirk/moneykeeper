@@ -1,3 +1,4 @@
+using MoneyKeeper.Client.Core.Backend;
 using MoneyKeeper.Client.DTO;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ namespace MoneyKeeper.Client.View;
 
 public partial class ReceiptAnalysisPage : ContentPage
 {
-    private const string ReceiptApiUrl = "http://localhost:5126/api/";
+    
     private readonly HttpClient _httpClient = new HttpClient();
     private readonly ReceiptInfoDto _uploadedImageInfo;
     private readonly IReadOnlyList<BudgetCategoryDto> _categories;
@@ -39,7 +40,7 @@ public partial class ReceiptAnalysisPage : ContentPage
         try
         {
             var companyDto = new CompanyDto(0, ctrlAddCompany.TaxId, ctrlAddCompany.CompanyName, _categories[ctrlAddCompany.CategorySelectedIndex].Id);
-            var result = await PreaparePostRequestAsync(ReceiptApiUrl + "receipt/companies", companyDto);
+            var result = await PreaparePostRequestAsync(Consts.BaseApiUrl + "receipt/companies", companyDto);
             if(result.IsSuccessStatusCode)
             {
                 Steps.Add($"Added company: {companyDto.ToString()}");
@@ -58,7 +59,7 @@ public partial class ReceiptAnalysisPage : ContentPage
         try
         {
             Steps.Add("Sending request for starting analysis");
-            var response = await PreaparePostRequestAsync(ReceiptApiUrl + "receipt/analysis", _uploadedImageInfo.Id);
+            var response = await PreaparePostRequestAsync(Consts.BaseApiUrl + "receipt/analysis", _uploadedImageInfo.Id);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -69,7 +70,7 @@ public partial class ReceiptAnalysisPage : ContentPage
             _receiptDto = await response.Content.ReadAsAsync<ReceiptDto>();
             Steps.Add(_receiptDto.ToString());
 
-            response = await PreapareGetRequestAsync($"{ReceiptApiUrl}receipt/companies/?taxId={_receiptDto.TaxNumber}");
+            response = await PreapareGetRequestAsync($"{Consts.BaseApiUrl}receipt/companies/?taxId={_receiptDto.TaxNumber}");
             if (!response.IsSuccessStatusCode)
             {
                 Steps.Add("Cannot find company with provided tax id! Analysis terminated.");
@@ -96,7 +97,7 @@ public partial class ReceiptAnalysisPage : ContentPage
     private async Task AddEntryToSpreadsheet(string taxNumber, DateTime date, double total)
     {
         var dto = new BudgetEntryDto(taxNumber, date, total);
-        var result = await PreaparePostRequestAsync($"{ReceiptApiUrl}budget", dto);
+        var result = await PreaparePostRequestAsync($"{Consts.BaseApiUrl}budget", dto);
         if (!result.IsSuccessStatusCode) 
         {
             Steps.Add("Value cannot be added to spreadsheet");

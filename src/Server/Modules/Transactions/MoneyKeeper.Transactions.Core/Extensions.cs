@@ -43,6 +43,7 @@ namespace MoneyKeeper.Transactions.Core
 
             }
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
+            services.AddScoped<ITransactionStorageRepository, TransactionsStorageRepository>();
             services.AddScoped<RecepitStorage>();
             services.AddScoped<DataDirectoriesWrapper>();
             services.AddScoped(x =>
@@ -53,6 +54,9 @@ namespace MoneyKeeper.Transactions.Core
                 new ImageProvider(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ApiKey").Value));
             services.AddScoped<ReceiptAnalysis>();
             services.AddScoped<ReceiptAnalysisReader>();
+            services.AddScoped<ReceiptStorageReader>();
+            services.AddScoped<TransactionsService>();
+            services.AddScoped<ReceiptUpdate>();
 
             return services;
         }
