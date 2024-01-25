@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.Entities
 {
-    public class Spreadsheets
+    public class Spreadsheet
     {
         public int Id { get; set; }
         public string SpreadsheetKey { get; set; }
