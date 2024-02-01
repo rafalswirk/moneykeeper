@@ -33,6 +33,9 @@ namespace MoneyKeeper.UnitTests.Budget.Tests
                 new Spreadsheet {Id = 1, SpreadsheetKey = "1", Year = 2023},
                 new Spreadsheet {Id = 1, SpreadsheetKey = "2", Year = 2024},
             }));
+            A.CallTo(() => spreadsheetRepository.GetSpreadsheetByYear(2024)).Returns(Task.FromResult(
+                new Spreadsheet {Id = 1, SpreadsheetKey = "2", Year = 2024}
+            ));
             var budgetCategoryRepository = A.Fake<IBudgetCategoryRepository>();
             A.CallTo(() => budgetCategoryRepository.BrowseAsync()).Returns(Task.FromResult<IReadOnlyCollection<BudgetCategory>>(new ReadOnlyCollection<BudgetCategory>(new List<BudgetCategory>
             {
