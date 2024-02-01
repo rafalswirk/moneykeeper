@@ -21,6 +21,12 @@ namespace MoneyKeeper.UnitTests.Budget.Tests
         [Fact]
         public async Task Create_TransactionFor2024_CreatingTransactionInRepositoryFor2024Year()
         {
+            var category = new BudgetCategory
+            {
+                Id = 1,
+                Category = "Restaurants",
+                Group = "Food"
+            };
             var spreadsheetRepository = A.Fake<ISpreadsheetRepository>();
             A.CallTo(() => spreadsheetRepository.BrowseAsync()).Returns(Task.FromResult<IReadOnlyCollection<Spreadsheet>>(new List<Spreadsheet>() 
             {
@@ -30,18 +36,18 @@ namespace MoneyKeeper.UnitTests.Budget.Tests
             var budgetCategoryRepository = A.Fake<IBudgetCategoryRepository>();
             A.CallTo(() => budgetCategoryRepository.BrowseAsync()).Returns(Task.FromResult<IReadOnlyCollection<BudgetCategory>>(new ReadOnlyCollection<BudgetCategory>(new List<BudgetCategory>
             {
-                new BudgetCategory
-                {
-                    Id = 1,
-                    Category = "Restaurants",
-                    Group = "Food"
-                }
+                category
             })));
             var categoryMap = A.Fake<ICategorySpreadsheetMapRepository>();
+            A.CallTo(() => categoryMap.BrowseAsync()).Returns(Task.FromResult<IReadOnlyCollection<CategorySpreadsheetMap>>(new ReadOnlyCollection<CategorySpreadsheetMap>(new List<CategorySpreadsheetMap>
+            {
+                new CategorySpreadsheetMap { Id = 1, Category = category, Column = "A", Row = "1" }
+            })));
             var googleDocsEditor = A.Fake<IGoogleDocsEditor>();
-
             var creator = new TransactionCreator(spreadsheetRepository, budgetCategoryRepository, new SheetToMonthInMemoryRepository(), categoryMap, googleDocsEditor);
             await creator.Create(new TransactionDto(new DateTime(2024, 4, 22), 1, 22.4));
+            
+            A.CallTo(() => googleDocsEditor.AddValueToGoogleDocsAsync("2", "Kwiecień", "1", "AD", "22,4")).MustHaveHappened();
         }
     }
 }
