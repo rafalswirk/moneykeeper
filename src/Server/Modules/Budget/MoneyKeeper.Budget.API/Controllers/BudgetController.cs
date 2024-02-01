@@ -9,6 +9,8 @@ namespace MoneyKeeper.Budget.API.Controllers
     [Route("api/budget")]
     public class BudgetController : ControllerBase
     {
+        private readonly DayToColumnCalculator _dayToColumn = new DayToColumnCalculator();
+
         private readonly IBudgetCategoryRepository _repository;
         private readonly ITaxIdRepository _taxIdRepository;
         private readonly ITaxMappingRepository _taxMappingRepository;
@@ -66,6 +68,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost("transaction")]
         public async Task<IActionResult> AddTransaction([FromBody] TransactionDto dto)
         {
+            throw new NotImplementedException();
             //try
             //{
             //    var budgetCategories = await _budgetCategoryRepository.BrowseAsync();
