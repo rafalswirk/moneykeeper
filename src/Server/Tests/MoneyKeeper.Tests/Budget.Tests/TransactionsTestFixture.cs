@@ -12,6 +12,7 @@ using MoneyKeeper.Budget.Repositories;
 using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.Entities;
 using System.Collections.ObjectModel;
+using MoneyKeeper.Budget.Core.DAL.Repositories;
 
 namespace MoneyKeeper.UnitTests.Budget.Tests
 {
@@ -36,11 +37,10 @@ namespace MoneyKeeper.UnitTests.Budget.Tests
                     Group = "Food"
                 }
             })));
-            var sheetToMonth = A.Fake<ISheetToMonthMapRepository>();
             var categoryMap = A.Fake<ICategorySpreadsheetMapRepository>();
             var googleDocsEditor = A.Fake<IGoogleDocsEditor>();
 
-            var creator = new TransactionCreator(spreadsheetRepository, budgetCategoryRepository, sheetToMonth, categoryMap, googleDocsEditor);
+            var creator = new TransactionCreator(spreadsheetRepository, budgetCategoryRepository, new SheetToMonthInMemoryRepository(), categoryMap, googleDocsEditor);
             await creator.Create(new TransactionDto(new DateTime(2024, 4, 22), 1, 22.4));
         }
     }
