@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoneyKeeper.Budget.Core.DTO;
+using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.Repositories;
 
@@ -18,6 +19,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         private readonly ISheetToMonthMapRepository _sheetToMonthMapRepository;
         private readonly IGoogleDocsEditor _googleDocsEditor;
         private readonly IBudgetCategoryRepository _budgetCategoryRepository;
+        private readonly ISpreadsheetRepository _spreadsheetRepository;
 
         public BudgetController(IBudgetCategoryRepository repository,
                                 ITaxIdRepository taxIdRepository,
@@ -25,7 +27,8 @@ namespace MoneyKeeper.Budget.API.Controllers
                                 ICategorySpreadsheetMapRepository categorySpreadsheetMapRepository,
                                 ISheetToMonthMapRepository sheetToMonthMapRepository,
                                 IGoogleDocsEditor googleDocsEditor,
-                                IBudgetCategoryRepository budgetCategoryRepository)
+                                IBudgetCategoryRepository budgetCategoryRepository,
+                                ISpreadsheetRepository spreadsheetRepository)
         {
             _repository = repository;
             _taxIdRepository = taxIdRepository;
@@ -34,6 +37,7 @@ namespace MoneyKeeper.Budget.API.Controllers
             _sheetToMonthMapRepository = sheetToMonthMapRepository;
             _googleDocsEditor = googleDocsEditor;
             _budgetCategoryRepository = budgetCategoryRepository;
+            _spreadsheetRepository = spreadsheetRepository;
         }
 
         [HttpPost]
@@ -50,8 +54,10 @@ namespace MoneyKeeper.Budget.API.Controllers
 
                 var spreadsheetMap = await _categorySpreadsheetMapRepository.BrowseAsync();
                 var row = spreadsheetMap.Single(m => m.Category.Id == category.Id).Row;
+                var spreadsheet = await _spreadsheetRepository.GetSpreadsheetByYear(dto.TransactionTime.Year);
 
                 await _googleDocsEditor.AddValueToGoogleDocsAsync(
+                    spreadsheet.SpreadsheetKey,
                     sheetToMonth.Single(s => s.Month == dto.TransactionTime.Month).SheetName,
                     row,
                     _dayToColumn.CalculateColumn(dto.TransactionTime.Day),
@@ -68,6 +74,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost("transaction")]
         public async Task<IActionResult> AddTransaction([FromBody] TransactionDto dto)
         {
+            //todo provide proper implementation
             throw new NotImplementedException();
             //try
             //{

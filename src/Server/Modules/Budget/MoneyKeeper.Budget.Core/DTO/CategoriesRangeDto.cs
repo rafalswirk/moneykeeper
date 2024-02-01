@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.DTO
 {
-    public record CategoriesRangeDto(string From, string To);
+    public record CategoriesRangeDto(string SpreadsheetKey, string From, string To);
 }

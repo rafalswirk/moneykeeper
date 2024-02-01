@@ -14,6 +14,7 @@ namespace MoneyKeeper.UnitTests.Budget.Tests
         [Fact]
         public async Task Generate_SpreadsheetRawData_ReturnsCategoryCollection()
         {
+            var spreadsheetKey = "my_spreasheet_key";
             var input = new List<string>
             {
                 "Telekomunikacja",
@@ -37,10 +38,10 @@ namespace MoneyKeeper.UnitTests.Budget.Tests
             };
             var spreadsheetSettings = new SpreadsheetSettings("Wzorzec kategorii", 79);
             var mock = new Mock<IGoogleDocsEditor>();
-            mock.Setup(m => m.GetValuesRangeAsync(It.Is<string>(s => s.Equals(spreadsheetSettings.CategorySheetName)), It.IsAny<string>())).ReturnsAsync(input);
+            mock.Setup(m => m.GetValuesRangeAsync(spreadsheetKey, It.Is<string>(s => s.Equals(spreadsheetSettings.CategorySheetName)), It.IsAny<string>())).ReturnsAsync(input);
             var generator = new BudgetCategoriesGenerator(mock.Object, spreadsheetSettings);
 
-            var categories = await generator.GenerateAsync("B35:B177");
+            var categories = await generator.GenerateAsync(spreadsheetKey, "B35:B177");
 
             Assert.NotNull(categories);
             Assert.Equal(9, categories.Count);

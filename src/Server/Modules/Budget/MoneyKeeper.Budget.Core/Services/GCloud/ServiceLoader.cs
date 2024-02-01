@@ -17,12 +17,13 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
         private readonly string _credentialFilePath;
         private readonly string _spreadsheetId;
 
+        //todo removing passing spreasheet id from settings
         public ServiceLoader(string credentialFilePath, string spreadsheetId)
         {
             _credentialFilePath = credentialFilePath;
             _spreadsheetId = spreadsheetId;
         }
-        public (SheetsService, Spreadsheet) LoadService()
+        public (SheetsService, Spreadsheet) LoadService(string spreadsheetKey)
         {
             GoogleCredential credential = GoogleCredential.FromFile(_credentialFilePath).CreateScoped(SheetsService.Scope.Spreadsheets);
 
@@ -32,7 +33,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
                 ApplicationName = "Books API Sample",
             });
 
-            var spreadsheet = service.Spreadsheets.Get(_spreadsheetId).Execute();
+            var spreadsheet = service.Spreadsheets.Get(spreadsheetKey).Execute();
             return (service, spreadsheet);
         }
     }

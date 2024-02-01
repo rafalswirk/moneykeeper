@@ -40,8 +40,10 @@ namespace MoneyKeeper.Budget.Core.Services.Transactions
 
                 var spreadsheetMap = await _categorySpreadsheetMapRepository.BrowseAsync();
                 var row = spreadsheetMap.Single(m => m.Category.Id == dto.CategoryId).Row;
+                var spreadsheet = await _spreadsheetRepository.GetSpreadsheetByYear(dto.Date.Year);
 
                 await _googleDocsEditor.AddValueToGoogleDocsAsync(
+                    spreadsheet.SpreadsheetKey,
                     sheetToMonth.Single(s => s.Month == dto.Date.Month).SheetName,
                     row,
                     _dayToColumn.CalculateColumn(dto.Date.Day),
