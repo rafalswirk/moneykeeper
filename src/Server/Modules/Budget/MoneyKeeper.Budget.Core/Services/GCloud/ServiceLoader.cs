@@ -15,13 +15,10 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
     public class ServiceLoader
     {
         private readonly string _credentialFilePath;
-        private readonly string _spreadsheetId;
-
-        //todo removing passing spreasheet id from settings
-        public ServiceLoader(string credentialFilePath, string spreadsheetId)
+        
+        public ServiceLoader(string credentialFilePath)
         {
             _credentialFilePath = credentialFilePath;
-            _spreadsheetId = spreadsheetId;
         }
         public (SheetsService, Spreadsheet) LoadService(string spreadsheetKey)
         {

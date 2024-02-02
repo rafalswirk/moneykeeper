@@ -49,8 +49,7 @@ namespace MoneyKeeper.Budget
             services.AddScoped<ISheetToMonthMapRepository, SheetToMonthInMemoryRepository>();
 
             services.AddScoped<ServiceLoader>(x =>
-                new ServiceLoader(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ServiceAccountFile").Value,
-                                  x.GetRequiredService<IConfiguration>().GetSection("GCloud:SpreadsheetId").Value));
+                new ServiceLoader(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ServiceAccountFile").Value));
             services.AddSingleton(x =>
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(SpreadsheetSettings))
