@@ -7,6 +7,7 @@ using MoneyKeeper.Budget.Core.Entities;
 using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services;
 using MoneyKeeper.Budget.Core.Services.GCloud;
+using MoneyKeeper.Budget.Core.Services.Transactions;
 using MoneyKeeper.Budget.DAL;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
@@ -65,6 +66,8 @@ namespace MoneyKeeper.Budget
             services.AddScoped<IGoogleDocsEditor, GoogleDocsEditor>();
             services.AddScoped<CategoriesService>();
             services.AddScoped<ISpreadsheetModificationHistory, SpreadsheetModificationHistoryRepository>();
+            services.AddScoped<ITransactionCreator, TransactionCreator>();
+
             return services;
         }
     }

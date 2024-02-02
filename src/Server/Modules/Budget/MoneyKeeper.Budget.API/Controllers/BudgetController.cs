@@ -2,6 +2,7 @@
 using MoneyKeeper.Budget.Core.DTO;
 using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services.GCloud;
+using MoneyKeeper.Budget.Core.Services.Transactions;
 using MoneyKeeper.Budget.Repositories;
 
 namespace MoneyKeeper.Budget.API.Controllers
@@ -20,6 +21,7 @@ namespace MoneyKeeper.Budget.API.Controllers
         private readonly IGoogleDocsEditor _googleDocsEditor;
         private readonly IBudgetCategoryRepository _budgetCategoryRepository;
         private readonly ISpreadsheetRepository _spreadsheetRepository;
+        private readonly ITransactionCreator _transactionCreator;
 
         public BudgetController(IBudgetCategoryRepository repository,
                                 ITaxIdRepository taxIdRepository,
@@ -28,7 +30,8 @@ namespace MoneyKeeper.Budget.API.Controllers
                                 ISheetToMonthMapRepository sheetToMonthMapRepository,
                                 IGoogleDocsEditor googleDocsEditor,
                                 IBudgetCategoryRepository budgetCategoryRepository,
-                                ISpreadsheetRepository spreadsheetRepository)
+                                ISpreadsheetRepository spreadsheetRepository,
+                                ITransactionCreator transactionCreator)
         {
             _repository = repository;
             _taxIdRepository = taxIdRepository;
@@ -38,6 +41,7 @@ namespace MoneyKeeper.Budget.API.Controllers
             _googleDocsEditor = googleDocsEditor;
             _budgetCategoryRepository = budgetCategoryRepository;
             _spreadsheetRepository = spreadsheetRepository;
+            _transactionCreator = transactionCreator;
         }
 
         [HttpPost]
@@ -74,28 +78,8 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost("transaction")]
         public async Task<IActionResult> AddTransaction([FromBody] TransactionDto dto)
         {
-            //todo provide proper implementation
-            throw new NotImplementedException();
-            //try
-            //{
-            //    var budgetCategories = await _budgetCategoryRepository.BrowseAsync();
-            //    var mappings = await _taxMappingRepository.BrowseAsync();
-            //    var sheetToMonth = await _sheetToMonthMapRepository.BrowseAsync();
-
-            //    var spreadsheetMap = await _categorySpreadsheetMapRepository.BrowseAsync();
-            //    var row = spreadsheetMap.Single(m => m.Category.Id == dto.CategoryId).Row;
-
-            //    await _googleDocsEditor.AddValueToGoogleDocsAsync(
-            //        sheetToMonth.Single(s => s.Month == dto.Date.Month).SheetName,
-            //        row,
-            //        _dayToColumn.CalculateColumn(dto.Date.Day),
-            //        dto.Sum.ToString());
-            //    return Ok();
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
+            await _transactionCreator.Create(dto);
+            return Ok();
         }
     }
 }

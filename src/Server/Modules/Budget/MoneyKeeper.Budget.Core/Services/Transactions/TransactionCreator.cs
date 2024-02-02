@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.Services.Transactions
 {
-    public class TransactionCreator
+    public class TransactionCreator : ITransactionCreator
     {
         private readonly DayToColumnCalculator _dayToColumn = new DayToColumnCalculator();
         private readonly ISpreadsheetRepository _spreadsheetRepository;
@@ -31,7 +31,7 @@ namespace MoneyKeeper.Budget.Core.Services.Transactions
             _googleDocsEditor = googleDocsEditor;
         }
 
-        internal async Task Create(DTO.TransactionDto dto)
+        public async Task Create(DTO.TransactionDto dto)
         {
             try
             {
