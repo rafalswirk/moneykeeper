@@ -1,5 +1,6 @@
 ﻿using Google.Apis.Sheets.v4.Data;
 using MoneyKeeper.Budget.Core.Data;
+using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services.GCloud;
 using MoneyKeeper.Budget.Entities;
 using MoneyKeeper.Budget.Repositories;
@@ -19,13 +20,15 @@ namespace MoneyKeeper.Budget.Core.Services
         private readonly BudgetCategoriesGenerator _categoriesGenerator;
         private readonly BudgetCategoryPositionGenerator _categoryPositionGenerator;
         private readonly SpreadsheetSettings _categoriesSettings;
+        private readonly ISpreadsheetRepository _spreadsheetRepository;
 
         public CategoriesSetup(IBudgetCategoryRepository budgetCategoryRepository,
                                ICategorySpreadsheetMapRepository spreadsheetMapRepository,
                                IGoogleDocsEditor editor,
                                BudgetCategoriesGenerator categoriesGenerator,
                                BudgetCategoryPositionGenerator categoryPositionGenerator,
-                               SpreadsheetSettings categoriesSettings)
+                               SpreadsheetSettings categoriesSettings,
+                               ISpreadsheetRepository spreadsheetRepository)
         {
             _budgetCategoryRepository = budgetCategoryRepository;
             _spreadsheetMapRepository = spreadsheetMapRepository;
@@ -33,16 +36,17 @@ namespace MoneyKeeper.Budget.Core.Services
             _categoriesGenerator = categoriesGenerator;
             _categoryPositionGenerator = categoryPositionGenerator;
             _categoriesSettings = categoriesSettings;
+            _spreadsheetRepository = spreadsheetRepository;
         }
-        public async Task MakeAsync(string range)
+        public async Task MakeAsync(string spreadsheetKey, string range)
         {
-            var categories = await _categoriesGenerator.GenerateAsync(range);
+            var categories = await _categoriesGenerator.GenerateAsync(spreadsheetKey, range);
 
             foreach (var category in categories)
             {
                 await _budgetCategoryRepository.AddAsync(category);
             }
-            var rawData = await _editor.GetValuesRangeAsync(_categoriesSettings.CategorySheetName, range);
+            var rawData = await _editor.GetValuesRangeAsync(spreadsheetKey, _categoriesSettings.CategorySheetName, range);
 
             var positionGenerator = new BudgetCategoryPositionGenerator();
             var positions = positionGenerator.Generate(categories, rawData.ToList(), _categoriesSettings.CategoryOffset);

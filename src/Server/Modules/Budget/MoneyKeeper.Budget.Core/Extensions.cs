@@ -7,6 +7,7 @@ using MoneyKeeper.Budget.Core.Entities;
 using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services;
 using MoneyKeeper.Budget.Core.Services.GCloud;
+using MoneyKeeper.Budget.Core.Services.Transactions;
 using MoneyKeeper.Budget.DAL;
 using MoneyKeeper.Budget.DAL.Repositories;
 using MoneyKeeper.Budget.Repositories;
@@ -46,11 +47,10 @@ namespace MoneyKeeper.Budget
             services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
             services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();
             services.AddScoped<ITaxIdRepository, TaxIdRepository>();
-            services.AddScoped<ISheetToMonthMapRepository, SheetToMonthMapRepository>();
+            services.AddScoped<ISheetToMonthMapRepository, SheetToMonthInMemoryRepository>();
 
             services.AddScoped<ServiceLoader>(x =>
-                new ServiceLoader(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ServiceAccountFile").Value,
-                                  x.GetRequiredService<IConfiguration>().GetSection("GCloud:SpreadsheetId").Value));
+                new ServiceLoader(x.GetRequiredService<IConfiguration>().GetSection("GCloud:ServiceAccountFile").Value));
             services.AddSingleton(x =>
                 x.GetRequiredService<IConfiguration>()
                     .GetSection(nameof(SpreadsheetSettings))
@@ -66,6 +66,9 @@ namespace MoneyKeeper.Budget
             services.AddScoped<IGoogleDocsEditor, GoogleDocsEditor>();
             services.AddScoped<CategoriesService>();
             services.AddScoped<ISpreadsheetModificationHistory, SpreadsheetModificationHistoryRepository>();
+            services.AddScoped<ITransactionCreator, TransactionCreator>();
+            services.AddScoped<ISpreadsheetRepository, SpreadsheetRepository>();
+
             return services;
         }
     }

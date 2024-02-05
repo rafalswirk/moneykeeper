@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Budget.Core.DTO
 {
-    public record SpreadsheetValueDto(string Spreadsheet, string Row, string Column, string Value);
+    public record SpreadsheetValueDto(string SpreadsheetKey, string Sheet, string Row, string Column, string Value);
 }

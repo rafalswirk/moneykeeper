@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoneyKeeper.Budget.Core.DTO;
+using MoneyKeeper.Budget.Core.Repositories;
 using MoneyKeeper.Budget.Core.Services.GCloud;
+using MoneyKeeper.Budget.Core.Services.Transactions;
 using MoneyKeeper.Budget.Repositories;
 
 namespace MoneyKeeper.Budget.API.Controllers
@@ -9,6 +11,8 @@ namespace MoneyKeeper.Budget.API.Controllers
     [Route("api/budget")]
     public class BudgetController : ControllerBase
     {
+        private readonly DayToColumnCalculator _dayToColumn = new DayToColumnCalculator();
+
         private readonly IBudgetCategoryRepository _repository;
         private readonly ITaxIdRepository _taxIdRepository;
         private readonly ITaxMappingRepository _taxMappingRepository;
@@ -16,7 +20,8 @@ namespace MoneyKeeper.Budget.API.Controllers
         private readonly ISheetToMonthMapRepository _sheetToMonthMapRepository;
         private readonly IGoogleDocsEditor _googleDocsEditor;
         private readonly IBudgetCategoryRepository _budgetCategoryRepository;
-        private readonly DayToColumnCalculator _dayToColumn = new DayToColumnCalculator();
+        private readonly ISpreadsheetRepository _spreadsheetRepository;
+        private readonly ITransactionCreator _transactionCreator;
 
         public BudgetController(IBudgetCategoryRepository repository,
                                 ITaxIdRepository taxIdRepository,
@@ -24,7 +29,9 @@ namespace MoneyKeeper.Budget.API.Controllers
                                 ICategorySpreadsheetMapRepository categorySpreadsheetMapRepository,
                                 ISheetToMonthMapRepository sheetToMonthMapRepository,
                                 IGoogleDocsEditor googleDocsEditor,
-                                IBudgetCategoryRepository budgetCategoryRepository)
+                                IBudgetCategoryRepository budgetCategoryRepository,
+                                ISpreadsheetRepository spreadsheetRepository,
+                                ITransactionCreator transactionCreator)
         {
             _repository = repository;
             _taxIdRepository = taxIdRepository;
@@ -33,6 +40,8 @@ namespace MoneyKeeper.Budget.API.Controllers
             _sheetToMonthMapRepository = sheetToMonthMapRepository;
             _googleDocsEditor = googleDocsEditor;
             _budgetCategoryRepository = budgetCategoryRepository;
+            _spreadsheetRepository = spreadsheetRepository;
+            _transactionCreator = transactionCreator;
         }
 
         [HttpPost]
@@ -49,8 +58,10 @@ namespace MoneyKeeper.Budget.API.Controllers
 
                 var spreadsheetMap = await _categorySpreadsheetMapRepository.BrowseAsync();
                 var row = spreadsheetMap.Single(m => m.Category.Id == category.Id).Row;
+                var spreadsheet = await _spreadsheetRepository.GetSpreadsheetByYear(dto.TransactionTime.Year);
 
                 await _googleDocsEditor.AddValueToGoogleDocsAsync(
+                    spreadsheet.SpreadsheetKey,
                     sheetToMonth.Single(s => s.Month == dto.TransactionTime.Month).SheetName,
                     row,
                     _dayToColumn.CalculateColumn(dto.TransactionTime.Day),
@@ -67,26 +78,8 @@ namespace MoneyKeeper.Budget.API.Controllers
         [HttpPost("transaction")]
         public async Task<IActionResult> AddTransaction([FromBody] TransactionDto dto)
         {
-            try
-            {
-                var budgetCategories = await _budgetCategoryRepository.BrowseAsync();
-                var mappings = await _taxMappingRepository.BrowseAsync();
-                var sheetToMonth = await _sheetToMonthMapRepository.BrowseAsync();
-
-                var spreadsheetMap = await _categorySpreadsheetMapRepository.BrowseAsync();
-                var row = spreadsheetMap.Single(m => m.Category.Id == dto.CategoryId).Row;
-
-                await _googleDocsEditor.AddValueToGoogleDocsAsync(
-                    sheetToMonth.Single(s => s.Month == dto.Date.Month).SheetName,
-                    row,
-                    _dayToColumn.CalculateColumn(dto.Date.Day),
-                    dto.Sum.ToString());
-                return Ok();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            await _transactionCreator.Create(dto);
+            return Ok();
         }
     }
 }
