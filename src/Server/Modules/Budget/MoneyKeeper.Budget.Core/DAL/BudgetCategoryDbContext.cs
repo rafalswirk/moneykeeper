@@ -17,6 +17,7 @@ namespace MoneyKeeper.Budget.DAL
         public DbSet<TaxId> TaxIds { get; set; }
         public DbSet<SheetToMonthMap> SheetToMonthMap { get; set; }
         public DbSet<SpreadsheetModificationHistory> ModificationHistory { get; set; }
+        public DbSet<Spreadsheet> Spreadsheets { get; set; }
         public BudgetCategoryDbContext(DbContextOptions<BudgetCategoryDbContext> options) : base(options)
         {
         }

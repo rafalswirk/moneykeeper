@@ -67,6 +67,7 @@ namespace MoneyKeeper.Budget
             services.AddScoped<CategoriesService>();
             services.AddScoped<ISpreadsheetModificationHistory, SpreadsheetModificationHistoryRepository>();
             services.AddScoped<ITransactionCreator, TransactionCreator>();
+            services.AddScoped<ISpreadsheetRepository, SpreadsheetRepository>();
 
             return services;
         }
