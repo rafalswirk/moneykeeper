@@ -33,6 +33,7 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
         {
             if(!_isInitialized)
                 Init(spreadsheetId);
+            value = OverriteDecimalSeparator('.', ',', value);
             var cellValue = GetValueFromCell(sheet, column, row);
             var newValue = _dataEditor.Add(cellValue, value);
             WriteCellValue(sheet, column, row, newValue);
@@ -59,6 +60,9 @@ namespace MoneyKeeper.Budget.Core.Services.GCloud
             var returnValue = valueRange.Values.Select(v => v.FirstOrDefault() ?? string.Empty).Cast<string>().ToList();
             return returnValue;
         }
+
+        private string OverriteDecimalSeparator(char currentSeparator, char expectedSeparator, string value)
+            => value.Replace(currentSeparator, expectedSeparator);
 
         private void Init(string spreadsheetKey)
         {
