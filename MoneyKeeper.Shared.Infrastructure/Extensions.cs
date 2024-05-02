@@ -11,10 +11,9 @@ namespace MoneyKeeper.Shared.Infrastructure
         {
             services.AddSerilog(lc => lc
             .WriteTo.Console()
-            .WriteTo.File("/logs/logs.txt", rollingInterval: RollingInterval.Day));
-             
+            .WriteTo.File("logs/logs.txt", rollingInterval: RollingInterval.Day));
+            
             services.AddErrorHandling();
-
 
             return services;
         }
