@@ -1,5 +1,7 @@
 using MoneyKeeper.Budget;
 using MoneyKeeper.Budget.Core;
+using MoneyKeeper.Shared.Infrastructure;
+using MoneyKeeper.Shared.Infrastructure.Exceptions;
 using MoneyKeeper.Transactions.Core;
 
 namespace MoneyKeeper.Web
@@ -11,7 +13,7 @@ namespace MoneyKeeper.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddInfrastructure();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             if(builder.Environment.IsDevelopment())
@@ -24,7 +26,7 @@ namespace MoneyKeeper.Web
             builder.Services.AddTransactions(builder.Environment.EnvironmentName);
 
             var app = builder.Build();
-
+            app.UseInfrastructure();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
