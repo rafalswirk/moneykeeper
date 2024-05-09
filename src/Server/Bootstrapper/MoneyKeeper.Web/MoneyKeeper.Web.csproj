@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\MoneyKeeper.Shared.Infrastructure\MoneyKeeper.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Budget\MoneyKeeper.Budget.API\MoneyKeeper.Budget.API.csproj" />
     <ProjectReference Include="..\..\Modules\Transactions\MoneyKeeper.Transactions.API\MoneyKeeper.Transactions.API.csproj" />
   </ItemGroup>
