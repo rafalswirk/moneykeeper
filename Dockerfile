@@ -19,4 +19,4 @@ ENV DOTNET_ENVIRONMENT=$DOTNET_ENVIRONMENT
 RUN echo ${DOTNET_ENVIRONMENT}
 WORKDIR /App/src/Server/Bootstrapper/MoneyKeeper.Web
 COPY --from=build-env /App/src/Server/Bootstrapper/MoneyKeeper.Web/out .
-ENTRYPOINT ["dotnet", "MoneyKeeper.Web.dll", "--urls=http://127.0.0.1:5216"]
+ENTRYPOINT ["dotnet", "MoneyKeeper.Web.dll"]
