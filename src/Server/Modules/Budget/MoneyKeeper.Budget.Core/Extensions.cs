@@ -18,18 +18,18 @@ namespace MoneyKeeper.Budget
 {
     public static class Extensions
     {
-        private const string DevelopmentEnvironment = "Development";
+        private const string LocalEnvironment = "Local";
 
         public static IServiceCollection AddBudget(this IServiceCollection services, string environment)
         {
-            if (environment.Equals(DevelopmentEnvironment))
+            if (environment.Equals(LocalEnvironment))
             {
                 Console.WriteLine("Running with Sqlite");
                 services.AddDbContext<BudgetCategoryDbContext>(options =>
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseSqlite(configuration.GetSection("Development:Budget:Database:ConnectionString").Value);
+                    options.UseSqlite(configuration.GetSection("Local:Budget:Database:ConnectionString").Value);
                 });
                 services.ApplyMigrations<BudgetCategoryDbContext>();
             }

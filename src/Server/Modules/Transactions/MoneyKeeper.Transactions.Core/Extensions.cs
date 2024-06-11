@@ -19,16 +19,16 @@ namespace MoneyKeeper.Transactions.Core
 {
     public static class Extensions
     {
-        private const string DevelopmentEnvironment = "Development";
+        private const string LocalEnvironment = "Local";
         public static IServiceCollection AddTransactions(this IServiceCollection services, string environment)
         {
-            if (environment.Equals(DevelopmentEnvironment))
+            if (environment.Equals(LocalEnvironment))
             {
                 services.AddDbContext<TransactionsDbContext>(options =>
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseSqlite(configuration.GetSection("Development:Transactions:Database:ConnectionString").Value);
+                    options.UseSqlite(configuration.GetSection("Local:Transactions:Database:ConnectionString").Value);
                 });
                 services.ApplyMigrations<TransactionsDbContext>();
             }
