@@ -40,8 +40,9 @@ namespace MoneyKeeper.Budget
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseNpgsql(configuration.GetSection("Production:Budget:Database:ConnectionString").Value);
+                    options.UseNpgsql(configuration.GetConnectionString("BudgetDatabase"));
                 });
+                services.ApplyMigrations<BudgetCategoryDbContext>();
             }
             services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
             services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();

@@ -38,9 +38,9 @@ namespace MoneyKeeper.Transactions.Core
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseNpgsql(configuration.GetSection("Production:Transactions:Database:ConnectionString").Value);
+                    options.UseNpgsql(configuration.GetConnectionString("TransactionsDatabase"));
                 });
-
+                services.ApplyMigrations<TransactionsDbContext>();
             }
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<ITransactionStorageRepository, TransactionsStorageRepository>();
