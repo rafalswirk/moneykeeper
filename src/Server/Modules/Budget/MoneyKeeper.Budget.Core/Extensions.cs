@@ -22,28 +22,23 @@ namespace MoneyKeeper.Budget
 
         public static IServiceCollection AddBudget(this IServiceCollection services, string environment)
         {
-            if (environment.Equals(LocalEnvironment))
+            services.AddDbContext<BudgetCategoryDbContext>(options =>
             {
-                Console.WriteLine("Running with Sqlite");
-                services.AddDbContext<BudgetCategoryDbContext>(options =>
+                using var serviceProvider = services.BuildServiceProvider();
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                if (environment.Equals(LocalEnvironment))
                 {
-                    using var serviceProvider = services.BuildServiceProvider();
-                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    Console.WriteLine("Running with Sqlite");
                     options.UseSqlite(configuration.GetConnectionString("BudgetDatabase"));
-                });
-                services.ApplyMigrations<BudgetCategoryDbContext>();
-            }
-            else
-            {
-                Console.WriteLine("Running with Npqsql");
-                services.AddDbContext<BudgetCategoryDbContext>(options =>
+                }
+                else
                 {
-                    using var serviceProvider = services.BuildServiceProvider();
-                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    Console.WriteLine("Running with Npqsql");
                     options.UseNpgsql(configuration.GetConnectionString("BudgetDatabase"));
-                });
-                services.ApplyMigrations<BudgetCategoryDbContext>();
-            }
+                }
+            });
+            services.ApplyMigrations<BudgetCategoryDbContext>();
+
             services.AddScoped<IBudgetCategoryRepository, BudgetCategoryRepository>();
             services.AddScoped<ICategorySpreadsheetMapRepository, CategorySpreadsheetMapRepository>();
             services.AddScoped<ITaxMappingRepository, TaxIdMappingRepository>();

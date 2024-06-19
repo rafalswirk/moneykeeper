@@ -22,26 +22,23 @@ namespace MoneyKeeper.Transactions.Core
         private const string LocalEnvironment = "Local";
         public static IServiceCollection AddTransactions(this IServiceCollection services, string environment)
         {
-            if (environment.Equals(LocalEnvironment))
+            services.AddDbContext<TransactionsDbContext>(options =>
             {
-                services.AddDbContext<TransactionsDbContext>(options =>
+                using var serviceProvider = services.BuildServiceProvider();
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                if (environment.Equals(LocalEnvironment))
                 {
-                    using var serviceProvider = services.BuildServiceProvider();
-                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    Console.WriteLine("Running with Sqlite");
                     options.UseSqlite(configuration.GetConnectionString("TransactionsDatabase"));
-                });
-                services.ApplyMigrations<TransactionsDbContext>();
-            }
-            else
-            {
-                services.AddDbContext<TransactionsDbContext>(options =>
+                }
+                else
                 {
-                    using var serviceProvider = services.BuildServiceProvider();
-                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                    Console.WriteLine("Running with Npqsql");
                     options.UseNpgsql(configuration.GetConnectionString("TransactionsDatabase"));
-                });
-                services.ApplyMigrations<TransactionsDbContext>();
-            }
+                }
+            });
+            services.ApplyMigrations<TransactionsDbContext>();
+
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<ITransactionStorageRepository, TransactionsStorageRepository>();
             services.AddScoped<RecepitStorage>();
