@@ -19,29 +19,26 @@ namespace MoneyKeeper.Transactions.Core
 {
     public static class Extensions
     {
-        private const string DevelopmentEnvironment = "Development";
+        private const string LocalEnvironment = "Local";
         public static IServiceCollection AddTransactions(this IServiceCollection services, string environment)
         {
-            if (environment.Equals(DevelopmentEnvironment))
+            services.AddDbContext<TransactionsDbContext>(options =>
             {
-                services.AddDbContext<TransactionsDbContext>(options =>
+                using var serviceProvider = services.BuildServiceProvider();
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                if (environment.Equals(LocalEnvironment))
                 {
-                    using var serviceProvider = services.BuildServiceProvider();
-                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseSqlite(configuration.GetSection("Development:Transactions:Database:ConnectionString").Value);
-                });
-                services.ApplyMigrations<TransactionsDbContext>();
-            }
-            else
-            {
-                services.AddDbContext<TransactionsDbContext>(options =>
+                    Console.WriteLine("Running with Sqlite");
+                    options.UseSqlite(configuration.GetConnectionString("TransactionsDatabase"));
+                }
+                else
                 {
-                    using var serviceProvider = services.BuildServiceProvider();
-                    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseNpgsql(configuration.GetSection("Production:Transactions:Database:ConnectionString").Value);
-                });
+                    Console.WriteLine("Running with Npqsql");
+                    options.UseNpgsql(configuration.GetConnectionString("TransactionsDatabase"));
+                }
+            });
+            services.ApplyMigrations<TransactionsDbContext>();
 
-            }
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<ITransactionStorageRepository, TransactionsStorageRepository>();
             services.AddScoped<RecepitStorage>();

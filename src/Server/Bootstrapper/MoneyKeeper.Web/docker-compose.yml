@@ -6,8 +6,10 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database_name
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - my-postgres-vol:/var/lib/postgresql/data
+volumes:
+  my-postgres-vol:
+    external: false
