@@ -29,7 +29,7 @@ namespace MoneyKeeper.Budget
                 {
                     using var serviceProvider = services.BuildServiceProvider();
                     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-                    options.UseSqlite(configuration.GetSection("Local:Budget:Database:ConnectionString").Value);
+                    options.UseSqlite(configuration.GetConnectionString("BudgetDatabase"));
                 });
                 services.ApplyMigrations<BudgetCategoryDbContext>();
             }
