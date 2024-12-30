@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Bootstrapper\MoneyKeeper.Console\MoneyKeeper.Console.csproj" />
+    <ProjectReference Include="..\..\Modules\Transactions\MoneyKeeper.Transactions.Core\MoneyKeeper.Transactions.Core.csproj" />
     <ProjectReference Include="..\..\Modules\Transactions\MoneyKeeper.Transactions.OCR\MoneyKeeper.Transactions.OCR.csproj" />
   </ItemGroup>
 
