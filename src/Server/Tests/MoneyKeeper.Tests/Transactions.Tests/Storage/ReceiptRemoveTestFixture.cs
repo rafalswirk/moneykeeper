@@ -3,6 +3,7 @@ using MoneyKeeper.Transactions.Core.Entities;
 using MoneyKeeper.Transactions.Core.Repositories;
 using MoneyKeeper.Transactions.Core.Storage;
 using MoneyKeeper.UnitTests.Mocks;
+using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
@@ -29,10 +30,10 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
             var storageOperation = new ReceiptRemove(repository, logger);
 
             await storageOperation.Remove(new ReceiptInfo());
-            
-            Assert.Equal(0, fileSystem.Directory.GetFiles(@"C:\mk-data\Receipts").Length);
+
+            fileSystem.Directory.GetFiles(@"C:\mk-data\Receipts").Length.ShouldBe(0);
             var receipts = await repository.BrowseAsync();
-            Assert.Equal(0, receipts.Where(r => r.ImageName == fileName).Count());
+            receipts.Where(r => r.ImageName == fileName).Count().ShouldBe(0);
         }
 
         [Fact]
