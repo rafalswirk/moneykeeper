@@ -1,4 +1,6 @@
 ﻿using FakeItEasy;
+using Microsoft.Extensions.Options;
+using MoneyKeeper.Transactions.Core.Data;
 using MoneyKeeper.Transactions.Core.Entities;
 using MoneyKeeper.Transactions.Core.Exceptions;
 using MoneyKeeper.Transactions.Core.Repositories;
@@ -27,9 +29,10 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
             {
                 ImageName = fileName,
             };
-            repository.AddAsync(receiptInfo);
+            await repository.AddAsync(receiptInfo);
+            var dataDirectories = new DataDirectories(@"C:\mk-data\Receipts", @"C:\mk-data\OCR");
             var logger = A.Fake<Microsoft.Extensions.Logging.ILogger<ReceiptRemove>>();
-            var storageOperation = new ReceiptRemove(repository, logger);
+            var storageOperation = new ReceiptRemove(repository, fileSystem, Options.Create(dataDirectories), logger);
 
             await storageOperation.Remove(receiptInfo);
 
@@ -41,12 +44,18 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
         [Fact]
         public async Task Remove_WithNotExistingReceipt_ThrowsReceiptNotExistsException()
         {
+            var fileName = $"{Guid.NewGuid()}.jpg";
+            var receiptInfo = new ReceiptInfo
+            {
+                ImageName = fileName,
+            };
             var fileSystem = new MockFileSystem();
             var repository = new InMemoryReceiptRepository();
+            var dataDirectories = new DataDirectories(@"C:\mk-data\Receipts", @"C:\mk-data\OCR");
             var logger = A.Fake<Microsoft.Extensions.Logging.ILogger<ReceiptRemove>>();
-            var storageOperation = new ReceiptRemove(repository, logger);
+            var storageOperation = new ReceiptRemove(repository, fileSystem, Options.Create(dataDirectories), logger);
 
-            await storageOperation.Remove(new ReceiptInfo()).ShouldThrowAsync<ReceiptNotFoundException>();
+            await storageOperation.Remove(receiptInfo).ShouldThrowAsync<ReceiptNotFoundException>();
         }
     }
 }
