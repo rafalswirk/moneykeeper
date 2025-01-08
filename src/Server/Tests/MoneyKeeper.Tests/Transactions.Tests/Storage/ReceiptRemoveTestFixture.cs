@@ -1,5 +1,6 @@
 ﻿using FakeItEasy;
 using MoneyKeeper.Transactions.Core.Entities;
+using MoneyKeeper.Transactions.Core.Exceptions;
 using MoneyKeeper.Transactions.Core.Repositories;
 using MoneyKeeper.Transactions.Core.Storage;
 using MoneyKeeper.UnitTests.Mocks;
@@ -22,14 +23,15 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
             var fileSystem = new MockFileSystem();
             fileSystem.AddEmptyFile($"C:\\mk-data\\Receipts\\{fileName}");
             var repository = new InMemoryReceiptRepository();
-            repository.AddAsync(new ReceiptInfo 
+            var receiptInfo = new ReceiptInfo
             {
                 ImageName = fileName,
-            });
+            };
+            repository.AddAsync(receiptInfo);
             var logger = A.Fake<Microsoft.Extensions.Logging.ILogger<ReceiptRemove>>();
             var storageOperation = new ReceiptRemove(repository, logger);
 
-            await storageOperation.Remove(new ReceiptInfo());
+            await storageOperation.Remove(receiptInfo);
 
             fileSystem.Directory.GetFiles(@"C:\mk-data\Receipts").Length.ShouldBe(0);
             var receipts = await repository.BrowseAsync();
@@ -37,9 +39,14 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
         }
 
         [Fact]
-        public void Remove_WithNotExistingReceipt_ThrowsReceiptNotExistsException()
+        public async Task Remove_WithNotExistingReceipt_ThrowsReceiptNotExistsException()
         {
-            throw new NotImplementedException();
+            var fileSystem = new MockFileSystem();
+            var repository = new InMemoryReceiptRepository();
+            var logger = A.Fake<Microsoft.Extensions.Logging.ILogger<ReceiptRemove>>();
+            var storageOperation = new ReceiptRemove(repository, logger);
+
+            await storageOperation.Remove(new ReceiptInfo()).ShouldThrowAsync<ReceiptNotFoundException>();
         }
     }
 }
