@@ -32,6 +32,7 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
             _fileName = $"{Guid.NewGuid()}.jpg";
             _receiptInfo = new ReceiptInfo
             {
+                Id = 5,
                 ImageName = _fileName,
             };
 
@@ -44,7 +45,7 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
             await _repository.AddAsync(_receiptInfo);   
             var storageOperation = new ReceiptRemove(_repository, _fileSystem, Options.Create(_dataDirectories), _logger);
 
-            await storageOperation.Remove(_receiptInfo);
+            await storageOperation.Remove(_receiptInfo.Id);
 
             _fileSystem.Directory.GetFiles(@"C:\mk-data\Receipts").Length.ShouldBe(0);
             var receipts = await _repository.BrowseAsync();
@@ -56,7 +57,7 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
         {
             var storageOperation = new ReceiptRemove(_repository, _fileSystem, Options.Create(_dataDirectories), _logger);
 
-            await storageOperation.Remove(_receiptInfo).ShouldThrowAsync<ReceiptNotFoundException>();
+            await storageOperation.Remove(_receiptInfo.Id).ShouldThrowAsync<ReceiptNotFoundException>();
         }
     }
 }

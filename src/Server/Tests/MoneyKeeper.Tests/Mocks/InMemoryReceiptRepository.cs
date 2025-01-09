@@ -32,7 +32,7 @@ namespace MoneyKeeper.UnitTests.Mocks
         }
 
         public Task<ReceiptInfo> GetAsync(int id)
-            => Task.FromResult(_receiptInfos[id]);
+            => Task.FromResult(_receiptInfos.SingleOrDefault(r => r.Id == id));
 
         public Task UpdateAsync(ReceiptInfo info)
         {

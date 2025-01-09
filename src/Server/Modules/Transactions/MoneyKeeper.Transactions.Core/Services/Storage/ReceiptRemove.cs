@@ -27,10 +27,13 @@ namespace MoneyKeeper.Transactions.Core.Services.Storage
             _logger = logger;
             _imagesPath = options.Value.ReceiptImagesPath;
         }
-        public async Task Remove(ReceiptInfo receipt)
+        public async Task Remove(int id)
         {
             try
             {
+                var receipt = await _receiptInfoRepository.GetAsync(id);
+                if(receipt is null)
+                    throw new ReceiptNotFoundException($"Receipt {id} cannot be found!");
                 var receiptFullPath = Path.Combine(_imagesPath, receipt.ImageName);
                 if (!_fileSystem.File.Exists(receiptFullPath))
                     throw new ReceiptNotFoundException($"Receipt {receipt.ImageName} cannot be found!");
