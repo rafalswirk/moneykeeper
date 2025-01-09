@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MoneyKeeper.Transactions.Core.Data;
-using MoneyKeeper.Transactions.Core.Storage;
+using MoneyKeeper.Transactions.Core.Services.Storage;
 using System;
 using System.IO;
 using System.Threading.Tasks;

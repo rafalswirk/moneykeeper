@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Transactions.Core.Storage
+namespace MoneyKeeper.Transactions.Core.Services.Storage
 {
     public class ReceiptRemove
     {
@@ -37,7 +37,7 @@ namespace MoneyKeeper.Transactions.Core.Storage
                 await _receiptInfoRepository.DeleteAsync(receipt);
                 _fileSystem.File.Delete(receiptFullPath);
             }
-            catch(ReceiptNotFoundException) 
+            catch (ReceiptNotFoundException)
             {
                 throw;
             }

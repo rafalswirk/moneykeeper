@@ -5,7 +5,7 @@ using MoneyKeeper.Transactions.Core.Data;
 using MoneyKeeper.Transactions.Core.Entities;
 using MoneyKeeper.Transactions.Core.Exceptions;
 using MoneyKeeper.Transactions.Core.Repositories;
-using MoneyKeeper.Transactions.Core.Storage;
+using MoneyKeeper.Transactions.Core.Services.Storage;
 using MoneyKeeper.UnitTests.Mocks;
 using Shouldly;
 using System;
