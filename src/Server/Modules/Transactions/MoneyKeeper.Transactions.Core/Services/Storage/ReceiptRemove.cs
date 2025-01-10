@@ -17,15 +17,15 @@ namespace MoneyKeeper.Transactions.Core.Services.Storage
     {
         private readonly IReceiptInfoRepository _receiptInfoRepository;
         private readonly IFileSystem _fileSystem;
-        private readonly ILogger _logger;
+        private readonly ILogger<ReceiptRemove> _logger;
         private readonly string _imagesPath;
 
-        public ReceiptRemove(IReceiptInfoRepository receiptInfoRepository, IFileSystem fileSystem, IOptions<DataDirectories> options, ILogger logger)
+        public ReceiptRemove(IReceiptInfoRepository receiptInfoRepository, IFileSystem fileSystem, DataDirectoriesWrapper dataDirectories, ILogger<ReceiptRemove> logger)
         {
             _receiptInfoRepository = receiptInfoRepository;
             _fileSystem = fileSystem;
             _logger = logger;
-            _imagesPath = options.Value.ReceiptImagesPath;
+            _imagesPath = dataDirectories.ReceiptImagesPath;
         }
         public async Task Remove(int id)
         {

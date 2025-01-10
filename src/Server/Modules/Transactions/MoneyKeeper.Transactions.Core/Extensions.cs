@@ -38,7 +38,7 @@ namespace MoneyKeeper.Transactions.Core
                 }
             });
             services.ApplyMigrations<TransactionsDbContext>();
-
+            
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<ITransactionStorageRepository, TransactionsStorageRepository>();
             services.AddScoped<RecepitStorage>();
@@ -54,6 +54,7 @@ namespace MoneyKeeper.Transactions.Core
             services.AddScoped<ReceiptStorageReader>();
             services.AddScoped<TransactionsService>();
             services.AddScoped<ReceiptUpdate>();
+            services.AddScoped<ReceiptRemove>();
 
             return services;
         }

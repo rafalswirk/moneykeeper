@@ -24,7 +24,7 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
         private readonly MockFileSystem _fileSystem = new();
         IReceiptInfoRepository _repository = new InMemoryReceiptRepository();
         private ReceiptInfo _receiptInfo;
-        DataDirectories _dataDirectories = new DataDirectories(@"C:\mk-data\Receipts", @"C:\mk-data\OCR");
+        DataDirectoriesWrapper _dataDirectories;
         ILogger<ReceiptRemove> _logger = A.Fake<Microsoft.Extensions.Logging.ILogger<ReceiptRemove>>();
 
         public ReceiptRemoveTestFixture()
@@ -35,7 +35,8 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
                 Id = 5,
                 ImageName = _fileName,
             };
-
+            var directory = A.Fake<IDirectory>();   
+            _dataDirectories = new DataDirectoriesWrapper(directory, new DataDirectories(@"C:\mk-data\Receipts", @"C:\mk-data\OCR"));
         }
 
         [Fact]
@@ -43,7 +44,7 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
         {
             _fileSystem.AddEmptyFile($"C:\\mk-data\\Receipts\\{_fileName}");
             await _repository.AddAsync(_receiptInfo);   
-            var storageOperation = new ReceiptRemove(_repository, _fileSystem, Options.Create(_dataDirectories), _logger);
+            var storageOperation = new ReceiptRemove(_repository, _fileSystem, _dataDirectories, _logger);
 
             await storageOperation.Remove(_receiptInfo.Id);
 
@@ -55,7 +56,7 @@ namespace MoneyKeeper.UnitTests.Transactions.Tests.Storage
         [Fact]
         public async Task Remove_WithNotExistingReceipt_ThrowsReceiptNotExistsException()
         {
-            var storageOperation = new ReceiptRemove(_repository, _fileSystem, Options.Create(_dataDirectories), _logger);
+            var storageOperation = new ReceiptRemove(_repository, _fileSystem, _dataDirectories, _logger);
 
             await storageOperation.Remove(_receiptInfo.Id).ShouldThrowAsync<ReceiptNotFoundException>();
         }
