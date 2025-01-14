@@ -86,6 +86,21 @@ public partial class ReceiptDetails : ContentPage
         return double.Parse(textValue);
     }
 
+    private async void btnDeleteReceipt_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var delete = await Application.Current.MainPage.DisplayAlert("MoneyKeeper", "Do you want to remove receipt?", "Yes", "No");
+            if (!delete)
+                return;
+
+        }
+        catch (Exception)
+        {
+            await Application.Current.MainPage.DisplayAlert("MoneyKeeper", "Receipt delete failure", "Ok");
+        }
+    }
+
     //private void enSum_TextChanged(object sender, TextChangedEventArgs e)
     //{
     //    var entry = sender as Entry;
