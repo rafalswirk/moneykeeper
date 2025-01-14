@@ -1,4 +1,5 @@
 using MoneyKeeper.Client.Core.Backend;
+using MoneyKeeper.Client.Core.Backend.Storage;
 using MoneyKeeper.Client.Core.Exceptions;
 using MoneyKeeper.Client.DTO;
 using System.Globalization;
@@ -90,9 +91,12 @@ public partial class ReceiptDetails : ContentPage
     {
         try
         {
-            var delete = await Application.Current.MainPage.DisplayAlert("MoneyKeeper", "Do you want to remove receipt?", "Yes", "No");
+            var delete = await DisplayAlert("MoneyKeeper", "Do you want to remove receipt?", "Yes", "No");
             if (!delete)
                 return;
+            var command = new DeleteReceipt();
+            await command.DeleteAsync(Info.Id);
+            await Navigation.PopAsync();
 
         }
         catch (Exception)
