@@ -1,4 +1,5 @@
 using MoneyKeeper.Client.Core.Backend;
+using MoneyKeeper.Client.Core.Backend.Storage;
 using MoneyKeeper.Client.Core.Exceptions;
 using MoneyKeeper.Client.DTO;
 using System.Globalization;
@@ -86,36 +87,21 @@ public partial class ReceiptDetails : ContentPage
         return double.Parse(textValue);
     }
 
-    //private void enSum_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //    var entry = sender as Entry;
-    //    if (e.OldTextValue is null || e.NewTextValue is null)
-    //        return;
-    //    var oldWithoutDecimalSeparator = e.OldTextValue.Replace(",", "").Replace(".", "");
-    //    var newWithoutDecimalSeparator = e.NewTextValue.Replace(",", "").Replace(".", "");
-    //    if (oldWithoutDecimalSeparator == newWithoutDecimalSeparator)
-    //    {
-    //        entry.CursorPosition = entry.Text.Length;
-    //    }
-    //    else
-    //    {
-    //        if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator == ".")
-    //        {
-    //            if (e.NewTextValue.Contains(','))
-    //            {
-    //                var lastCursorPosition = entry.CursorPosition;
-    //                entry.Text = e.NewTextValue.Replace(",", ".");
-    //            }
-    //            return;
-    //        }
-    //        if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator == ",")
-    //        {
-    //            if (e.NewTextValue.Contains('.'))
-    //            {
-    //                entry.Text = e.NewTextValue.Replace(".", ",");
-    //            }
-    //            return;
-    //        }
-    //    }
-    //}
+    private async void btnDeleteReceipt_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            var delete = await DisplayAlert("MoneyKeeper", "Do you want to remove receipt?", "Yes", "No");
+            if (!delete)
+                return;
+            var command = new DeleteReceipt();
+            await command.DeleteAsync(Info.Id);
+            await Navigation.PopAsync();
+
+        }
+        catch (Exception)
+        {
+            await Application.Current.MainPage.DisplayAlert("MoneyKeeper", "Receipt delete failure", "Ok");
+        }
+    }
 }

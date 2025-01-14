@@ -34,7 +34,7 @@ namespace MoneyKeeper.Transactions.Core.DAL.Repositories
         }
 
         public async Task<ReceiptInfo> GetAsync(int id)
-            => await _context.ReceiptInfos.SingleAsync(r => r.Id == id);
+            => await _context.ReceiptInfos.SingleOrDefaultAsync(r => r.Id == id);
 
         public async Task UpdateAsync(ReceiptInfo info)
         {

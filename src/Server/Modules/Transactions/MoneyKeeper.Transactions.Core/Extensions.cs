@@ -7,7 +7,7 @@ using MoneyKeeper.Transactions.Core.DAL.Repositories;
 using MoneyKeeper.Transactions.Core.Data;
 using MoneyKeeper.Transactions.Core.Repositories;
 using MoneyKeeper.Transactions.Core.Services;
-using MoneyKeeper.Transactions.Core.Storage;
+using MoneyKeeper.Transactions.Core.Services.Storage;
 using MoneyKeeper.Transactions.OCR.GCloud;
 using System;
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace MoneyKeeper.Transactions.Core
                 }
             });
             services.ApplyMigrations<TransactionsDbContext>();
-
+            
             services.AddScoped<IReceiptInfoRepository, ReceiptInfoRepository>();
             services.AddScoped<ITransactionStorageRepository, TransactionsStorageRepository>();
             services.AddScoped<RecepitStorage>();
@@ -54,6 +54,7 @@ namespace MoneyKeeper.Transactions.Core
             services.AddScoped<ReceiptStorageReader>();
             services.AddScoped<TransactionsService>();
             services.AddScoped<ReceiptUpdate>();
+            services.AddScoped<ReceiptRemove>();
 
             return services;
         }

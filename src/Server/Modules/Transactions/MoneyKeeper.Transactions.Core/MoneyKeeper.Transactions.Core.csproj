@@ -17,4 +17,7 @@
 	<ItemGroup>
 	  <Folder Include="DAL\Migrations\" />
 	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="MoneyKeeper.UnitTests" />
+	</ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoneyKeeper.Transactions.Core.Storage
+namespace MoneyKeeper.Transactions.Core.Services.Storage
 {
     public class RecepitStorage
     {

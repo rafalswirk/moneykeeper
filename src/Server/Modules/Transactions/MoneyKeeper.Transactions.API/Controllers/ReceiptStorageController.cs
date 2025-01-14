@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MoneyKeeper.Transactions.Core.Data;
 using MoneyKeeper.Transactions.Core.DTO;
-using MoneyKeeper.Transactions.Core.Services;
-using MoneyKeeper.Transactions.Core.Storage;
+using MoneyKeeper.Transactions.Core.Services.Storage;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,13 +18,15 @@ namespace MoneyKeeper.Transactions.API.Controllers
         private readonly RecepitStorage _receiptStorage;
         private readonly ReceiptStorageReader _storageReader;
         private readonly ReceiptUpdate _receiptUpdate;
+        private readonly ReceiptRemove _receiptRemove;
 
-        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage, ReceiptStorageReader storageReader, ReceiptUpdate receiptUpdate)
+        public ReceiptStorageController(DataDirectoriesWrapper dataDirectories, RecepitStorage receiptStorage, ReceiptStorageReader storageReader, ReceiptUpdate receiptUpdate, ReceiptRemove receiptRemove)
         {
             _imageDirectoryPath = dataDirectories.ReceiptImagesPath;
             _receiptStorage = receiptStorage;
             _storageReader = storageReader;
             _receiptUpdate = receiptUpdate;
+            _receiptRemove = receiptRemove;
         }
 
         [HttpPost]
@@ -70,6 +71,13 @@ namespace MoneyKeeper.Transactions.API.Controllers
         public async Task<IActionResult> ReceiptEnteredToSpreadsheet(int id)
         {
             await _receiptUpdate.SetReceiptEnteredToSpreadsheet(id);
+            return Ok();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> RemoveReceipt(int id)
+        {
+            await _receiptRemove.Remove(id);
             return Ok();
         }
 
