@@ -104,37 +104,4 @@ public partial class ReceiptDetails : ContentPage
             await Application.Current.MainPage.DisplayAlert("MoneyKeeper", "Receipt delete failure", "Ok");
         }
     }
-
-    //private void enSum_TextChanged(object sender, TextChangedEventArgs e)
-    //{
-    //    var entry = sender as Entry;
-    //    if (e.OldTextValue is null || e.NewTextValue is null)
-    //        return;
-    //    var oldWithoutDecimalSeparator = e.OldTextValue.Replace(",", "").Replace(".", "");
-    //    var newWithoutDecimalSeparator = e.NewTextValue.Replace(",", "").Replace(".", "");
-    //    if (oldWithoutDecimalSeparator == newWithoutDecimalSeparator)
-    //    {
-    //        entry.CursorPosition = entry.Text.Length;
-    //    }
-    //    else
-    //    {
-    //        if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator == ".")
-    //        {
-    //            if (e.NewTextValue.Contains(','))
-    //            {
-    //                var lastCursorPosition = entry.CursorPosition;
-    //                entry.Text = e.NewTextValue.Replace(",", ".");
-    //            }
-    //            return;
-    //        }
-    //        if (CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator == ",")
-    //        {
-    //            if (e.NewTextValue.Contains('.'))
-    //            {
-    //                entry.Text = e.NewTextValue.Replace(".", ",");
-    //            }
-    //            return;
-    //        }
-    //    }
-    //}
 }
